@@ -1,0 +1,73 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+    Home
+{% endblock %}
+
+{% block content %}
+
+    {# featured macaron sets #}
+    {% if featured_macaron_sets %}
+
+        <div>
+
+            <h2>Featured Macarons</h2>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for set in featured_macaron_sets %}
+                    {% include 'partials/set_results.html' %}
+                {% endfor %}
+            </div>
+            <a href="{% url 'shop:view' %}#macaron_sets" class="btn btn-outline-primary mt-3">View All &nbsp;<i
+                    class="bi bi-arrow-right"></i></a>
+
+        </div>
+
+    {% endif %}
+
+    {# featured macaron collections #}
+    {% if featured_macaron_collections %}
+
+        <div class="mt-4">
+
+            <h2>Featured Collections</h2>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for collection in featured_macaron_collections %}
+                    {% include 'partials/collection_results.html' %}
+                {% endfor %}
+            </div>
+            <a href="{% url 'shop:view' %}#macaron_sets" class="btn btn-outline-primary mt-3">View All &nbsp;<i
+                    class="bi bi-arrow-right"></i></a>
+
+        </div>
+
+    {% endif %}
+
+    {# START Newsletter Form #}
+
+    {% if newsletter_form %}
+
+        <div class="mt-4 row justify-content-md-center bg-white p-4 border rounded shadow-sm">
+
+            <div class="col-md-4 col-sm-12 col-xs-12">
+
+                <h3>Sign Up for our Newsletter</h3>
+                <hr>
+
+                <form action="{% url 'newsletter:signup_short' %}" method="POST">
+                    {% csrf_token %}
+                    {% crispy newsletter_form %}
+                </form>
+
+            </div>
+
+        </div>
+
+
+    {% endif %}
+
+    {# END Newsletter Form #}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<footer class="border">
+    <div class="row m-0 py-3 align-items-center">
+
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="container">
+                <h5 class="m-0">2021 &nbsp; Maca<span class="delicious-red">licious</span>! - Made fresh for you.</h5>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="d-flex justify-content-end container mt-4 mt-md-0">
+                <ul class="list-inline align-items-center m-0 footer-links">
+                    {# TODO: removed home for temporary deployment #}
+                    {# <li><a href="{% url 'landing' %}">Home</a></li>#}
+
+                    <li class="list-inline-item"><a href="{% url 'shop:view' %}">Shop</a></li>
+
+                    {# TODO: Removed about for temporary deployment #}
+                    {# <li><a href="{% url 'about' %}">About</a></li>#}
+
+                    <li class="list-inline-item"><a href="{% url 'cart:view' %}">Cart</a></li>
+                    <li class="list-inline-item"><a href="{% url 'contact:view' %}">Contact</a></li>
+                    {% if not request.user.is_authenticated %}
+                        <li class="list-inline-item"><a href="{% url 'auth_login' %}">Login</a></li>
+                        <li class="list-inline-item"><a href="{% url 'registration_register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                    <li class="list-inline-item"><a href="{% url 'orders:view' %}">My Orders</a></li>
+                    <li class="list-inline-item"><a href="{% url 'sitemap' %}" target="_blank">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</footer>

@@ -1,0 +1,54 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block head_title %}
+    My Orders
+{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+
+            <h1>My Orders</h1>
+            <p>{{ orders.count }} orders placed.</p>
+            <hr>
+
+            {% if orders %}
+
+                {% for order in orders %}
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Order ID: {{ order.code }}</h4>
+                            <p><b>Total:</b> ${{ order.total }}</p>
+                            <p><b>Created:</b> {{ order.created_at|timesince }} ago</p>
+                            <ul>
+                                {% for item in order.cart.cart_items.all %}
+                                    <li><h5>{{ item.content_object.get_name }}</h5></li>
+                                    <li>Price: ${{ item.content_object.get_total }}</li>
+                                    <li>{{ item.content_object.get_description }}</li>
+                                    {% if not forloop.last %}
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if not forloop.last %}
+                        <hr>
+                    {% endif %}
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>{% trans "You have not placed any orders, yet." %}</p>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

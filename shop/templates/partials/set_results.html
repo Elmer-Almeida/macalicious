@@ -1,0 +1,21 @@
+<div class="col-md-4">
+    <div class="card">
+
+        {% include 'partials/images_carousel.html' with images=set.macaron.images.all set=set %}
+
+{#         Only display the featured image for the macaron set #}
+{#        <img src="{{ set.macaron.images.featured.picture.url }}"#}
+{#             alt="{{ set.macaron.images.featured.alt_text }}" width="100%"#}
+{#             class="rounded-top shadow-sm">#}
+
+        <div class="card-body" style="transform: rotate(0);">
+            <h4 class="card-title">{{ set.macaron.name }}</h4>
+            <p class="card-text">{{ set.display_total }}
+                &nbsp;&middot;&nbsp;
+                <span class="price" style="font-size:18px;">{{ set.quantity }} per box</span></p>
+            <p class="card-text">{{ set.macaron.description|truncatewords:30 }}</p>
+            <a href="{% url 'shop:set_detail' set.slug %}" class="btn btn-outline-primary stretched-link">Details &nbsp;<i
+                    class="bi bi-chevron-right"></i></a>
+        </div>
+    </div>
+</div>

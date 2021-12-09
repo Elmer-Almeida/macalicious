@@ -1,0 +1,10 @@
+{% load crispy_forms_tags %}
+
+{# Add to cart partial template #}
+{# REQUIRED: item_slug [maracron_set or collection instance] #}
+<form action="{% url 'cart:add_to_cart' item_slug %}" method="POST">
+    {% csrf_token %}
+    {{ add_to_cart_form|crispy }}
+    <input type="hidden" name="item_type" value="{{ item_type }}">
+    <button type="submit" class="btn btn-outline-primary">Add to Cart &nbsp;<i class="bi bi-cart"></i></button>
+</form>

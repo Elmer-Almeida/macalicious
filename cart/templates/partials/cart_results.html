@@ -1,0 +1,43 @@
+{% for item in cart_items %}
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            {% include 'partials/images_carousel.html' with images=item.content_object.get_all_images %}
+{#            Only display the featured image of the macaron set or the macaron collection #}
+{#            {% if item.content_object.get_featured_image %}#}
+{#                <img src="{{ item.content_object.get_featured_image.picture.url }}"#}
+{#                     alt="{{ item.content_object.get_featured_image.alt_text }}" width="100%"#}
+{#                     class="rounded-top shadow-sm">#}
+{#            {% else %}#}
+{#                <p>No image.</p>#}
+{#            {% endif %}#}
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h4 class="d-flex align-items-center card-title">{{ item.content_object.get_name }}</h4>
+                    {% if not completed %}
+                        {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                    {% endif %}
+                </div>
+
+                <p class="card-text price" style="font-size:18px;">
+                    {{ item.content_object.display_total }}
+                    &nbsp;&middot;&nbsp;
+                    {% if item.item_type.name == 'Macaron Set' %}
+                        {{ item.content_object.quantity }} per box
+                    {% elif item.item_type.name == 'Macaron Collection' %}
+                        {{ item.content_object.get_quantity_each_collection }} macarons
+                    {% endif %}
+                </p>
+                <p class="card-text">
+                    {% if item.item_type.name == 'Macaron Set' %}
+                        {{ item.content_object.macaron.get_short_description }}
+                    {% elif item.item_type.name == 'Macaron Collection' %}
+                        {% include 'partials/collection_macarons.html' with collection_macarons=item.content_object.macarons.all %}
+                    {% endif %}
+                </p>
+                <p class="card-text">{{ set.macaron.description|truncatewords:30 }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}

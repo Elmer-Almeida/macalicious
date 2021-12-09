@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+    Contact
+{% endblock %}
+
+{% block content %}
+
+    {# Check if there is a contact form instance being passed #}
+    {% if contact_form %}
+
+        <div class="row justify-content-md-center">
+
+            <div class="col-md-4 col-sm-12 col-xs-12">
+
+                <h1>Contact Us</h1>
+                <hr>
+
+                {# Contact form feedback #}
+                {% include 'partials/messages.html' %}
+
+                {# Contact form #}
+                {% crispy contact_form %}
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

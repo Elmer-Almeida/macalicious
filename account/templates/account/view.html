@@ -1,0 +1,48 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block head_title %}
+    My Account
+{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-md-center">
+
+        <div class="col-md-8">
+
+            <div class="row justify-content-md-center">
+
+                <div class="col-4">
+                    {% include 'partials/account_menu.html' %}
+                </div>
+
+                <div class="col">
+                    <h1>My Account</h1>
+                    <hr>
+
+                    {% include 'partials/messages.html' %}
+
+                    {% if account_form %}
+
+                        <form action="{% url 'account:view' %}" method="POST">
+                            {% csrf_token %}
+                            {% crispy account_form %}
+                        </form>
+
+                    {% else %}
+
+                        <p>{% trans "Something went wrong. Please try again later." %}</p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

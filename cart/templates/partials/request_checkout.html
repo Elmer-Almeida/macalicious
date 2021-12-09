@@ -1,0 +1,6 @@
+{# Checkout button form #}
+<form action="{% url 'cart:checkout_request' %}" method="POST">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit" title="Proceed to checkout" data-bs-toggle="tooltip"
+            data-bs-placement="bottom">Checkout &nbsp;<i class="bi bi-chevron-right"></i></button>
+</form>

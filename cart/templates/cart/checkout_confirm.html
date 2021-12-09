@@ -1,0 +1,63 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block head_title %}
+    Confirm Your Order
+{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <div class="container">
+
+                <h1>Confirm Your Order</h1>
+                <hr>
+
+                {% include 'partials/messages.html' %}
+
+                {% if order %}
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {% include 'partials/cart_results.html' with cart_items=order.cart.cart_items.all %}
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-end">
+
+                        <div class="text-end price" style="font-size: 24px;">
+                            {% if order.tax == 0 %}
+                                <p><b>Order Total:</b> ${{ order.total|floatformat:2 }}</p>
+                            {% else %}
+                                <p><b>Cart Total: </b>${{ order.cart.total|floatformat:2 }}</p>
+                                <p><b>Sales Tax: </b>${{ order.get_tax_amount|floatformat:2 }}</p>
+                                <p><b>Order Total:</b> ${{ order.total|floatformat:2 }}</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <a href="{% url 'cart:view' %}" class="btn btn-outline-secondary"><i
+                                class="bi bi-chevron-left"></i>
+                            &nbsp;Back to Cart</a>
+                        {% include 'partials/confirm_checkout.html' %}
+
+                    </div>
+
+
+                {% else %}
+
+                    <p>{% trans "Sorry, something went wrong. We can't find your order details." %}</p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

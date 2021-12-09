@@ -1,0 +1,85 @@
+<div class="px-3 py-4 rounded shadow-sm border sticky-top"
+     style="background-color: #f8f9fa; top:30px">
+
+    <h3>Add to Cart</h3>
+    <hr>
+
+    {% if item_name and item_price %}
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h5>{{ item_name }}</h5>
+            <span class="price" style="font-size:21px;">{{ item_price }}</span>
+        </div>
+
+    {% endif %}
+
+    <div class="mt-1">
+    {% if page %}
+        {% if page == 'set_detail' %}
+            {% include 'partials/add_to_cart.html' with item_slug=macaron_set.slug item_type="macaronset" %}
+        {% elif page == 'collection_detail' %}
+            {% include 'partials/add_to_cart.html' with item_slug=macaron_collection.slug item_type="macaroncollection" %}
+        {% endif %}
+    {% endif %}
+    </div>
+
+    <br>
+
+    <div class="d-flex justify-content-between">
+        <h4>My Cart</h4>
+        {% if number_of_items %}
+            <div class="d-flex align-items-center text-muted">
+                <small class="price" style="font-size:18px;">
+                    {{ number_of_items }} {% if number_of_items == 1 %}item{% else %}items{% endif %}
+                </small>
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+
+    {% include 'partials/messages.html' %}
+
+    {% if number_of_items %}
+        {% for item in cart.cart_items.all %}
+            <div class="d-flex justify-content-between">
+                {% if item.content_object.get_featured_image %}
+                    <div class="cart_sidebar_product_image">
+                        <img src="{{ item.content_object.get_featured_image.picture.url }}"
+                             alt="{{ item.content_object.get_featured_image.alt_text }}"
+                             title="{{ item.content_object.get_featured_image.alt_text }}"
+                             class="rounded shadow"
+                             width="60%">
+                    </div>
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
+                {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+            </div>
+            <div class="align-self-start mt-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 style="margin-bottom:0;">{{ item.content_object.get_name }} <small
+                            class="text-muted">x {{ item.quantity }}</small></h5>
+                    <span class="price" style="font-size:22px;">{{ item.display_total }}</span>
+                </div>
+            </div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+        <hr>
+        <div class="d-flex flex-column align-items-end">
+            <p class="text-muted">Sales tax may be applied at checkout.</p>
+            <div class="mt-0 d-flex align-items-center">
+                <h4 style="margin-bottom:0;">Total: </h4> &nbsp;&nbsp;&nbsp;
+                <span class="price" style="font-size:24px;">{{ cart.display_total }}</span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-3">
+            <a href="{% url 'cart:view' %}" class="btn btn-outline-secondary">View Cart &nbsp;<i class="bi bi-cart"></i></a>
+            {% include 'partials/request_checkout.html' %}
+        </div>
+    {% else %}
+        <p>No items.</p>
+    {% endif %}
+
+</div>

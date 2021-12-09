@@ -1,0 +1,101 @@
+{% extends "master.html" %}
+
+{% block head_title %}
+    {{ macaron_collection.name }}
+{% endblock %}
+
+{% block content %}
+
+    {% if macaron_collection %}
+
+        <div class="row justify-content-md-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <div class="row justify-content-md-between">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+
+                        {% if macaron_collection.images.featured %}
+
+                            <img src="{{ macaron_collection.images.featured.picture.url }}"
+                                 alt="{{ macaron_collection.images.featured.alt_text }}"
+                                 class="rounded shadow"
+                                 width="100%">
+
+                            {% if macaron_set.images.gallery %}
+                                <div class="row">
+                                    {% for image in macaron_collection.images.gallery %}
+
+                                        <div class="col-6">
+                                            <img src="{{ image.picture.url }}" alt="{{ image.alt_text }}" width="100%"
+                                                 class="mt-3 shadow rounded">
+                                        </div>
+
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                        {% else %}
+                            <p>No picture available.</p>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="col-md-5 col-sm-12 col-xs-12 mt-3 mt-md-0">
+
+                        <div class="container">
+
+                            <h1>{{ macaron_collection.name }}</h1>
+
+                            {{ macaron_collection.display_total }}
+
+                            <p class="mt-1">{{ macaron_collection.description|linebreaksbr }}</p>
+
+                            {% if macaron_collection.macarons.all %}
+
+                                <h4 class="mb-3">What's included?</h4>
+                                {% include 'partials/collection_macarons.html' with collection_macarons=macaron_collection.macarons.all %}
+
+                            {% else %}
+
+                                <p>There are no macarons in this collection, yet.</p>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3 col-xs-12 col-sm-12 mt-4 mt-md-0">
+
+                        {% include 'partials/cart_sidebar.html' with page='collection_detail' item_name=macaron_collection.name item_price=macaron_collection.display_price %}
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        {% if macaron_recommended_collections %}
+
+            <div class="container">
+
+                <hr class="mt-5 regular" style="margin-bottom:40px !important;">
+
+                <h3>You may also like</h3>
+
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for collection in macaron_recommended_collections %}
+
+                        {% include 'partials/collection_results.html' %}
+
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}

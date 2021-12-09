@@ -1,0 +1,11 @@
+{# Remove from cart partial template #}
+{# REQUIRED: item [maracron_set or collection instance] #}
+<form action="{% url 'cart:remove_from_cart' item_slug %}" method="POST" id="remove_from_cart_form">
+    {% csrf_token %}
+    <input type="hidden" name="item_type" value="{{ item_type }}">
+    {# trigger close button link to act like a submit button #}
+    <a href="javascript:{}" onclick="document.getElementById('remove_from_cart_form').submit(); return false;"
+       data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove {{ item_name }}">
+        <i class='bi bi-x' style='font-size:24px;'></i>
+    </a>
+</form>

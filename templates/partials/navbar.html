@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        {# TODO: temporary set the homepage to the shop page #}
+        {#        <a class="navbar-brand" href="{% url 'landing' %}">Macalicious</a>#}
+        <a href="{% url 'shop:view' %}" class="navbar-brand">Maca<span class="delicious-red">licious</span>!</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form action="{% url 'search:results' %}" method="GET" class="d-flex ms-md-3 my-4 my-md-0">
+                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
+                       name="search_query"
+                       value="{% if request.GET.search_query %} {{ request.GET.search_query }} {% endif %}">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                {#                <li class="nav-item">#}
+                {#                    <a class="nav-link {% if request.path == '/' %} active {% endif %}" aria-current="page"#}
+                {#                       href="{% url 'landing' %}">Home</a>#}
+                {#                </li>#}
+
+                {#                <li class="nav-item">#}
+                {#                    <a class="nav-link {% if request.path == '/about/' %} active {% endif %}"#}
+                {#                       href="{% url 'about' %}">About</a>#}
+                {#                </li>#}
+                <li class="nav-item">
+                    <a class="nav-link {% if 'shop' in request.path %} active {% endif %}"
+                       href="{% url 'shop:view' %}">Shop &nbsp;<i class="bi bi-bag"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'cart' in request.path %} active {% endif %}"
+                       href="{% url 'cart:view' %}">Cart &nbsp;<i class="bi bi-cart"></i>
+                        {% if number_of_items > 0 %}&nbsp;
+                            <span class="badge round-pill bg-primary price"
+                                  style="font-size:13px;">{{ number_of_items }}</span>{% endif %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if 'contact' in request.path %} active {% endif %}"
+                       href="{% url 'contact:view' %}">Contact &nbsp;<i class="bi bi-envelope-open"></i></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if request.user.is_authenticated %}
+                            {% if request.user.get_full_name %}
+                                {{ request.user.get_full_name }}
+                            {% else %}
+                                {{ request.user }}
+                            {% endif %}
+                        {% else %}
+                            Account
+                        {% endif %}
+                        &nbsp;<i class="bi bi-person-circle"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if not request.user.is_authenticated %}
+                            <li><a class="dropdown-item {% if 'login' in request.path %} active {% endif %}"
+                                   href="{% url 'auth_login' %}">Login</a></li>
+                            <li><a class="dropdown-item {% if 'register' in request.path %} active {% endif %}"
+                                   href="{% url 'registration_register' %}">Create an account</a></li>
+                        {% else %}
+                            <li><a href="{% url 'orders:view' %}"
+                                   class="dropdown-item {% if 'orders' in request.path %} active {% endif %}">My
+                                Orders</a></li>
+                            <li><a href="{% url 'account:view' %}"
+                                   class="dropdown-item {% if 'account' in request.path %} active {% endif %}">My
+                                Account</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'auth_logout' %}">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

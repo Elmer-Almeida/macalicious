@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}
+    Newsletter Signup
+{% endblock %}
+
+{% block content %}
+
+    {% if newsletter_form %}
+
+        <div class="row justify-content-md-center">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+
+                <h1>Newsletter</h1>
+                <hr>
+                {% include 'partials/messages.html' %}
+
+                {% if newsletter %}
+                    <form action="{% url "newsletter:signup" newsletter.code %}" method="POST">
+                {% else %}
+                    <form action="{% url "newsletter:signup" %}" method="POST">
+                {% endif %}
+                {% csrf_token %}
+                {% crispy newsletter_form %}
+                </form>
+
+
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

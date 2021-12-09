@@ -1,0 +1,64 @@
+{% extends "registration/registration_base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block head_title %}{% trans "Login" %}{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+
+            <h1>Login</h1>
+            <hr>
+
+            {% include 'partials/messages.html' %}
+
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary mb-1">{% trans 'Login' %} &nbsp;<i
+                        class="bi bi-arrow-right"></i></button>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </form>
+
+            <hr>
+
+            <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.
+            </p>
+            <p>{% trans "New to Macalicious?" %} <a
+                    href="{% url 'registration_register' %}">{% trans "Create an account" %}</a>.</p>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% comment %}
+**registration/login.html**
+
+It's your responsibility to provide the login form in a template called
+registration/login.html by default. This template gets passed four
+template context variables:
+
+``form``
+    A Form object representing the login form. See the forms
+    documentation for more on Form objects.
+
+``next``
+    The URL to redirect to after successful login. This may contain a
+    query string, too.
+
+``site``
+    The current Site, according to the SITE_ID setting. If you don't
+    have the site framework installed, this will be set to an instance
+    of RequestSite, which derives the site name and domain from the
+    current HttpRequest.
+
+``site_name``
+    An alias for site.name. If you don't have the site framework
+    installed, this will be set to the value of
+    request.META['SERVER_NAME']. For more on sites, see The
+    "sites" framework.
+{% endcomment %}

@@ -1,0 +1,32 @@
+<div id="carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% endif %}"
+     class="carousel slide" data-bs-touch="false"
+     data-bs-interval="false">
+    <div class="carousel-inner rounded shadow" role="listbox">
+
+        {% for image in images %}
+
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                <img src="{{ image.picture.url }}" alt="{{ image.alt_text }}"
+                     title="{{ image.alt_text }}"
+                     class="d-block w-100">
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+    {{ image }}
+    <button class="carousel-control-prev" type="button"
+            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% endif %}"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button"
+            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% endif %}"
+            data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

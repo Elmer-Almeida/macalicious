@@ -1,0 +1,8 @@
+<div class="list-group">
+    <a href="{% url 'account:view' %}" class="list-group-item list-group-item-action {% if request.path == '/account/' %} active {% endif %}">
+        Account Information
+    </a>
+    <a href="{% url 'account:password_change' %}" class="list-group-item list-group-item-action {% if request.path == '/account/password-change/' %} active {% endif %}">
+        Change Password
+    </a>
+</div>

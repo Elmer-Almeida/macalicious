@@ -1,0 +1,5 @@
+{# confirm checkout form #}
+<form action="{% url 'cart:checkout_confirm' %}" method="POST">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit">Place Order &nbsp;<i class="bi bi-chevron-right"></i></button>
+</form>

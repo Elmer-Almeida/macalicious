@@ -1,0 +1,62 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block head_title %}
+    Order Placed
+{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-10 col-sm-12 col-xs-12">
+
+            <div class="container">
+
+                <h1>Order Placed</h1>
+                <hr>
+
+                {% include 'partials/messages.html' %}
+
+                {% if order %}
+
+                    <h3>Order Summary</h3>
+
+                    <div class="mt-3 order-summary-details">
+                        <p>
+                            <b>ID:</b> <span class="price" style="font-size:22px;">{{ order.code }}</span> <br>
+                            <b>Total: </b><span class="price" style="font-size:22px;">${{ order.total }}</span>
+                        </p>
+                        <p class="mt-2">
+                            {% if order.user.get_full_name %}
+                                {{ order.user.get_full_name }}
+                            {% else %}
+                                {{ order.user.username }}
+                            {% endif %}
+                        </p>
+                        <p>
+                            {{ order.user.profile.phone_number.as_national }}
+                        </p>
+                        <p>{{ order.user.email }}</p>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4 mt-0">
+                        {% include 'partials/cart_results.html' with cart_items=order.cart.cart_items.all completed=True %}
+                    </div>
+
+
+
+                {% else %}
+
+                    <p>
+                        {% trans "Something went wrong. We can't display your order details right now. Please try again later." %}
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
