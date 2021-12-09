@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)4l*^n-uu2f&5y^8qdkxo5wp9t4vlwd-b*t4j-1sh8+-y1@tq5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "*"
@@ -83,34 +83,34 @@ WSGI_APPLICATION = 'macalicious.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'd9oaqgr4p1u9f5',
-#             'USER': 'xhjfdfmpcuitpj',
-#             'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
-#             'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
-#             'PORT': '5432',
-#         }
-#     }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd9oaqgr4p1u9f5',
-        'USER': 'xhjfdfmpcuitpj',
-        'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
-        'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
-        'PORT': '5432',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd9oaqgr4p1u9f5',
+            'USER': 'xhjfdfmpcuitpj',
+            'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
+            'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd9oaqgr4p1u9f5',
+#         'USER': 'xhjfdfmpcuitpj',
+#         'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
+#         'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -178,12 +178,12 @@ LOGIN_REDIRECT_URL = '/shop/'
 # Phone numbers field
 PHONENUMBER_DEFAULT_REGION = 'CA'
 
-# if not DEBUG:
-#     # Activate Django-Heroku.
-#     django_heroku.settings(locals())
+if not DEBUG:
+    # Activate Django-Heroku.
+    django_heroku.settings(locals())
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+# # Activate Django-Heroku.
+# django_heroku.settings(locals())
 
 # AWS settings
 AWS_S3_HOST = 's3.ca-central-1.amazonaws.com'
@@ -197,3 +197,11 @@ AWS_S3_ENCRYPTION=True
 AWS_S3_ADDRESSING_STYLE = "virtual"
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# Email settings
+DEFAULT_FROM_EMAIL = "Elmer Almeida DEV <elmeralmeida.dev@gmail.com>"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "elmeralmeida.dev@gmail.com"
+EMAIL_HOST_PASSWORD = "zxzebtbkybpnqfrd"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
