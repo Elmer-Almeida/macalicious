@@ -135,12 +135,10 @@ class MacaronSet(models.Model):
     # Get the price of each maracon
     @property
     def get_price(self):
-        if self.sale_price > 0:
-            return self.sale_price
         return self.price
 
     def get_original_price(self):
-        return self.quantity * self.price
+        return self.quantity * self.get_price
 
     def display_price(self):
         if self.is_on_sale():
@@ -150,7 +148,7 @@ class MacaronSet(models.Model):
             return mark_safe(f"<span>${self.get_total()}</span>")
 
     def is_on_sale(self):
-        if self.sale_price < self.price and self.sale_price != 0:
+        if self.sale_price > 0:
             return True
         return False
 
