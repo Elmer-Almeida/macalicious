@@ -81,24 +81,34 @@ WSGI_APPLICATION = 'macalicious.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+# if DEBUG:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'd9oaqgr4p1u9f5',
+#             'USER': 'xhjfdfmpcuitpj',
+#             'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
+#             'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
+#             'PORT': '5432',
+#         }
+#     }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd9oaqgr4p1u9f5',
+        'USER': 'xhjfdfmpcuitpj',
+        'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
+        'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd9oaqgr4p1u9f5',
-            'USER': 'xhjfdfmpcuitpj',
-            'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
-            'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
-            'PORT': '5432',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -172,6 +182,9 @@ LOGIN_REDIRECT_URL = '/shop/'
 # Phone numbers field
 PHONENUMBER_DEFAULT_REGION = 'CA'
 
-if not DEBUG:
-    # Activate Django-Heroku.
-    django_heroku.settings(locals())
+# if not DEBUG:
+#     # Activate Django-Heroku.
+#     django_heroku.settings(locals())
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
