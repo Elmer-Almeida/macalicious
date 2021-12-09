@@ -55,6 +55,8 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 ROOT_URLCONF = 'macalicious.urls'
 
 TEMPLATES = [
@@ -154,7 +156,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/static_dirs')
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/static_root')
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Media Files
 MEDIA_URL = '/media/'
