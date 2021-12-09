@@ -180,8 +180,9 @@ class MacaronSet(models.Model):
     admin_sale_price.short_description = "Sale Price - Each"
 
     def admin_get_total(self):
-        if self.sale_price > 0:
-            return mark_safe(f"<span style='font-weight:bold;font-size:14px;color:#fb523b;'>${self.get_total()}</span>")
+        if self.sale_price:
+            if self.sale_price > 0:
+                return mark_safe(f"<span style='font-weight:bold;font-size:14px;color:#fb523b;'>${self.get_total()}</span>")
         return mark_safe(f"<span style='font-weight:bold;font-size:14px;'>${self.get_total()}</span>")
 
     admin_get_total.short_description = mark_safe(
@@ -302,8 +303,9 @@ class MacaronCollection(models.Model):
         return total_macarons
 
     def admin_sale_price(self):
-        if self.sale_price > 0:
-            return mark_safe(f"<span style='color:#fb523b;'>${self.sale_price}</span>")
+        if self.sale_price:
+            if self.sale_price > 0:
+                return mark_safe(f"<span style='color:#fb523b;'>${self.sale_price}</span>")
         return '-'
 
     admin_sale_price.short_description = "Sale Price"
