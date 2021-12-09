@@ -100,7 +100,7 @@ class MacaronSet(models.Model):
 
     macaron = models.ForeignKey(Macaron, on_delete=models.CASCADE, limit_choices_to={"active": True})
     quantity = models.IntegerField(default=6, help_text="Number of macarons per box.")
-    price = models.DecimalField(max_digits=5, decimal_places=2,
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0,
                                 help_text="Price of <b>each</b> macaron. <b>NOT</b> price of entire box.")
     sale_price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0,
                                      help_text="Price of <b>each</b> macaron. <b>NOT</b> price of entire box.")
@@ -135,6 +135,8 @@ class MacaronSet(models.Model):
     # Get the price of each maracon
     @property
     def get_price(self):
+        print('sale price: ', self.sale_price)
+        print('price: ', self.price)
         if self.sale_price < self.price and self.sale_price != 0:
             return self.sale_price
         return self.price
@@ -221,7 +223,7 @@ class MacaronCollection(models.Model):
     name = models.CharField(max_length=120)
     macarons = models.ManyToManyField(MacaronCollectionItem, limit_choices_to={"active": True})
     description = models.TextField(max_length=5000)
-    price = models.DecimalField(max_digits=5, decimal_places=2, help_text="Price for entire collection.")
+    price = models.DecimalField(max_digits=5, decimal_places=2, help_text="Price for entire collection.", default=0.0)
     sale_price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00,
                                      help_text="Discounted price for entire collection.")
     active = models.BooleanField(default=True)
