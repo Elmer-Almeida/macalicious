@@ -61,7 +61,7 @@ admin.site.register(Macaron, MacaronAdmin)
 
 class MacaronSetAdmin(admin.ModelAdmin):
     list_editable = [
-        'active', 'featured'
+        'price', 'active', 'featured'
     ]
     list_display = [
         'get_name', 'quantity', 'admin_get_price', 'admin_sale_price', 'active', 'featured', 'admin_get_total',
