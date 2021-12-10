@@ -56,8 +56,7 @@ MIDDLEWARE = [
 ]
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 ROOT_URLCONF = 'macalicious.urls'
 
@@ -86,25 +85,24 @@ WSGI_APPLICATION = 'macalicious.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # HEROKU: uncomment for deployment
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'd9oaqgr4p1u9f5',
-#             'USER': 'xhjfdfmpcuitpj',
-#             'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
-#             'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
-#             'PORT': '5432',
-#         }
-#     }
-
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd9oaqgr4p1u9f5',
+            'USER': 'xhjfdfmpcuitpj',
+            'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
+            'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -187,19 +185,19 @@ GOOGLE_RECAPTCHA_SECRET_KEY = '6LeJ8JIdAAAAAAphAm0MmXKaq7LSsYe7u7odT7Iw'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd9oaqgr4p1u9f5',
-        'USER': 'xhjfdfmpcuitpj',
-        'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
-        'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd9oaqgr4p1u9f5',
+#         'USER': 'xhjfdfmpcuitpj',
+#         'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
+#         'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # Activate Django-Heroku.
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 # AWS settings
 # HEROKU: uncomment for deployment
