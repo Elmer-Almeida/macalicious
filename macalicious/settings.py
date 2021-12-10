@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)4l*^n-uu2f&5y^8qdkxo5wp9t4vlwd-b*t4j-1sh8+-y1@tq5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "*"
@@ -83,24 +83,34 @@ WSGI_APPLICATION = 'macalicious.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+# if DEBUG:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'd4o9tbvg2edfep',
+#             'USER': 'seoogznexzdlxx',
+#             'PASSWORD': '001badc5c736f9cf7f6140970d4684ac48ddc49c0d0af936b0fc670c7526de70',
+#             'HOST': 'ec2-34-195-69-118.compute-1.amazonaws.com',
+#             'PORT': '5432',
+#         }
+#     }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd4o9tbvg2edfep',
+        'USER': 'seoogznexzdlxx',
+        'PASSWORD': '001badc5c736f9cf7f6140970d4684ac48ddc49c0d0af936b0fc670c7526de70',
+        'HOST': 'ec2-34-195-69-118.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd4o9tbvg2edfep',
-            'USER': 'seoogznexzdlxx',
-            'PASSWORD': '001badc5c736f9cf7f6140970d4684ac48ddc49c0d0af936b0fc670c7526de70',
-            'HOST': 'ec2-34-195-69-118.compute-1.amazonaws.com',
-            'PORT': '5432',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -168,12 +178,12 @@ LOGIN_REDIRECT_URL = '/shop/'
 # Phone numbers field
 PHONENUMBER_DEFAULT_REGION = 'CA'
 
-if not DEBUG:
-    # Activate Django-Heroku.
-    django_heroku.settings(locals())
+# if not DEBUG:
+#     # Activate Django-Heroku.
+#     django_heroku.settings(locals())
 
 # # Activate Django-Heroku.
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 # AWS settings
 AWS_S3_HOST = 's3.ca-central-1.amazonaws.com'
@@ -183,7 +193,7 @@ AWS_STORAGE_BUCKET_NAME = "printlineinc-bucket"
 AWS_S3_REGION_NAME = 'ca-central-1'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
-AWS_S3_ENCRYPTION=True
+AWS_S3_ENCRYPTION = True
 AWS_S3_ADDRESSING_STYLE = "virtual"
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
