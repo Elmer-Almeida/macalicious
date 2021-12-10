@@ -64,7 +64,7 @@ class MacaronSetAdmin(admin.ModelAdmin):
         'price', 'active', 'featured'
     ]
     list_display = [
-        'get_name', 'quantity', 'admin_get_price', 'admin_sale_price', 'active', 'featured', 'admin_get_total',
+        'get_name', 'quantity', 'price', 'admin_sale_price', 'active', 'featured', 'admin_get_total',
         'slug', 'created_at', 'updated_at'
     ]
     list_filter = [

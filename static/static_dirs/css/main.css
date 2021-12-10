@@ -8,8 +8,10 @@ body {
     /*background-color: #F6fdff;*/
     /*background-color: #a6d2cf;*/
 
-    background: rgb(246, 253, 255);
-    background: linear-gradient(138deg, rgba(246, 253, 255, 1) 77%, rgba(166, 210, 207, 1) 98%);
+    /*background: rgb(246, 253, 255);*/
+    /*background: linear-gradient(138deg, rgba(246, 253, 255, 1) 77%, rgba(166, 210, 207, 1) 98%);*/
+
+    background-color: #fef5f6;
 
     min-height: 100vh;
 

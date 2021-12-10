@@ -199,9 +199,9 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Email settings
-DEFAULT_FROM_EMAIL = "Elmer Almeida DEV <elmeralmeida.dev@gmail.com>"
+DEFAULT_FROM_EMAIL = "Elmer Almeida <elmer.s.almeida@gmail.com>"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "elmeralmeida.dev@gmail.com"
-EMAIL_HOST_PASSWORD = "zxzebtbkybpnqfrd"
+EMAIL_HOST_USER = "elmer.s.almeida@gmail.com"
+EMAIL_HOST_PASSWORD = "mrgxinexfbjzakzh"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
