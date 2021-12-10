@@ -13,8 +13,7 @@ SECRET_KEY = 'django-insecure-)4l*^n-uu2f&5y^8qdkxo5wp9t4vlwd-b*t4j-1sh8+-y1@tq5
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "*"
-]
+    "*" ]
 
 # Application definition
 
@@ -199,9 +198,9 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Email settings
-DEFAULT_FROM_EMAIL = "Elmer Almeida <elmer.s.almeida@gmail.com>"
+DEFAULT_FROM_EMAIL = "Macalicious <shop.macalicious@gmail.com>"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "elmer.s.almeida@gmail.com"
-EMAIL_HOST_PASSWORD = "mrgxinexfbjzakzh"
+EMAIL_HOST_USER = "shop.macalicious@gmail.com"
+EMAIL_HOST_PASSWORD = "Canada2009!!!"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
