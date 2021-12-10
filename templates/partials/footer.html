@@ -1,4 +1,4 @@
-<footer class="border mt-4">
+<footer class="border mt-4 border-top-tiffany">
     <div class="row m-0 py-3 align-items-center">
 
         <div class="col-md-6 col-sm-12 col-xs-12 text-md-start text-center">
@@ -11,25 +11,31 @@
                     {# TODO: removed home for temporary deployment #}
                     {# <li><a href="{% url 'landing' %}">Home</a></li>#}
 
-                    <li class="list-inline-item {% if 'shop' in request.path %}active{% endif %}"><a href="{% url 'shop:view' %}">Shop</a></li>
+                    <li class="list-inline-item {% if 'shop' in request.path %}active{% endif %}"><a
+                            href="{% url 'shop:view' %}">Shop</a></li>
 
                     {# TODO: Removed about for temporary deployment #}
                     {# <li><a href="{% url 'about' %}">About</a></li>#}
 
-                    <li class="list-inline-item {% if 'cart' in request.path %}active{% endif %}"><a href="{% url 'cart:view' %}">Cart</a></li>
-                    <li class="list-inline-item {% if 'contact' in request.path %}active{% endif %}"><a href="{% url 'contact:view' %}">Contact</a></li>
-                    <li class="list-inline-item {% if 'newsletter' in request.path %}active{% endif %}"><a href="{% url 'newsletter:signup' %}">Newsletter</a></li>
+                    <li class="list-inline-item {% if 'cart' in request.path %}active{% endif %}"><a
+                            href="{% url 'cart:view' %}">Cart</a></li>
+                    <li class="list-inline-item {% if 'contact' in request.path %}active{% endif %}"><a
+                            href="{% url 'contact:view' %}">Contact</a></li>
+                    <li class="list-inline-item {% if 'newsletter' in request.path %}active{% endif %}"><a
+                            href="{% url 'newsletter:signup' %}">Newsletter</a></li>
                     {% if not request.user.is_authenticated %}
-                        <li class="list-inline-item {% if 'login' in request.path %}active{% endif %}"><a href="{% url 'auth_login' %}">Login</a></li>
-                        <li class="list-inline-item {% if 'register' in request.path %}active{% endif %}"><a href="{% url 'registration_register' %}">Register</a>
+                        <li class="list-inline-item {% if 'login' in request.path %}active{% endif %}"><a
+                                href="{% url 'auth_login' %}">Login</a></li>
+                        <li class="list-inline-item {% if 'register' in request.path %}active{% endif %}"><a
+                                href="{% url 'registration_register' %}">Register</a>
                         </li>
                     {% endif %}
-                    <li class="list-inline-item {% if 'orders' in request.path %}active{% endif %}"><a href="{% url 'orders:view' %}">My Orders</a></li>
+                    <li class="list-inline-item {% if 'orders' in request.path %}active{% endif %}"><a
+                            href="{% url 'orders:view' %}">My Orders</a></li>
                     <li class="list-inline-item"><a href="{% url 'sitemap' %}" target="_blank">Sitemap</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
-    </div>
 </footer>

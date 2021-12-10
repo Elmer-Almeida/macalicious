@@ -47,11 +47,32 @@ hr {
 hr.regular {
     border: 0;
     height: 1px !important;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #79589f, rgba(0, 0, 0, 0));
+    background-image: linear-gradient(to right, #0ABAB5, #79589f, #0ABAB5);
 }
 
 .fancy {
     font-family: 'Kaushan Script', cursive !important;
+}
+
+.alert-info {
+    background-color: #f6fdff !important;
+    border: 1px solid #0ABAB5 !important;
+}
+
+.alert-success {
+    background-color: #e4f2e0 !important;
+}
+
+.border-tiffany {
+    border: 1px solid #0ABAB5 !important;
+}
+
+.border-bottom-tiffany {
+    border-bottom: 1px solid #0ABAB5 !important;
+}
+
+.border-top-tiffany {
+    border-top: 1px solid #0ABAB5 !important;
 }
 
 .navbar {
@@ -182,6 +203,11 @@ footer {
     background-color: #f6fdff !important;
     height: 100%;
     width: 100%;
+}
+
+.list-group-item.active {
+    background-color: #79589f !important;
+    border: 1px solid #79589f !important;
 }
 
 ul.footer-links li.list-inline-item a {

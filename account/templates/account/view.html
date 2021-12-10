@@ -27,7 +27,6 @@
                     {% if account_form %}
 
                         <form action="{% url 'account:view' %}" method="POST">
-                            {% csrf_token %}
                             {% crispy account_form %}
                         </form>
 

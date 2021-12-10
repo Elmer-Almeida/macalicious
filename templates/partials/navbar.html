@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm border-bottom-tiffany">
     <div class="container">
         {# TODO: temporary set the homepage to the shop page #}
         {#        <a class="navbar-brand" href="{% url 'landing' %}">Macalicious</a>#}
@@ -13,7 +13,9 @@
                 <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
                        name="search_query"
                        value="{% if request.GET.search_query %} {{ request.GET.search_query }} {% endif %}">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
+                <button class="btn btn-outline-primary" style="width:140px;" type="submit">
+                    <i class="bi bi-search"></i>&nbsp;&nbsp;Search
+                </button>
             </form>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
@@ -56,7 +58,8 @@
                         {% else %}
                             Account
                         {% endif %}
-                        &nbsp;&nbsp;<i class="bi bi-person-circle {% if 'account' in request.path %}purple{% endif %}"></i>
+                        &nbsp;&nbsp;<i
+                            class="bi bi-person-circle {% if 'account' in request.path %}purple{% endif %}"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% if not request.user.is_authenticated %}
