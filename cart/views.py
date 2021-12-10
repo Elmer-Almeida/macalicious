@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, reverse, HttpResponse, get_object
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 from django.utils.html import mark_safe
 from django.views.generic import View
 from django.contrib import messages
@@ -150,6 +152,18 @@ class Checkout(LoginRequiredMixin, View):
             order.active = True
             order.status = 'created'
             order.save()
+
+            # send email
+            context = {
+                'order': order,
+            }
+            send_mail(
+                f"Macalicious Order Confirmation | Order: {order.code}",
+                render_to_string('orders/emails/order_confirmation.txt', context),
+                'Macalicious <shop.macalicious@gmail.com>',
+                [order.user.email, 'shop.macalicious@gmail.com'],
+                fail_silently=True
+            )
             messages.add_message(request, messages.SUCCESS, "Your order has been placed.")
             if request.session.get('cart'):
                 del request.session['cart']  # delete cart id stored in request.session

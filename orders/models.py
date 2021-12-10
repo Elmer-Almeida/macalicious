@@ -60,7 +60,12 @@ class Order(models.Model):
     def admin_num_cart_items(self):
         return self.cart.cart_items.count()
 
-    admin_num_cart_items.short_description = "Cart Items Count"
+    admin_num_cart_items.short_description = "Items Count"
+
+    def admin_num_cart_items_active(self):
+        return self.cart.cart_items.active().count()
+
+    admin_num_cart_items_active.short_description = "Active Items Count"
 
     def admin_cart_items(self):
         output = ""

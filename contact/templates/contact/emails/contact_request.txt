@@ -1,0 +1,14 @@
+Name: {{ contact.first_name }} {{ contact.last_name }}
+Email: {{ contact.email }}
+Reason: {{ contact.reason }}
+
+---- Begin Message ----
+
+{{ contact.message }}
+
+---- End Message ----
+
+
+Macalicious
+shop.macalicious@gmail.com
+https://www.macalicious.ca/shop/

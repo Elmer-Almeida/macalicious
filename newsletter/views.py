@@ -1,4 +1,6 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
 from django.views.generic import View
 from django.contrib import messages
 
@@ -43,5 +45,17 @@ class NewsletterSignUp(View):
             newsletter_form = NewsletterForm(data=request.POST)
         if newsletter_form.is_valid():
             newsletter_form.save()
+
+            # send email confirmation
+            context = {
+                'newsletter': newsletter_form,
+            }
+            send_mail(
+                'Newsletter Signup | Macalicious',
+                render_to_string('newsletter/emails/signup_confirmation.txt', context),
+                '<shop.macalicious@gmail.com>',
+                [newsletter_form.email, 'shop.macalicious@gmail.com'],
+                fail_silently=True
+            )
             messages.add_message(request, messages.SUCCESS, 'You have been added to our newsletter.')
             return redirect(reverse('newsletter:signup'))

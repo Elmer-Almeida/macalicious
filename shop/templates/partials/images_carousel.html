@@ -1,4 +1,4 @@
-<div id="carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% endif %}"
+<div id="carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
      class="carousel slide" data-bs-touch="false"
      data-bs-interval="false">
     <div class="carousel-inner rounded shadow-sm" role="listbox">
@@ -18,13 +18,13 @@
     </div>
     {{ image }}
     <button class="carousel-control-prev" type="button"
-            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% endif %}"
+            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
             data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button"
-            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% endif %}"
+            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
             data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>

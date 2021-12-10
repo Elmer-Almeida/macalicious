@@ -2,7 +2,7 @@
 
     <div class="col-md-4">
         <div class="card shadow-sm">
-            {% include 'partials/images_carousel.html' with images=item.content_object.get_all_images %}
+            {% include 'partials/images_carousel.html' with images=item.content_object.get_all_images cart=True %}
 {#            Only display the featured image of the macaron set or the macaron collection #}
 {#            {% if item.content_object.get_featured_image %}#}
 {#                <img src="{{ item.content_object.get_featured_image.picture.url }}"#}
@@ -19,7 +19,7 @@
                     {% endif %}
                 </div>
 
-                <p class="card-text price" style="font-size:18px;">
+                <p class="card-text price mb-1" style="font-size:18px;">
                     {{ item.content_object.display_total }}
                     &nbsp;&middot;&nbsp;
                     {% if item.item_type.name == 'Macaron Set' %}

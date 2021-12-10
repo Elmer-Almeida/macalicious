@@ -7,55 +7,53 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center mt-4">
         <div class="col-md-12 col-sm-12 col-xs-12">
 
-            <div class="container">
 
-                <h1>Confirm Your Order</h1>
+            <h1>Confirm Your Order</h1>
+            <hr>
+
+            {% include 'partials/messages.html' %}
+
+            {% if order %}
+
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% include 'partials/cart_results.html' with cart_items=order.cart.cart_items.all %}
+                </div>
+
                 <hr>
 
-                {% include 'partials/messages.html' %}
+                <div class="d-flex justify-content-end">
 
-                {% if order %}
-
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                        {% include 'partials/cart_results.html' with cart_items=order.cart.cart_items.all %}
+                    <div class="text-end price" style="font-size: 24px;">
+                        {% if order.tax == 0 %}
+                            <p><b>Order Total:</b> ${{ order.total|floatformat:2 }}</p>
+                        {% else %}
+                            <p><b>Cart Total: </b>${{ order.cart.total|floatformat:2 }}</p>
+                            <p><b>Sales Tax: </b>${{ order.get_tax_amount|floatformat:2 }}</p>
+                            <p><b>Order Total:</b> ${{ order.total|floatformat:2 }}</p>
+                        {% endif %}
                     </div>
 
-                    <hr>
+                </div>
 
-                    <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-between">
 
-                        <div class="text-end price" style="font-size: 24px;">
-                            {% if order.tax == 0 %}
-                                <p><b>Order Total:</b> ${{ order.total|floatformat:2 }}</p>
-                            {% else %}
-                                <p><b>Cart Total: </b>${{ order.cart.total|floatformat:2 }}</p>
-                                <p><b>Sales Tax: </b>${{ order.get_tax_amount|floatformat:2 }}</p>
-                                <p><b>Order Total:</b> ${{ order.total|floatformat:2 }}</p>
-                            {% endif %}
-                        </div>
+                    <a href="{% url 'cart:view' %}" class="btn btn-outline-secondary"><i
+                            class="bi bi-chevron-left"></i>
+                        &nbsp;Back to Cart</a>
+                    {% include 'partials/confirm_checkout.html' %}
 
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-
-                        <a href="{% url 'cart:view' %}" class="btn btn-outline-secondary"><i
-                                class="bi bi-chevron-left"></i>
-                            &nbsp;Back to Cart</a>
-                        {% include 'partials/confirm_checkout.html' %}
-
-                    </div>
+                </div>
 
 
-                {% else %}
+            {% else %}
 
-                    <p>{% trans "Sorry, something went wrong. We can't find your order details." %}</p>
+                <p>{% trans "Sorry, something went wrong. We can't find your order details." %}</p>
 
-                {% endif %}
+            {% endif %}
 
-            </div>
 
         </div>
     </div>

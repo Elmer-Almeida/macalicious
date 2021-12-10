@@ -5,8 +5,8 @@ from .models import Order
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = [
-        '__str__', 'admin_cart', 'user', 'admin_num_cart_items', 'admin_tax_rate', 'admin_total',
-        'code', 'status', 'active', 'created_at', 'updated_at'
+        'code', 'admin_cart', 'user', 'admin_num_cart_items', 'admin_num_cart_items_active', 'admin_tax_rate',
+        'admin_total', 'status', 'active', 'created_at', 'updated_at'
     ]
     list_editable = [
         'active', 'status'

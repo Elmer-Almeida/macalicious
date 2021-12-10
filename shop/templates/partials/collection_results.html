@@ -11,16 +11,17 @@
         <div style="transform: rotate(0)">
             <div class="card-body">
                 <h4 class="card-title">{{ collection.name }}</h4>
-                <p class="card-text">{{ collection.display_total }}
+                <p class="card-text mb-3">{{ collection.display_total }}
                     &nbsp;&middot;&nbsp;
-                    <span class="price" style="font-size:18px;">{{ collection.get_quantity_each_collection }} macarons</span></p>
-            </div>
-            {% include 'partials/collection_macarons.html' with collection_macarons=collection.macarons.all %}
-            <div class="card-body">
-                <p class="card-text">{{ collection.get_short_description }}</p>
+                    <span class="price"
+                          style="font-size:18px;">{{ collection.get_quantity_each_collection }} macarons</span>
+                </p>
+                {% include 'partials/collection_macarons.html' with collection_macarons=collection.macarons.all %}
+                <p class="card-text mt-3">{{ collection.get_short_description }}</p>
                 <a href="{% url 'shop:collection_detail' collection.slug %}"
                    class="btn btn-outline-primary stretched-link">Details &nbsp;<i
                         class="bi bi-chevron-right"></i></a>
+
             </div>
         </div>
     </div>

@@ -104,24 +104,6 @@ WSGI_APPLICATION = 'macalicious.wsgi.application'
 #         }
 #     }
 
-# Local sqlite3 database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-# Heroku database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd9oaqgr4p1u9f5',
-        'USER': 'xhjfdfmpcuitpj',
-        'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
-        'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -189,13 +171,39 @@ LOGIN_REDIRECT_URL = '/shop/'
 # Phone numbers field
 PHONENUMBER_DEFAULT_REGION = 'CA'
 
+
+# Email settings
+DEFAULT_FROM_EMAIL = "Macalicious <shop.macalicious@gmail.com>"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "shop.macalicious@gmail.com"
+EMAIL_HOST_PASSWORD = "Canada2009!!!"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# Local sqlite3 database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 # HEROKU: uncomment for deployment
-if not DEBUG:
-    # Activate Django-Heroku.
-    django_heroku.settings(locals())
+# Heroku database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd9oaqgr4p1u9f5',
+        'USER': 'xhjfdfmpcuitpj',
+        'PASSWORD': '910c838cdd4d647658f93d74b028af93069968153f750732675f3e8a913f74c0',
+        'HOST': 'ec2-34-193-235-32.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 # # Activate Django-Heroku.
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
 # AWS settings
 # HEROKU: uncomment for deployment
@@ -210,11 +218,3 @@ AWS_S3_ENCRYPTION = True
 AWS_S3_ADDRESSING_STYLE = "virtual"
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# Email settings
-DEFAULT_FROM_EMAIL = "Macalicious <shop.macalicious@gmail.com>"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "shop.macalicious@gmail.com"
-EMAIL_HOST_PASSWORD = "Canada2009!!!"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True

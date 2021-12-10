@@ -17,6 +17,12 @@
                 <h1>Contact Us</h1>
                 <hr>
 
+                {% if not messages %}
+                    <div class="alert alert-info text-center">
+                        We will get back to you within 24 hours.
+                    </div>
+                {% endif %}
+
                 {# Contact form feedback #}
                 {% include 'partials/messages.html' %}
 

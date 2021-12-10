@@ -1,0 +1,14 @@
+{% if newsletter.first_name %}
+    Hi {{ newsletter.first_name }},
+{% endif %}
+
+You have successfully signed up for our Macalicious Newsletter.
+
+Email: {{ newsletter.email }}
+
+Date: {{ newsletter.created_at }}
+
+
+Macalicious
+shop.macalicious@gmail.com
+https://www.macalicious.ca/shop/

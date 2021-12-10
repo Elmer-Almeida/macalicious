@@ -17,6 +17,11 @@ class AccountForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super().__init__(*args, **kwargs)
+        # required fields - username is also required
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['email'].required = True
+
         self.fields['first_name'].widget.attrs.update({'autofocus': True})
         self.helper = FormHelper()
         self.helper.layout = Layout(

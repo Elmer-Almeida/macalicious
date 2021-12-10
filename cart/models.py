@@ -65,7 +65,7 @@ class CartItem(models.Model):
     objects = CartItemManager()
 
     def __str__(self):
-        return f"{self.content_object.get_name()} | {self.get_quantity()}"
+        return f"Cart: {self.id}"
 
     def get_quantity(self):
         return f"Quantity: {self.quantity}"
@@ -83,7 +83,7 @@ class CartItem(models.Model):
         return self.quantity
 
     def admin_cart_item(self):
-        return f"{self.content_object.get_name()}"
+        return f"CartItem: {self.id}"
 
     admin_cart_item.short_description = "Item"
 

@@ -8,10 +8,13 @@
 {% block content %}
 
     <div class="row justify-content-md-center">
-        <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
 
             <h1>My Orders</h1>
-            <p>{{ orders.count }} orders placed.</p>
+            {% if orders.count %}
+                <p class="mt-2 fw-normal text-muted">
+                    {{ orders.count }}{% if orders.count == 1 %} order {% else %} orders {% endif %} placed.</p>
+            {% endif %}
             <hr>
 
             {% if orders %}
@@ -19,20 +22,32 @@
                 {% for order in orders %}
 
                     <div class="card">
-                        <div class="card-body">
-                            <h4>Order ID: {{ order.code }}</h4>
-                            <p><b>Total:</b> ${{ order.total }}</p>
-                            <p><b>Created:</b> {{ order.created_at|timesince }} ago</p>
-                            <ul>
-                                {% for item in order.cart.cart_items.all %}
-                                    <li><h5>{{ item.content_object.get_name }}</h5></li>
-                                    <li>Price: ${{ item.content_object.get_total }}</li>
-                                    <li>{{ item.content_object.get_description }}</li>
-                                    {% if not forloop.last %}
-                                        <br>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0">
+                                    <b>Order ID: </b>&nbsp;<span class="price"
+                                                                 style="font-size:26px;">{{ order.code }}</span> <br>
+                                </h4>
+                                <p class="mb-0" style="font-size: 17px;">
+                                    <b>Total:</b> ${{ order.total }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card-body" style="background-color:#fff;">
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                {% include 'partials/cart_results.html' with cart_items=order.cart.cart_items.all %}
+                            </div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-0">
+                                    <b>Created:</b> {{ order.created_at|timesince }} ago <br>
+                                </p>
+                                <p class="mb-0">
+                                    <a href="mailto:shop.macalicious@gmail.com?subject=Order: {{ order.code }} - Concern from {{ request.user.get_full_name }}"
+                                       class="email-link">Contact us</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -44,7 +59,9 @@
 
             {% else %}
 
-                <p>{% trans "You have not placed any orders, yet." %}</p>
+                <div class="alert alert-info">
+                    {% trans "You have not placed any orders, yet." %}
+                </div>
 
             {% endif %}
 

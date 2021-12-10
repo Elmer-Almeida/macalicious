@@ -11,6 +11,13 @@
         <div class="row justify-content-md-center">
             <div class="col-md-12 col-sm-12 col-xs-12">
 
+                <div class="alert alert-info mt-2 text-center">
+                    Please contact <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
+                                      data-bs-placement="bottom" class="email-link"
+                                      title="Email Macalicious">shop.macalicious@gmail.com</a> for more information or
+                    inquiries on our collections.
+                </div>
+
                 <div class="row justify-content-md-between">
                     <div class="col-md-4 col-sm-12 col-xs-12">
 
@@ -78,21 +85,19 @@
 
         {% if macaron_recommended_collections %}
 
-            <div class="container">
 
-                <hr class="mt-5 regular" style="margin-bottom:40px !important;">
+            <hr class="mt-5 regular" style="margin-bottom:35px !important;">
 
-                <h3>You may also like</h3>
+            <h2>You may also like</h2>
 
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    {% for collection in macaron_recommended_collections %}
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for collection in macaron_recommended_collections %}
 
-                        {% include 'partials/collection_results.html' %}
+                    {% include 'partials/collection_results.html' %}
 
-                    {% endfor %}
-                </div>
-
+                {% endfor %}
             </div>
+
 
         {% endif %}
 

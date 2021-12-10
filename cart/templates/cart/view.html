@@ -9,82 +9,80 @@
     <div class="row justify-content-md-center">
         <div class="col-md-12 col-sm-12 col-xs-12">
 
-            <div class="container">
 
-                <div class="d-flex justify-content-between">
-                    <h1>Cart</h1>
-                    {% if cart.cart_items.count %}
-                        <div class="d-flex align-items-center">
+            <div class="d-flex justify-content-between">
+                <h1>Cart</h1>
+                {% if cart.cart_items.count %}
+                    <div class="d-flex align-items-center">
                         <span class="text-muted price" style="font-size:18px;">{{ cart.cart_items.count }}
                             {% if cart.cart_items.count == 1 %}
                                 item{% else %}items{% endif %}</span>
-                        </div>
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
+            </div>
 
-                {% include 'partials/messages.html' %}
+            {% include 'partials/messages.html' %}
 
-                {% if cart %}
+            {% if cart %}
 
-                    {% if cart.cart_items.active.count == 0 %}
+                {% if cart.cart_items.active.count == 0 %}
 
-                        <div class="alert alert-info">
-                            There are no items in your cart.
-                        </div>
-
-                    {% else %}
-
-                        <div class="row row-cols-1 row-cols-md-2 g-4">
-
-                            {% include 'partials/cart_results.html' with cart_items=cart.cart_items.all %}
-
-                        </div>
-
-                        <div class="mt-3 d-flex justify-content-between">
-                            <div class="text-muted">
-                                Sales tax may be applied at checkout.
-                            </div>
-                            <div>
-                                <span class="price" style="font-size:24px;">Cart Total:&nbsp; ${{ cart.total }}</span>
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-3">
-
-                            <div class="d-flex align-items-center">
-                                <a href="{% url 'shop:view' %}" class="btn btn-outline-secondary"><i
-                                        class="bi bi-chevron-left"></i> &nbsp;Continue Shopping</a>
-                            </div>
-
-                            {% include 'partials/request_checkout.html' %}
-
-                        </div>
-
-                    {% endif %}
-
-                    <hr class="my-4">
-
-                    {% if recommended_macaron_sets %}
-                        <h3>You might{% if cart.cart_items.all %} also {% endif %} like</h3>
-
-                        <div class="row row-cols-1 row-cols-md-2 g-4">
-                            {% for set in recommended_macaron_sets %}
-
-                                {% include 'partials/set_results.html' with set=set %}
-
-                            {% endfor %}
-                        </div>
-
-                    {% endif %}
-
+                    <div class="alert alert-info">
+                        There are no items in your cart. &nbsp;<a href="{% url 'shop:view' %}" class="email-link">Visit our shop</a>.
+                    </div>
 
                 {% else %}
 
-                    <p>Something went wrong while trying to create a cart for you.</p>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+                        {% include 'partials/cart_results.html' with cart_items=cart.cart_items.all %}
+
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between">
+                        <div class="text-muted">
+                            Sales tax may be applied at checkout.
+                        </div>
+                        <div>
+                            <span class="price" style="font-size:24px;">Total:&nbsp; ${{ cart.total }}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-3">
+
+                        <div class="d-flex align-items-center">
+                            <a href="{% url 'shop:view' %}" class="btn btn-outline-secondary"><i
+                                    class="bi bi-chevron-left"></i> &nbsp;Continue Shopping</a>
+                        </div>
+
+                        {% include 'partials/request_checkout.html' %}
+
+                    </div>
 
                 {% endif %}
 
-            </div>
+                <hr class="my-4">
+
+                {% if recommended_macaron_sets %}
+                    <h3>You might{% if cart.cart_items.all %} also {% endif %} like</h3>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {% for set in recommended_macaron_sets %}
+
+                            {% include 'partials/set_results.html' with set=set %}
+
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+
+
+            {% else %}
+
+                <p>Something went wrong while trying to create a cart for you.</p>
+
+            {% endif %}
+
 
         </div>
     </div>

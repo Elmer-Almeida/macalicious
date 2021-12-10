@@ -135,8 +135,6 @@ class MacaronSet(models.Model):
     # Get the price of each maracon
     @property
     def get_price(self):
-        print('sale price: ', self.sale_price)
-        print('price: ', self.price)
         if self.sale_price < self.price and self.sale_price != 0:
             return self.sale_price
         return self.price

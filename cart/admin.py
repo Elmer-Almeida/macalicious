@@ -27,7 +27,7 @@ admin.site.register(Cart, CartAdmin)
 
 class CartItemAdmin(admin.ModelAdmin):
     list_display = [
-        'admin_cart_item', 'quantity', 'admin_total', 'cart', 'admin_user',
+        'admin_cart_item', 'quantity', 'admin_user', 'admin_total', 'cart',
         'admin_item_type', 'active', 'created_at', 'updated_at'
     ]
     list_editable = [
