@@ -56,8 +56,8 @@ MIDDLEWARE = [
 ]
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 ROOT_URLCONF = 'macalicious.urls'
 
@@ -199,8 +199,7 @@ DATABASES = {
 }
 
 # Activate Django-Heroku.
-if not DEBUG:
-    django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 # AWS settings
 # HEROKU: uncomment for deployment
