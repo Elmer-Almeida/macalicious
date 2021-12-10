@@ -207,3 +207,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 ADMINS = [('Elmer Almeida', 'elmer.s.almeida@gmail.com'), ]
+
+# Google reCAPTCHA keys
+GOOGLE_RECAPTCHA_SITE_KEY = '6LeJ8JIdAAAAAK2_J_1hWKxe19d34fUGkykJuEh8'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LeJ8JIdAAAAAAphAm0MmXKaq7LSsYe7u7odT7Iw'
