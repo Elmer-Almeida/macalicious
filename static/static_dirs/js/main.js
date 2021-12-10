@@ -6,29 +6,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 
 $(document).ready(function () {
 
-    if ($(window).width() < 800) {
-        $('.navbar').addClass('opaque shadow-sm');
-    }
-    if ($(this).scrollTop() > 7) {
-        $('.navbar').addClass('opaque shadow-sm');
-    }
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 7) {
-            $('.navbar').addClass('opaque shadow-sm');
-        } else if ($(this).scrollTop() <= 7) {
-            if ($(window).width() < 800) {
-                $('.navbar').removeClass('opaque shadow-sm');
-            } else {
-                $('.navbar').removeClass('opaque shadow-sm');
-            }
-        }
-    });
-    $(window).resize(function () {
-        if ($(window).width() < 800) {
-            $('.navbar').addClass('opaque shadow-sm');
-        } else {
-            $('.navbar').removeClass('opaque shadow-sm');
-        }
-    });
+    // Swipe bootstrap carousel in mobile format
+    $('.carousel').bcSwipe({threshold: 50});
 
 });

@@ -1,7 +1,7 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
+from crispy_forms.layout import Layout, Row, Column, HTML
 
 from .models import Contact
 
@@ -25,7 +25,11 @@ class ContactForm(forms.ModelForm):
             Row('email', css_class='mb-1'),
             Row('reason', css_class='mb-1'),
             Row('message', css_class='mb-1'),
-            Submit('submit', 'Send Message', css_class='btn-primary')
+            HTML(
+                '<button type="submit" class="btn btn-primary">'
+                'Send Message &nbsp;<i class="bi bi-arrow-right"></i>'
+                '</button>'
+            )
         )
 
     def clean_first_name(self):
