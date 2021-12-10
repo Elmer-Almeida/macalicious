@@ -55,8 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'macalicious.urls'
 
@@ -179,12 +178,12 @@ LOGIN_REDIRECT_URL = '/shop/'
 # Phone numbers field
 PHONENUMBER_DEFAULT_REGION = 'CA'
 
-# if not DEBUG:
-#     # Activate Django-Heroku.
-#     django_heroku.settings(locals())
+if not DEBUG:
+    # Activate Django-Heroku.
+    django_heroku.settings(locals())
 
 # # Activate Django-Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 # AWS settings
 AWS_S3_HOST = 's3.ca-central-1.amazonaws.com'
