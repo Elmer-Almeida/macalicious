@@ -205,3 +205,5 @@ EMAIL_HOST_USER = "shop.macalicious@gmail.com"
 EMAIL_HOST_PASSWORD = "Canada2009!!!"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+ADMINS = [('Elmer Almeida', 'elmer.s.almeida@gmail.com'), ]
