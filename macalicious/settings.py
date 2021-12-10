@@ -168,8 +168,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_OPEN = True
 
-# Debug Mode: Email Provider
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# # Debug Mode: Email Provider
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/shop/'
