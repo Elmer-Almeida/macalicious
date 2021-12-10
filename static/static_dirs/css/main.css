@@ -1,5 +1,4 @@
 
-
 body {
 
 
@@ -52,11 +51,16 @@ hr.regular {
     color: #91363d !important;
 }
 
+.purple {
+    color: #79589f !important;
+}
+
 .nav-item {
     font-family: 'Kaushan Script', cursive;
     font-size: 18px;
     margin-right: 10px;
 }
+
 .nav-item:last-child {
     margin-right: 0;
 }
