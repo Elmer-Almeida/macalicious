@@ -1,3 +1,6 @@
+import urllib
+import json
+
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
@@ -7,6 +10,7 @@ from django.core.mail import send_mail
 from django.utils.html import mark_safe
 from django.views.generic import View
 from django.contrib import messages
+from django.conf import settings
 
 from orders.models import Order
 from shop.models import MacaronSet
@@ -139,7 +143,8 @@ class Checkout(LoginRequiredMixin, View):
             order.save()
             messages.add_message(request, messages.INFO, "Please confirm your order details.")
             context = {
-                'order': order
+                'order': order,
+                'GOOGLE_RECAPTCHA_SITE_KEY': settings.GOOGLE_RECAPTCHA_SITE_KEY,
             }
             return render(request, self.template_name, context)
         else:
@@ -149,27 +154,47 @@ class Checkout(LoginRequiredMixin, View):
     def post(self, request):
         if request.session.get('order_id'):
             order = get_object_or_404(Order, id=request.session.get('order_id'))
-            order.active = True
-            order.status = 'created'
-            order.save()
 
-            # send email
-            context = {
-                'order': order,
+            # get recaptcha response from form
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            recaptcha_response_url = 'https://www.google.com/recaptcha/api/siteverify'
+            recaptcha_response_values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
             }
-            send_mail(
-                f"Macalicious Order Confirmation | Order: {order.code}",
-                render_to_string('orders/emails/order_confirmation.txt', context),
-                'Macalicious <shop.macalicious@gmail.com>',
-                [order.user.email, 'shop.macalicious@gmail.com'],
-                fail_silently=True
-            )
-            messages.add_message(request, messages.SUCCESS, "Your order has been placed.")
-            if request.session.get('cart'):
-                del request.session['cart']  # delete cart id stored in request.session
-            if request.session.get('order_id'):
-                del request.session['order_id']
-            return redirect(reverse('cart:checkout_complete', kwargs={'order_code': order.code}))
+            recaptcha_data = urllib.parse.urlencode(recaptcha_response_values).encode()
+            recaptcha_request = urllib.request.Request(recaptcha_response_url, data=recaptcha_data)
+            recaptcha_response = urllib.request.urlopen(recaptcha_request)
+            recaptcha_result = json.loads(recaptcha_response.read().decode())
+
+            if recaptcha_result['success']:
+                # edit the order to make it active
+                order.active = True
+                order.status = 'created'
+                order.save()
+
+                # send email
+                context = {
+                    'order': order,
+                }
+                send_mail(
+                    f"Macalicious Order Confirmation | Order: {order.code}",
+                    render_to_string('orders/emails/order_confirmation.txt', context),
+                    'Macalicious <shop.macalicious@gmail.com>',
+                    [order.user.email, 'shop.macalicious@gmail.com'],
+                    fail_silently=True
+                )
+                messages.add_message(request, messages.SUCCESS,
+                                     mark_safe(
+                                         f"Your order has been placed.<br>Thank you for choosing <span class='fancy'>Macalicious!</span>, {order.user.first_name}!"))
+                if request.session.get('cart'):
+                    del request.session['cart']  # delete cart id stored in request.session
+                if request.session.get('order_id'):
+                    del request.session['order_id']
+                return redirect(reverse('cart:checkout_complete', kwargs={'order_code': order.code}))
+            else:
+                messages.add_message(request, messages.ERROR, "Something went wrong. Please try again.")
+                return redirect(reverse('cart:checkout_confirm'))
         else:
             messages.add_message(request, messages.ERROR, "POST: Something went wrong. Please place your order again.")
             return redirect(reverse('cart:view'))

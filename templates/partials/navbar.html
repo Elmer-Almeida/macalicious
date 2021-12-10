@@ -28,18 +28,21 @@
                 {#                </li>#}
                 <li class="nav-item">
                     <a class="nav-link {% if 'shop' in request.path %} active {% endif %}"
-                       href="{% url 'shop:view' %}">Shop &nbsp;<i class="bi bi-bag"></i></a>
+                       href="{% url 'shop:view' %}">Shop &nbsp;&nbsp;<i
+                            class="bi bi-bag {% if 'shop' in request.path %}purple{% endif %}"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if 'cart' in request.path %} active {% endif %}"
-                       href="{% url 'cart:view' %}">Cart &nbsp;<i class="bi bi-cart"></i>
+                       href="{% url 'cart:view' %}">Cart &nbsp;&nbsp;<i
+                            class="bi bi-cart {% if 'cart' in request.path %}purple{% endif %}"></i>
                         {% if number_of_items > 0 %}&nbsp;
                             <span class="badge round-pill bg-primary price"
                                   style="font-size:13px;">{{ number_of_items }}</span>{% endif %}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if 'contact' in request.path %} active {% endif %}"
-                       href="{% url 'contact:view' %}">Contact &nbsp;<i class="bi bi-envelope-open"></i></a>
+                       href="{% url 'contact:view' %}">Contact &nbsp;&nbsp;<i
+                            class="bi bi-envelope-open {% if 'contact' in request.path %}purple{% endif %}"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -53,7 +56,7 @@
                         {% else %}
                             Account
                         {% endif %}
-                        &nbsp;<i class="bi bi-person-circle"></i>
+                        &nbsp;&nbsp;<i class="bi bi-person-circle {% if 'account' in request.path %}purple{% endif %}"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% if not request.user.is_authenticated %}

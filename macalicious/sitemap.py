@@ -10,7 +10,8 @@ class StaticViewSitemap(Sitemap):
         # TODO: removed landing and about for temporary deployment purposes
         # return ['landing', 'about', 'tos']
         return [
-            'landing', 'tos', 'shop:view', 'auth_login', 'registration_register', 'orders:view', 'cart:view'
+            'landing', 'tos', 'shop:view', 'auth_login', 'registration_register', 'orders:view', 'cart:view',
+            'newsletter:signup'
         ]
 
     def location(self, item):

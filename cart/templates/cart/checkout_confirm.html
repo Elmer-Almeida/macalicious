@@ -7,7 +7,7 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center mt-4">
+    <div class="row justify-content-md-center">
         <div class="col-md-12 col-sm-12 col-xs-12">
 
 
@@ -38,15 +38,14 @@
 
                 </div>
 
-                <div class="d-flex justify-content-between">
-
-                    <a href="{% url 'cart:view' %}" class="btn btn-outline-secondary"><i
-                            class="bi bi-chevron-left"></i>
-                        &nbsp;Back to Cart</a>
+                <div class="d-flex justify-content-md-between justify-content-end">
+                    <div class="d-none d-md-block d-lg-block">
+                        <a href="{% url 'cart:view' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-chevron-left"></i> &nbsp;Back to Cart &nbsp;<i class="bi bi-cart"></i>
+                        </a>
+                    </div>
                     {% include 'partials/confirm_checkout.html' %}
-
                 </div>
-
 
             {% else %}
 

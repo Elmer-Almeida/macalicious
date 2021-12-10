@@ -7,7 +7,7 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center mt-4">
+    <div class="row justify-content-md-center">
         <div class="col-md-12 col-sm-12 col-xs-12">
 
 
@@ -25,6 +25,7 @@
                         <b>Order ID:</b> <span class="price" style="font-size:22px;">{{ order.code }}</span> <br>
                         <b>Total: </b><span class="price" style="font-size:22px;">${{ order.total }}</span>
                     </p>
+                    <hr>
                     <p class="mt-2 fw-bold">
                         {% if order.user.get_full_name %}
                             {{ order.user.get_full_name }}

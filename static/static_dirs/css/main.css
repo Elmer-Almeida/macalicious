@@ -13,26 +13,24 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focu
 
 
 body {
-
+    padding-top: 57px; /* for fixed navbar accomodation */
     font-family: 'Open Sans', sans-serif;
-
-    padding-top: 57px;
-
-    /*background-color: #F6fdff;*/
-    /*background-color: #a6d2cf;*/
-
-    /*background: rgb(246, 253, 255);*/
-    /*background: linear-gradient(138deg,  77%, rgba(166, 210, 207, 1) 98%);*/
 
     background-color: #fef5f6;
 
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
 
+    /*background-color: #F6fdff;*/
+    /*background-color: #a6d2cf;*/
+    /*background: rgb(246, 253, 255);*/
+    /*background: linear-gradient(138deg,  77%, rgba(166, 210, 207, 1) 98%);*/
 }
 
-
-.body-content {
-    min-height: 83vh;
+/* grow main content to occupy 100vh of the screen */
+main {
+    flex-grow: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -52,6 +50,9 @@ hr.regular {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #79589f, rgba(0, 0, 0, 0));
 }
 
+.fancy {
+    font-family: 'Kaushan Script', cursive !important;
+}
 
 .navbar {
     background-color: #f6fdff !important;
@@ -73,7 +74,7 @@ hr.regular {
 
 .nav-item {
     font-family: 'Kaushan Script', cursive;
-    font-size: 18px;
+    font-size: 17px;
     margin-right: 10px;
 }
 
@@ -91,6 +92,11 @@ hr.regular {
 
 .nav-item .dropdown-item {
     font-size: 17px;
+}
+
+/* backgrounds */
+.bg-primary {
+    background-color: #79589f !important;
 }
 
 /* BUTTONS */
@@ -129,12 +135,13 @@ hr.regular {
 
 a.email-link {
     text-decoration: underline;
-    color:#79589f;
+    color: #79589f;
 }
 
 .card {
-    background-color: #f6fdff !important;
+    background-color: #fff !important;
 }
+
 .card-header, .card-footer {
     background-color: #f6fdff !important;
 }
@@ -171,12 +178,10 @@ a.email-link {
     background-color: #f6fdff !important;
 }
 
-
 footer {
     background-color: #f6fdff !important;
     height: 100%;
     width: 100%;
-    margin-top: 40px;
 }
 
 ul.footer-links li.list-inline-item a {
@@ -190,15 +195,17 @@ ul.footer-links li.list-inline-item a:hover {
     color: #000000;
     text-decoration: underline;
 }
+
 ul.footer-links li.list-inline-item.active {
     font-weight: 700;
 }
+
 .footer-brand {
     font-size: 17px;
 }
 
 
 @media only screen and (max-width: 600px) {
-/*    mobile queries */
+    /*    mobile queries */
 
 }

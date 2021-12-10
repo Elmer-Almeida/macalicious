@@ -1,7 +1,8 @@
 from django import forms
+from django.conf import settings
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit, Button
+from crispy_forms.layout import Layout, Row, Column, HTML, Submit, Button
 
 from .models import Newsletter
 
@@ -24,6 +25,7 @@ class NewsletterForm(forms.ModelForm):
                 css_class='form-row row mb-1'
             ),
             Row('email', css_class='mb-1'),
+            HTML('<div class="g-recaptcha mb-3" data-sitekey="' + settings.GOOGLE_RECAPTCHA_SITE_KEY + '"></div>'),
             Submit('submit', 'Sign Up', css_class='btn-primary'),
             Button('cancel', "Go Back", css_class='btn', onclick="javascript:location.href = '/';")
         )
@@ -53,6 +55,7 @@ class NewsletterShortForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Row('email', css_class='mb-1'),
+            HTML('<div class="g-recaptcha mb-3" data-sitekey="' + settings.GOOGLE_RECAPTCHA_SITE_KEY + '"></div>'),
             Submit('submit', 'Sign Up', css_class='btn-primary')
         )
 

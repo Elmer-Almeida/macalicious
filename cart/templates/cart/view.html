@@ -11,7 +11,7 @@
 
 
             <div class="d-flex justify-content-between">
-                <h1>Cart</h1>
+                <h1 class="mb-0">Cart</h1>
                 {% if cart.cart_items.count %}
                     <div class="d-flex align-items-center">
                         <span class="text-muted price" style="font-size:18px;">{{ cart.cart_items.count }}
@@ -21,6 +21,8 @@
                 {% endif %}
             </div>
 
+            <hr>
+
             {% include 'partials/messages.html' %}
 
             {% if cart %}
@@ -28,7 +30,8 @@
                 {% if cart.cart_items.active.count == 0 %}
 
                     <div class="alert alert-info">
-                        There are no items in your cart. &nbsp;<a href="{% url 'shop:view' %}" class="email-link">Visit our shop</a>.
+                        There are no items in your cart. &nbsp;<a href="{% url 'shop:view' %}" class="email-link">Visit
+                        our shop</a>.
                     </div>
 
                 {% else %}
@@ -38,6 +41,8 @@
                         {% include 'partials/cart_results.html' with cart_items=cart.cart_items.all %}
 
                     </div>
+
+                    <hr class="regular">
 
                     <div class="mt-3 d-flex justify-content-between">
                         <div class="text-muted">
@@ -61,17 +66,19 @@
 
                 {% endif %}
 
-                <hr class="my-4">
 
                 {% if recommended_macaron_sets %}
-                    <h3>You might{% if cart.cart_items.all %} also {% endif %} like</h3>
 
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                        {% for set in recommended_macaron_sets %}
+                    <div class="mt-5">
+                        <h3>You might{% if cart.cart_items.all %} also {% endif %} like</h3>
 
-                            {% include 'partials/set_results.html' with set=set %}
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            {% for set in recommended_macaron_sets %}
 
-                        {% endfor %}
+                                {% include 'partials/set_results.html' with set=set %}
+
+                            {% endfor %}
+                        </div>
                     </div>
 
                 {% endif %}

@@ -15,8 +15,7 @@ class LandingPage(View):
 
     def get(self, request):
         # TODO: redirecting to /shop/ for temporary measures
-        return redirect(reverse('shop:view'))
-
+        # return redirect(reverse('shop:view'))
 
         # Remove cart and order_id session if it exists
         # if request.session.get('cart'):
@@ -24,16 +23,16 @@ class LandingPage(View):
         # if request.session.get('order_id'):
         #     del request.session['order_id']
 
-        # featured_macaron_sets = MacaronSet.objects.featured()
-        # featured_macaron_collections = MacaronCollection.objects.featured()
-        #
-        # newsletter_form = NewsletterShortForm()
-        # context = {
-        #     'newsletter_form': newsletter_form,
-        #     'featured_macaron_sets': featured_macaron_sets,
-        #     'featured_macaron_collections': featured_macaron_collections,
-        # }
-        # return render(request, self.template_name, context)
+        featured_macaron_sets = MacaronSet.objects.featured()
+        featured_macaron_collections = MacaronCollection.objects.featured()
+
+        newsletter_form = NewsletterShortForm()
+        context = {
+            'newsletter_form': newsletter_form,
+            'featured_macaron_sets': featured_macaron_sets,
+            'featured_macaron_collections': featured_macaron_collections,
+        }
+        return render(request, self.template_name, context)
 
 
 # About page endpoint [url: /about/]

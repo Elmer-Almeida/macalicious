@@ -1,3 +1,4 @@
+from django.conf import settings
 from django import forms
 
 from crispy_forms.helper import FormHelper
@@ -26,6 +27,7 @@ class ContactForm(forms.ModelForm):
             Row('email', css_class='mb-1'),
             Row('reason', css_class='mb-1'),
             Row('message', css_class='mb-1'),
+            HTML('<div class="g-recaptcha mb-3" data-sitekey="' + settings.GOOGLE_RECAPTCHA_SITE_KEY + '"></div>'),
             HTML(
                 '<button type="submit" class="btn btn-primary">'
                 'Send Message &nbsp;<i class="bi bi-arrow-right"></i>'
