@@ -1,0 +1,237 @@
+input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus, input[type="number"]:focus {
+    border: 1px solid #79589f !important;
+}
+
+:focus {
+    border-width: 1px !important;
+    outline: 0 !important; /* I have also tried outline:none */
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -webkit-appearance: none !important;
+}
+
+
+body {
+    padding-top: 57px; /* for fixed navbar accomodation */
+    font-family: 'Open Sans', sans-serif;
+
+    background-color: #fef5f6;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    /*background-color: #F6fdff;*/
+    /*background-color: #a6d2cf;*/
+    /*background: rgb(246, 253, 255);*/
+    /*background: linear-gradient(138deg,  77%, rgba(166, 210, 207, 1) 98%);*/
+}
+
+/* grow main content to occupy 100vh of the screen */
+main {
+    flex-grow: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Kaushan Script', cursive;
+    color: #444 !important;
+}
+
+hr {
+    border: 0;
+    height: 1px !important;
+    background: linear-gradient(to right, #79589f 1%, rgba(246, 253, 255, 1) 50%);
+}
+
+hr.regular {
+    border: 0;
+    height: 1px !important;
+    background-image: linear-gradient(to right, #0ABAB5, #79589f, #0ABAB5);
+}
+
+.fancy {
+    font-family: 'Kaushan Script', cursive !important;
+}
+
+.alert-info {
+    background-color: #f6fdff !important;
+    border: 1px solid #0ABAB5 !important;
+}
+
+.alert-success {
+    background-color: #e4f2e0 !important;
+}
+
+.border-tiffany {
+    border: 1px solid #0ABAB5 !important;
+}
+
+.border-bottom-tiffany {
+    border-bottom: 1px solid #0ABAB5 !important;
+}
+
+.border-top-tiffany {
+    border-top: 1px solid #0ABAB5 !important;
+}
+
+.navbar {
+    background-color: #f6fdff !important;
+}
+
+.navbar-brand {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 25px;
+    color: #444 !important;
+}
+
+.delicious-red {
+    color: #91363d !important;
+}
+
+.purple {
+    color: #79589f !important;
+}
+
+.nav-item {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 17px;
+    margin-right: 10px;
+}
+
+.nav-item:last-child {
+    margin-right: 0;
+}
+
+.nav-item ul.dropdown-menu {
+    -webkit-transition: all 0.4s ease;;
+    -moz-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.nav-item .dropdown-item {
+    font-size: 17px;
+}
+
+/* backgrounds */
+.bg-primary {
+    background-color: #79589f !important;
+}
+
+/* BUTTONS */
+.btn-primary {
+    background-color: #79589f !important;
+    border: 1px solid #79589f;
+}
+
+.btn-primary:hover {
+    border: 1px solid #79589f;
+    background-color: #f6fdff !important;
+    color: #79589f;
+}
+
+.btn-primary:focus {
+    border: 1px solid #79589f;
+    outline: none !important;
+    -webkit-appearance: none !important;
+}
+
+.btn-outline-primary {
+    border: 1px solid #79589f;
+    color: #79589f;
+}
+
+.btn-outline-primary:hover {
+    background-color: #79589f;
+    border: 1px solid #79589f;
+    color: #fff;
+}
+
+.btn-outline-primary:focus {
+    outline: none !important;
+    -webkit-appearance: none !important;
+}
+
+a.email-link {
+    text-decoration: underline;
+    color: #79589f;
+}
+
+.card {
+    background-color: #fff !important;
+}
+
+.card-header, .card-footer {
+    background-color: #f6fdff !important;
+}
+
+
+/* Carousel images on the shop page, results page, and detail page */
+.carousel-item img {
+    height: 290px;
+    max-height: 290px;
+    object-fit: cover;
+}
+
+.cart_sidebar_product_image img {
+    height: 100px;
+    width: 100%;
+    max-height: 100px;
+    object-fit: cover;
+}
+
+.price {
+    font-family: 'Crimson Pro', serif !important;
+    /*font-family: 'Kaushan Script', cursive;*/
+}
+
+.order-summary-details {
+    font-size: 16px;
+}
+
+.order-summary-details p {
+    margin: 0;
+}
+
+.add-to-cart-sidebar {
+    background-color: #f6fdff !important;
+}
+
+footer {
+    background-color: #f6fdff !important;
+    height: 100%;
+    width: 100%;
+}
+
+.list-group-item.active {
+    background-color: #79589f !important;
+    border: 1px solid #79589f !important;
+}
+
+ul.footer-links li.list-inline-item a {
+    text-transform: uppercase;
+    color: #333333;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+ul.footer-links li.list-inline-item a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+ul.footer-links li.list-inline-item.active {
+    font-weight: 700;
+}
+
+.footer-brand {
+    font-size: 17px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    /*    mobile queries */
+
+}
