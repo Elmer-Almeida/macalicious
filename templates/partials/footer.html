@@ -21,8 +21,8 @@
                             href="{% url 'cart:view' %}">Cart</a></li>
                     <li class="list-inline-item {% if 'contact' in request.path %}active{% endif %}"><a
                             href="{% url 'contact:view' %}">Contact</a></li>
-                    <li class="list-inline-item {% if 'newsletter' in request.path %}active{% endif %}"><a
-                            href="{% url 'newsletter:signup' %}">Newsletter</a></li>
+{#                    <li class="list-inline-item {% if 'newsletter' in request.path %}active{% endif %}"><a#}
+{#                            href="{% url 'newsletter:signup' %}">Newsletter</a></li>#}
                     <li class="list-inline-item {% if 'orders' in request.path %}active{% endif %}"><a
                             href="{% url 'orders:view' %}">My Orders</a></li>
                     <li class="list-inline-item"><a href="{% url 'sitemap' %}" target="_blank">Sitemap</a></li>
