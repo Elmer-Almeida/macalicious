@@ -1,5 +1,5 @@
 <div id="carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
-     class="carousel slide" data-bs-touch="true" data-bs-interval="true">
+     class="carousel slide" data-bs-touch="true" data-bs-interval="false">
     <div class="carousel-inner rounded shadow-sm" role="listbox">
 
         {% for image in images %}
