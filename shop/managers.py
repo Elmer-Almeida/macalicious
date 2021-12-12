@@ -36,7 +36,7 @@ class MacaronSetManager(models.Manager):
         return super().get_queryset()
 
     def all(self):
-        return self.get_queryset().filter(active=True)
+        return self.get_queryset().filter(active=True).order_by('order')
 
     def featured(self):
         return self.all().filter(featured=True)
@@ -59,7 +59,7 @@ class MacaronCollectionManager(models.Manager):
         return super().get_queryset()
 
     def all(self):
-        return self.get_queryset().filter(active=True)
+        return self.get_queryset().filter(active=True).order_by('order')
 
     def featured(self):
         return self.all().filter(featured=True)

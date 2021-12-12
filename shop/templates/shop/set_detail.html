@@ -8,13 +8,13 @@
 
     {% if macaron_set %}
 
-        <div class="row justify-content-md-center mt-4">
+        <div class="row justify-content-md-center mt-2">
             <div class="col-md-12 col-sm-12 col-xs-12">
 
                 <div class="row justify-content-md-between">
                     <div class="col-md-4 col-sm-12 col-xs-12">
 
-                        {% include 'partials/images_carousel.html' with images=macaron_set.macaron.images.all %}
+                        {% include 'partials/images_carousel.html' with images=macaron_set.macaron.images.all detail_page=True %}
 
                         {#                        {% if macaron_set.macaron.images.featured %}#}
                         {##}
@@ -88,7 +88,6 @@
 
         {% if macaron_recommended_sets %}
 
-
             <hr class="mt-5 regular" style="margin-bottom:35px !important;">
 
             <h2>You may also like</h2>
@@ -101,6 +100,11 @@
                 {% endfor %}
             </div>
 
+        {% endif %}
+
+        {% if newsletter_form %}
+
+            {% include 'partials/newsletter_signup.html' %}
 
         {% endif %}
 

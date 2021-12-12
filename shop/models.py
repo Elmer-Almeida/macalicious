@@ -107,6 +107,7 @@ class MacaronSet(models.Model):
     active = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     slug = models.SlugField(blank=True)
+    order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -227,6 +228,7 @@ class MacaronCollection(models.Model):
     active = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     slug = models.SlugField(blank=True)
+    order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

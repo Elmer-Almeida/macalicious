@@ -11,8 +11,8 @@
     {% if featured_macaron_sets %}
 
         <div>
-
-            <h2>Featured Macarons</h2>
+            <h1>Featured Macarons</h1>
+            <hr>
 
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for set in featured_macaron_sets %}
@@ -31,14 +31,21 @@
 
         <div class="mt-4">
 
-            <h2>Featured Collections</h2>
+            <h1>Featured Collections</h1>
+            <hr>
+            <div class="alert alert-info text-left">
+                Please contact <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
+                                  data-bs-placement="bottom" class="email-link"
+                                  title="Email Macalicious">shop.macalicious@gmail.com</a> for more information or
+                inquiries on our collections.
+            </div>
 
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for collection in featured_macaron_collections %}
                     {% include 'partials/collection_results.html' %}
                 {% endfor %}
             </div>
-            <a href="{% url 'shop:view' %}#macaron_sets" class="btn btn-outline-primary mt-3">View All &nbsp;<i
+            <a href="{% url 'shop:view' %}#macaron_collections" class="btn btn-outline-primary mt-3">View All &nbsp;<i
                     class="bi bi-arrow-right"></i></a>
 
         </div>
@@ -49,21 +56,7 @@
 
     {% if newsletter_form %}
 
-        <div class="mt-4 row justify-content-md-center bg-white p-4 border rounded shadow-sm">
-
-            <div class="col-md-4 col-sm-12 col-xs-12">
-
-                <h3>Sign Up for our Newsletter</h3>
-                <hr>
-
-                <form action="{% url 'newsletter:signup_short' %}" method="POST">
-                    {% crispy newsletter_form %}
-                </form>
-
-            </div>
-
-        </div>
-
+        {% include 'partials/newsletter_signup.html' %}
 
     {% endif %}
 

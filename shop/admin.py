@@ -61,10 +61,10 @@ admin.site.register(Macaron, MacaronAdmin)
 
 class MacaronSetAdmin(admin.ModelAdmin):
     list_editable = [
-        'price', 'active', 'featured'
+        'price', 'active', 'featured', 'order'
     ]
     list_display = [
-        'get_name', 'quantity', 'price', 'admin_sale_price', 'active', 'featured', 'admin_get_total',
+        'get_name', 'quantity', 'price', 'admin_sale_price', 'active', 'featured', 'order', 'admin_get_total',
         'slug', 'created_at', 'updated_at'
     ]
     list_filter = [
@@ -112,10 +112,10 @@ class MacaronCollectionImageAdmin(admin.TabularInline):
 
 class MacaronCollectionAdmin(admin.ModelAdmin):
     list_editable = [
-        'active', 'featured'
+        'active', 'featured', 'order'
     ]
     list_display = [
-        'name', 'get_macaron_list', 'price', 'admin_sale_price', 'active', 'featured', 'admin_get_total',
+        'name', 'get_macaron_list', 'price', 'admin_sale_price', 'active', 'featured', 'order', 'admin_get_total',
         'slug', 'created_at', 'updated_at'
     ]
     list_filter = [

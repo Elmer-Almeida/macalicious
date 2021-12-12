@@ -1,0 +1,16 @@
+{% load crispy_forms_tags %}
+
+<div class="mt-4 row justify-content-md-center bg-white p-4 border rounded shadow-sm border-tiffany">
+
+    <div class="col-md-4 col-sm-12 col-xs-12">
+
+        <h3>Sign Up for our Newsletter</h3>
+        <hr>
+
+        <form action="{% url 'newsletter:signup_short' %}" method="POST">
+            {% crispy newsletter_form %}
+        </form>
+
+    </div>
+
+</div>

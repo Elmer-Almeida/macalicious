@@ -12,6 +12,16 @@
 
             {% include 'partials/messages.html' %}
 
+            <div class="list-group mb-3 shadow-sm border-tiffany d-md-none">
+                <a href="#macaron_sets" class="list-group-item list-group-item-action border-bottom-tiffany fancy" style="font-size: 18px;">
+                    Sets
+                </a>
+                <a href="#macaron_collections" class="list-group-item list-group-item-action fancy" style="font-size: 18px;">
+                    Collections
+                </a>
+            </div>
+
+
             {# Check to see if macarons sets are passed through #}
             {% if macaron_sets %}
 
@@ -35,7 +45,7 @@
             {# Check to see if macarons collections are passed through #}
             {% if macaron_collections %}
 
-                <h1 class="mt-3" id="macaron_collections">Collections</h1>
+                <h1 class="mt-4" id="macaron_collections">Collections</h1>
                 <hr>
 
                 <div class="alert alert-info text-left">
@@ -58,6 +68,12 @@
 
         </div>
     </div>
+
+    {% if newsletter_form %}
+
+        {% include 'partials/newsletter_signup.html' %}
+
+    {% endif %}
 
 
 {% endblock %}

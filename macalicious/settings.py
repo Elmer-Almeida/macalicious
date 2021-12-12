@@ -13,7 +13,10 @@ SECRET_KEY = 'django-insecure-)4l*^n-uu2f&5y^8qdkxo5wp9t4vlwd-b*t4j-1sh8+-y1@tq5
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "*"
+    "macalicious.herokuapp.com",
+    "www.macalicious.ca",
+    "127.0.0.1",
+    "localhost"
 ]
 
 # Application definition
@@ -72,45 +75,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'cart.context_processors.cart_information'
+                'cart.context_processors.cart_information',
+                'newsletter.context_processors.newsletter_form',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'macalicious.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'd4o9tbvg2edfep',
-#             'USER': 'seoogznexzdlxx',
-#             'PASSWORD': '001badc5c736f9cf7f6140970d4684ac48ddc49c0d0af936b0fc670c7526de70',
-#             'HOST': 'ec2-34-195-69-118.compute-1.amazonaws.com',
-#             'PORT': '5432',
-#         }
-#     }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd4o9tbvg2edfep',
-        'USER': 'seoogznexzdlxx',
-        'PASSWORD': '001badc5c736f9cf7f6140970d4684ac48ddc49c0d0af936b0fc670c7526de70',
-        'HOST': 'ec2-34-195-69-118.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -134,13 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 # Default primary key field type
@@ -178,38 +146,56 @@ LOGIN_REDIRECT_URL = '/shop/'
 # Phone numbers field
 PHONENUMBER_DEFAULT_REGION = 'CA'
 
-if not DEBUG:
-    # Activate Django-Heroku.
-    django_heroku.settings(locals())
-
-# # Activate Django-Heroku.
-# django_heroku.settings(locals())
-
-# AWS settings
-AWS_S3_HOST = 's3.ca-central-1.amazonaws.com'
-AWS_ACCESS_KEY_ID = "AKIA6CLFKBXF6LGUHXVZ"
-AWS_SECRET_ACCESS_KEY = "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"
-AWS_STORAGE_BUCKET_NAME = "printlineinc-bucket"
-AWS_S3_REGION_NAME = 'ca-central-1'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_ENCRYPTION = True
-AWS_S3_ADDRESSING_STYLE = "virtual"
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# Email settings
-DEFAULT_FROM_EMAIL = "Macalicious <shop.macalicious@gmail.com>"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = "shop.macalicious@gmail.com"
-EMAIL_HOST_PASSWORD = "Canada2009!!!"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-ADMINS = [('Elmer Almeida', 'elmer.s.almeida@gmail.com'), ]
-
 # Google reCAPTCHA keys
 GOOGLE_RECAPTCHA_SITE_KEY = '6LeJ8JIdAAAAAK2_J_1hWKxe19d34fUGkykJuEh8'
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LeJ8JIdAAAAAAphAm0MmXKaq7LSsYe7u7odT7Iw'
 
-SECURE_SSL_REDIRECT = True
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    # Email settings
+    DEFAULT_FROM_EMAIL = "Macalicious <shop.macalicious@gmail.com>"
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = "shop.macalicious@gmail.com"
+    EMAIL_HOST_PASSWORD = "Canada2009!!!"
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+
+    ADMINS = [('Elmer Almeida', 'elmer.dev.95@gmail.com'), ]
+
+    # AWS settings
+    AWS_S3_HOST = 's3.ca-central-1.amazonaws.com'
+    AWS_ACCESS_KEY_ID = "AKIA6CLFKBXF6LGUHXVZ"
+    AWS_SECRET_ACCESS_KEY = "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"
+    AWS_STORAGE_BUCKET_NAME = "printlineinc-bucket"
+    AWS_S3_REGION_NAME = 'ca-central-1'
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_DEFAULT_ACL = None
+    AWS_S3_ENCRYPTION = True
+    AWS_S3_ADDRESSING_STYLE = "virtual"
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    # activate django-heroku
+    django_heroku.settings(locals())
+
+    SECURE_SSL_REDIRECT = True
+
+    # Database settings
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd4o9tbvg2edfep',
+            'USER': 'seoogznexzdlxx',
+            'PASSWORD': '001badc5c736f9cf7f6140970d4684ac48ddc49c0d0af936b0fc670c7526de70',
+            'HOST': 'ec2-34-195-69-118.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }

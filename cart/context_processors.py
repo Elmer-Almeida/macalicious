@@ -12,4 +12,3 @@ def cart_information(request):
         except Cart.DoesNotExist:
             return {}
     return {}
-
