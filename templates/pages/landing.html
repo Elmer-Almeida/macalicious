@@ -7,59 +7,60 @@
 
 {% block content %}
 
-    {# featured macaron sets #}
-    {% if featured_macaron_sets %}
+    <div class="row justify-content-md-center">
+        <div class="col-md-12 col-sm-12 col-xs-12">
 
-        <div>
-            <h1>Featured Macarons</h1>
-            <hr>
+            {% include 'partials/messages.html' %}
 
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                {% for set in featured_macaron_sets %}
-                    {% include 'partials/set_results.html' %}
-                {% endfor %}
-            </div>
-            <a href="{% url 'shop:view' %}#macaron_sets" class="btn btn-outline-primary mt-3">View All &nbsp;<i
-                    class="bi bi-arrow-right"></i></a>
+            {# featured macaron collections #}
+            {% if featured_macaron_collections %}
+
+                <h1>Featured Collections</h1>
+                <hr>
+                <div class="alert alert-info text-left">
+                    Please contact <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
+                                      data-bs-placement="bottom" class="email-link"
+                                      title="Email Macalicious">shop.macalicious@gmail.com</a> for more information
+                    or
+                    inquiries on our collections.
+                </div>
+
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for collection in featured_macaron_collections %}
+                        {% include 'partials/collection_results.html' %}
+                    {% endfor %}
+                </div>
+                <a href="{% url 'shop:view' %}#macaron_collections" class="btn btn-outline-primary mt-3">View All
+                    &nbsp;<i
+                            class="bi bi-arrow-right"></i></a>
+
+            {% endif %}
+
+            {# featured macaron sets #}
+            {% if featured_macaron_sets %}
+
+                <h1 class="mt-4">Featured Sets</h1>
+                <hr>
+
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for set in featured_macaron_sets %}
+                        {% include 'partials/set_results.html' %}
+                    {% endfor %}
+                </div>
+                <a href="{% url 'shop:view' %}#macaron_sets" class="btn btn-outline-primary mt-3">View All &nbsp;<i
+                        class="bi bi-arrow-right"></i></a>
+
+            {% endif %}
+
+            {# START Newsletter Form #}
+            {% if newsletter_form %}
+
+                {% include 'partials/newsletter_signup.html' %}
+
+            {% endif %}
+            {# END Newsletter Form #}
 
         </div>
-
-    {% endif %}
-
-    {# featured macaron collections #}
-    {% if featured_macaron_collections %}
-
-        <div class="mt-4">
-
-            <h1>Featured Collections</h1>
-            <hr>
-            <div class="alert alert-info text-left">
-                Please contact <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
-                                  data-bs-placement="bottom" class="email-link"
-                                  title="Email Macalicious">shop.macalicious@gmail.com</a> for more information or
-                inquiries on our collections.
-            </div>
-
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                {% for collection in featured_macaron_collections %}
-                    {% include 'partials/collection_results.html' %}
-                {% endfor %}
-            </div>
-            <a href="{% url 'shop:view' %}#macaron_collections" class="btn btn-outline-primary mt-3">View All &nbsp;<i
-                    class="bi bi-arrow-right"></i></a>
-
-        </div>
-
-    {% endif %}
-
-    {# START Newsletter Form #}
-
-    {% if newsletter_form %}
-
-        {% include 'partials/newsletter_signup.html' %}
-
-    {% endif %}
-
-    {# END Newsletter Form #}
+    </div>
 
 {% endblock %}

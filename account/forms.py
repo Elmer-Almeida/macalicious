@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import PasswordChangeForm
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Submit
+from crispy_forms.layout import Layout, Row, Column, HTML
 
 
 class AccountForm(forms.ModelForm):
@@ -32,7 +32,9 @@ class AccountForm(forms.ModelForm):
             ),
             Row('username', css_class='mb-1'),
             Row('email', css_class='mb-1'),
-            Submit('submit', 'Update Account', css_class='btn-primary')
+            HTML(
+                '<button type="submit" class="btn btn-primary">Update Account &nbsp;<i class="bi bi-arrow-right"></i></button>'
+            ),
         )
 
     def clean(self):
@@ -67,5 +69,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
             Row('old_password', css_class='mb-0'),
             Row('new_password1', css_class='mb-0'),
             Row('new_password2', css_class='mb-1'),
-            Submit('submit', 'Update Password')
+            HTML(
+                '<button type="submit" class="btn btn-primary">Change Password &nbsp;<i class="bi bi-arrow-right"></i></button>'
+            ),
         )

@@ -15,7 +15,6 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "macalicious.herokuapp.com",
     "www.macalicious.ca",
-    "127.0.0.1",
     "localhost"
 ]
 

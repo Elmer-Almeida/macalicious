@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center mt-4">
+    <div class="row justify-content-md-center">
         <div class="col-md-4 col-sm-12 col-xs-12">
 
             <h1>Login</h1>
@@ -26,7 +26,7 @@
 
             <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.
             </p>
-            <p>{% trans "New to Macalicious?" %} <a
+            <p>{% trans "New to <span class='fancy'>Macalicious!</span>?" %} <a
                     href="{% url 'registration_register' %}">{% trans "Create an account" %}</a>.</p>
 
         </div>
