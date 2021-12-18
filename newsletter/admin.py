@@ -8,7 +8,7 @@ class NewsletterAdmin(admin.ModelAdmin):
         "__all__"
     ]
     list_display = [
-        'first_name', 'last_name', 'email', 'active', 'created_at', 'updated_at'
+        'admin_user_full_name', 'email', 'active', 'created_at', 'updated_at'
     ]
     list_filter = [
         'active'

@@ -19,3 +19,9 @@ class Newsletter(models.Model):
             return f"{self.first_name} {self.last_name} ({self.email})"
         else:
             return f"{self.email}"
+
+    def admin_user_full_name(self):
+        if self.first_name and self.last_name:
+            return f"{self.first_name} {self.last_name}"
+        else:
+            return f"-"
