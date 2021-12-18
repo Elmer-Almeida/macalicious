@@ -41,11 +41,11 @@ Make sure <code>DEBUG</code> is set to <code>False</code> in <code>settings.py</
 Run the following commands to get Heroku app up to speed:
 
     # check/create any migrations
-    heroku run python manage.py makemigrations
+    heroku run --app macalicious python manage.py makemigrations
 
     # migrate any migrations
-    heroku run python manage.py migrate
+    heroku run --app macalicious python manage.py migrate
 
-### Contact
+# Contact
 
-Any questions or concerns email me at <elmer.dev.95@gmail.com>
+Any questions or concerns email me at <elmer.dev.95@gmail.com>.
