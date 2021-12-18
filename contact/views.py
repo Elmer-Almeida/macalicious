@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse
 from django.template.loader import render_to_string
-from django.utils.html import mark_safe
+from django.utils.html import mark_safe, strip_tags
 from django.views.generic import View
 
 from .forms import ContactForm
@@ -47,10 +47,9 @@ class ContactPage(View):
                     'contact': contact_instance
                 }
                 html_message = render_to_string('contact/emails/contact_request.html', context)
-                plain_message = render_to_string('contact/emails/contact_request.txt', context)
                 send_mail(
                     f"Contact | Reason: {contact_instance.reason} | Macalicious",
-                    plain_message,
+                    strip_tags(html_message),
                     "Macalicious <shop.macalicious@gmail.com>",
                     [contact_instance.email, 'shop.macalicious@gmail.com'],
                     fail_silently=True,

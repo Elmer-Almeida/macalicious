@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter Confirmation | Macalicious</title>
+</head>
+<body>
+
+<h1>Welcome!</h1>
+
+<p>Email address: {{ order.email }}.</p>
+
+<p>You have signed up for our Newsletter.</p>
+
+<p><a href="{% url 'newsletter:unsubscribe' newsletter.code %}">Click here</a> to unsubscribe.</p>
+
+<h4>Macalicious</h4>
+<p><a href="mailto:shop.macalicious@gmail.com" title="Email Macalicious">shop.macalicious@gmail.com</a></p>
+<p><a href="{% url 'landing' %}" title="Macalicious">https://www.macalicious.ca/</a></p>
+
+</body>
+</html>

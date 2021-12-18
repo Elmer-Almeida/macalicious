@@ -1,23 +1,22 @@
-import urllib
 import json
+import urllib
 
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
-from django.contrib.contenttypes.models import ContentType
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.template.loader import render_to_string
+from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mail
-from django.utils.html import mark_safe
+from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.template.loader import render_to_string
+from django.utils.html import mark_safe, strip_tags
 from django.views.generic import View
-from django.contrib import messages
-from django.conf import settings
 
+from macalicious.utils import random_string_generator
 from orders.models import Order
 from shop.models import MacaronSet
-from macalicious.utils import random_string_generator
-
-from .models import Cart, CartItem
 from .forms import AddToCartForm
+from .models import Cart, CartItem
 
 
 # add macaron set or collection to the cart
@@ -177,12 +176,14 @@ class Checkout(LoginRequiredMixin, View):
                 context = {
                     'order': order,
                 }
+                html_message = render_to_string('orders/emails/order_confirmation.html', context)
                 send_mail(
                     f"Macalicious Order Confirmation | Order: {order.code}",
-                    render_to_string('orders/emails/order_confirmation.txt', context),
+                    strip_tags(html_message),
                     'Macalicious <shop.macalicious@gmail.com>',
                     [order.user.email, 'shop.macalicious@gmail.com'],
-                    fail_silently=True
+                    fail_silently=True,
+                    html_message=html_message
                 )
                 messages.add_message(request, messages.SUCCESS,
                                      mark_safe(

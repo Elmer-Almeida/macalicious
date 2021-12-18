@@ -1,15 +1,15 @@
-import urllib
 import json
+import urllib
 
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
+from django.utils.html import strip_tags
 from django.views.generic import View
-from django.contrib import messages
-from django.conf import settings
 
 from macalicious.utils import random_string_generator
-
 from .forms import NewsletterForm, NewsletterShortForm
 from .models import Newsletter
 
@@ -33,7 +33,8 @@ class NewsletterShortSignUp(View):
 
             if recaptcha_result['success']:
                 newsletter = newsletter_form.save(commit=False)
-                code = random_string_generator("newsletter_")
+                # create a large code to add to uniqueness - 18 characters + prefix: "newsletter_"
+                code = random_string_generator("newsletter_", 18)
                 newsletter.code = code
                 newsletter.save()
                 messages.add_message(request, messages.INFO, 'Let\'s get to know each other better.')
@@ -88,13 +89,14 @@ class NewsletterSignUp(View):
                 context = {
                     'newsletter': newsletter_instance,
                 }
-                print('newsletter information: ', newsletter_instance.email)
+                html_message = render_to_string('newsletter/emails/signup_confirmation.html', context)
                 send_mail(
                     'Newsletter Signup | Macalicious',
-                    render_to_string('newsletter/emails/signup_confirmation.txt', context),
+                    strip_tags(html_message),
                     'Macalicious <shop.macalicious@gmail.com>',
                     [newsletter_instance.email, 'shop.macalicious@gmail.com'],
-                    fail_silently=True
+                    fail_silently=True,
+                    html_message=html_message
                 )
                 messages.add_message(request, messages.SUCCESS, 'You have been added to our newsletter.')
                 return redirect(reverse('newsletter:signup'))
@@ -112,3 +114,13 @@ class NewsletterSignUp(View):
                 return redirect(reverse('newsletter:signup', kwargs={'code': code}))
             else:
                 return redirect(reverse('newsletter:signup'))
+
+
+# newsletter unsubscribe [url: /newsletter/unsubscribe/<code>/]
+def newsletter_unsubscribe(request, code):
+    if request.method == "GET":
+        newsletter_instance = get_object_or_404(Newsletter, code=code)
+        newsletter_instance.active = False
+        newsletter_instance.save()
+        messages.add_message(request, messages.SUCCESS, 'You have successfully unsubscribed from our newsletter.')
+        return redirect(reverse('newsletter:signup'))
