@@ -15,14 +15,14 @@ The codebase has the following apps:
 
 ## Installation
 
-Download the codebase and in the **_src_** folder run the following command:
+Download the codebase and in the <code>src</code> folder run the following command:
 
     # install all dependencies (python 3)
     pip3 install -r requirements.txt
 
 Make sure the <code>DEBUG</code> property in <code>settings.py</code> is set to the desired settings.
 
-Once all dependencies are installed, run the following commands in the **_src_** folder:
+Once all dependencies are installed, run the following commands in the <code>src</code> folder:
 
     # create migrations (if any)
     python manage.py makemigrations
