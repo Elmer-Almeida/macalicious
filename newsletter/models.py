@@ -8,7 +8,7 @@ class Newsletter(models.Model):
 
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=120)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     code = models.CharField(unique=True, max_length=35)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

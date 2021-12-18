@@ -32,13 +32,18 @@ class NewsletterShortSignUp(View):
             recaptcha_result = json.loads(recaptcha_response.read().decode())
 
             if recaptcha_result['success']:
-                newsletter = newsletter_form.save(commit=False)
-                # create a large code to add to uniqueness - 18 characters + prefix: "newsletter_"
-                code = random_string_generator("newsletter_", 18)
-                newsletter.code = code
-                newsletter.save()
-                messages.add_message(request, messages.INFO, 'Let\'s get to know each other better.')
-                return redirect(reverse('newsletter:signup', kwargs={'code': newsletter.code}))
+                newsletter_instance = Newsletter.objects.get(email=request.POST.get('email')).exists()
+                if not newsletter_instance:
+                    newsletter = newsletter_form.save(commit=False)
+                    # create a large code to add to uniqueness - 18 characters + prefix: "newsletter_"
+                    code = random_string_generator("newsletter_", 18)
+                    newsletter.code = code
+                    newsletter.save()
+                    messages.add_message(request, messages.INFO, 'Let\'s get to know each other better.')
+                    return redirect(reverse('newsletter:signup', kwargs={'code': newsletter.code}))
+                else:
+                    messages.add_message(request, messages.ERROR, "You have already signed up for our newsletter.")
+                    return redirect(reverse('newsletter:signup'))
             else:
                 # recaptcha is invalid
                 messages.add_message(request, messages.ERROR, 'Something went wrong. Please try again later.')
