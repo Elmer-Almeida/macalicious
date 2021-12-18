@@ -1,5 +1,6 @@
 import os
 
+import environ
 import django_heroku
 from pathlib import Path
 
@@ -11,6 +12,10 @@ SECRET_KEY = 'django-insecure-)4l*^n-uu2f&5y^8qdkxo5wp9t4vlwd-b*t4j-1sh8+-y1@tq5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+# Initialize env variables
+env = environ.Env()
+environ.Env.read_env()
 
 ALLOWED_HOSTS = [
     "macalicious.herokuapp.com",
@@ -145,12 +150,11 @@ LOGIN_REDIRECT_URL = '/shop/'
 # Phone numbers field
 PHONENUMBER_DEFAULT_REGION = 'CA'
 
-# Google reCAPTCHA keys
-GOOGLE_RECAPTCHA_SITE_KEY = '6LeJ8JIdAAAAAK2_J_1hWKxe19d34fUGkykJuEh8'
-GOOGLE_RECAPTCHA_SECRET_KEY = '6LeJ8JIdAAAAAAphAm0MmXKaq7LSsYe7u7odT7Iw'
-
-
 if DEBUG:
+    # Google reCAPTCHA keys - use local env variables
+    GOOGLE_RECAPTCHA_SITE_KEY = env('GOOGLE_RECAPTCHA_SITE_KEY')
+    GOOGLE_RECAPTCHA_SECRET_KEY = env('GOOGLE_RECAPTCHA_SECRET_KEY')
+
     EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
     DATABASES = {
         'default': {
@@ -159,42 +163,47 @@ if DEBUG:
         }
     }
 else:
+    # Google reCAPTCHA keys - use heroku env variable
+    GOOGLE_RECAPTCHA_SITE_KEY = os.environ['GOOGLE_RECAPTCHA_SITE_KEY']
+    GOOGLE_RECAPTCHA_SECRET_KEY = os.environ['GOOGLE_RECAPTCHA_SECRET_KEY']
+
     # Email settings
-    DEFAULT_FROM_EMAIL = "Macalicious <shop.macalicious@gmail.com>"
-    EMAIL_HOST = "smtp.gmail.com"
-    EMAIL_HOST_USER = "shop.macalicious@gmail.com"
+    EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+    DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
     EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
+    EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+    EMAIL_PORT = os.environ['EMAIL_PORT']
+    EMAIL_HOST = os.environ['EMAIL_HOST']
 
     ADMINS = [('Elmer Almeida', 'elmer.dev.95@gmail.com'), ]
 
     # AWS settings
-    AWS_S3_HOST = 's3.ca-central-1.amazonaws.com'
-    AWS_ACCESS_KEY_ID = "AKIA6CLFKBXF6LGUHXVZ"
-    AWS_SECRET_ACCESS_KEY = "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"
-    AWS_STORAGE_BUCKET_NAME = "printlineinc-bucket"
-    AWS_S3_REGION_NAME = 'ca-central-1'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_S3_HOST = os.environ['AWS_S3_HOST']
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+    AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
     AWS_S3_FILE_OVERWRITE = False
     AWS_DEFAULT_ACL = None
     AWS_S3_ENCRYPTION = True
     AWS_S3_ADDRESSING_STYLE = "virtual"
     AWS_S3_SIGNATURE_VERSION = 's3v4'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
     # activate django-heroku
     django_heroku.settings(locals())
 
+    # always use HTTPS
     SECURE_SSL_REDIRECT = True
 
     # Database settings
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd4o9tbvg2edfep',
-            'USER': 'seoogznexzdlxx',
-            'PASSWORD': '001badc5c736f9cf7f6140970d4684ac48ddc49c0d0af936b0fc670c7526de70',
-            'HOST': 'ec2-34-195-69-118.compute-1.amazonaws.com',
-            'PORT': '5432',
+            'NAME': os.environ['DATABASE_NAME'],
+            'USER': os.environ['DATABASE_USER'],
+            'PASSWORD': os.environ['DATABASE_PASSWORD'],
+            'HOST': os.environ['DATABASE_HOST'],
+            'PORT': os.environ['DATABASE_PORT']
         }
     }
