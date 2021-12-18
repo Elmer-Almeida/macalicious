@@ -1,13 +1,13 @@
-import urllib
 import json
+import urllib
 
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse
 from django.template.loader import render_to_string
-from django.core.mail import send_mail
-from django.contrib import messages
-from django.views.generic import View
 from django.utils.html import mark_safe
-from django.conf import settings
+from django.views.generic import View
 
 from .forms import ContactForm
 
@@ -48,7 +48,7 @@ class ContactPage(View):
                 }
                 send_mail(
                     f"Contact | Reason: {contact_instance.reason} | Macalicious",
-                    render_to_string('contact/emails/contact_request.txt', context),
+                    render_to_string('contact/emails/contact_request.html', context),
                     "Macalicious <shop.macalicious@gmail.com>",
                     [contact_instance.email, 'shop.macalicious@gmail.com'],
                     fail_silently=True
