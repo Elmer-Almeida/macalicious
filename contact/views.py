@@ -46,12 +46,15 @@ class ContactPage(View):
                 context = {
                     'contact': contact_instance
                 }
+                html_message = render_to_string('contact/emails/contact_request.html', context)
+                plain_message = render_to_string('contact/emails/contact_request.txt', context)
                 send_mail(
                     f"Contact | Reason: {contact_instance.reason} | Macalicious",
-                    render_to_string('contact/emails/contact_request.html', context),
+                    plain_message,
                     "Macalicious <shop.macalicious@gmail.com>",
                     [contact_instance.email, 'shop.macalicious@gmail.com'],
-                    fail_silently=True
+                    fail_silently=True,
+                    html_message=html_message
                 )
                 messages.add_message(request, messages.SUCCESS,
                                      mark_safe('Your message has been sent! <br>We will get back to you shortly.'))
