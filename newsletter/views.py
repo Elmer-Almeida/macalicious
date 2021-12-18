@@ -45,7 +45,7 @@ class NewsletterShortSignUp(View):
                 return redirect(reverse('newsletter:signup'))
         else:
             # check if newsletter already exists
-            newsletter_instance = Newsletter.objects.get(email=request.POST.get('email')).exists()
+            newsletter_instance = Newsletter.objects.filter(email=request.POST.get('email')).exists()
             if newsletter_instance:
                 messages.add_message(request, messages.ERROR, 'You have already signed up for our newsletter.')
                 return redirect(reverse('newsletter:signup'))
