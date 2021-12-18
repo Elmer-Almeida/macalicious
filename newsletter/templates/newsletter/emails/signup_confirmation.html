@@ -6,9 +6,15 @@
 </head>
 <body>
 
-<h1>Welcome!</h1>
+<h1>Welcome{% if newsletter.first_name %}, {{ newsletter.first_name }}{% endif %}!</h1>
 
-<p>Email address: {{ order.email }}.</p>
+<h3>Details:</h3>
+<ul>
+    {% if newsletter.first_name and newsletter.last_name %}
+        <li>Name: {{ newsletter.first_name }} {{ newsletter.last_name }}</li>
+    {% endif %}
+    <li>Email address: {{ newsletter.email }}</li>
+</ul>
 
 <p>You have signed up for our Newsletter.</p>
 
