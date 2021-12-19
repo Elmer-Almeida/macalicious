@@ -1,11 +1,17 @@
 <footer class="border mt-4 border-top-tiffany">
     <div class="row m-0 py-3 align-items-center">
 
-        <div class="col-md-6 col-sm-12 col-xs-12 text-md-start text-center">
+        <div class="col-md-4 col-sm-12 col-xs-12 text-md-start text-center">
             <h5 class="m-0 footer-brand">Maca<span class="purple">licious</span>! - Made fresh for you.</h5>
         </div>
 
-        <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="d-flex justify-content-center mt-3 mt-md-0 social-icons">
+                {% include 'partials/social_icons.html' %}
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
             <div class="d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
                 <ul class="list-inline m-0 footer-links">
                     {# TODO: removed home for temporary deployment #}
@@ -21,8 +27,6 @@
                             href="{% url 'cart:view' %}">Cart</a></li>
                     <li class="list-inline-item {% if 'contact' in request.path %}active{% endif %}"><a
                             href="{% url 'contact:view' %}">Contact</a></li>
-{#                    <li class="list-inline-item {% if 'newsletter' in request.path %}active{% endif %}"><a#}
-{#                            href="{% url 'newsletter:signup' %}">Newsletter</a></li>#}
                     <li class="list-inline-item {% if 'orders' in request.path %}active{% endif %}"><a
                             href="{% url 'orders:view' %}">My Orders</a></li>
                     <li class="list-inline-item"><a href="{% url 'sitemap' %}" target="_blank">Sitemap</a></li>

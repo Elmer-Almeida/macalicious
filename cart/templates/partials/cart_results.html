@@ -3,14 +3,14 @@
     <div class="col-md-4">
         <div class="card shadow-sm border-tiffany">
             {% include 'partials/images_carousel.html' with images=item.content_object.get_all_images cart=True %}
-{#            Only display the featured image of the macaron set or the macaron collection #}
-{#            {% if item.content_object.get_featured_image %}#}
-{#                <img src="{{ item.content_object.get_featured_image.picture.url }}"#}
-{#                     alt="{{ item.content_object.get_featured_image.alt_text }}" width="100%"#}
-{#                     class="rounded-top shadow-sm">#}
-{#            {% else %}#}
-{#                <p>No image.</p>#}
-{#            {% endif %}#}
+            {#            Only display the featured image of the macaron set or the macaron collection #}
+            {#            {% if item.content_object.get_featured_image %}#}
+            {#                <img src="{{ item.content_object.get_featured_image.picture.url }}"#}
+            {#                     alt="{{ item.content_object.get_featured_image.alt_text }}" width="100%"#}
+            {#                     class="rounded-top shadow-sm">#}
+            {#            {% else %}#}
+            {#                <p>No image.</p>#}
+            {#            {% endif %}#}
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h4 class="d-flex align-items-center card-title">{{ item.content_object.get_name }}</h4>
@@ -36,6 +36,14 @@
                     {% endif %}
                 </p>
                 <p class="card-text">{{ set.macaron.description|truncatewords:30 }}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between border-top-tiffany">
+                <div class="price" style="font-size:18px;">
+                    ${{ item.total }}
+                </div>
+                <span class="badge bg-primary d-flex align-items-center">
+                    Quantity: {{ item.quantity }}
+                </span>
             </div>
         </div>
     </div>

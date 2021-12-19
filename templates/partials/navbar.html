@@ -1,14 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm border-bottom-tiffany">
     <div class="container">
-        {# TODO: temporary set the homepage to the shop page #}
-        {#        <a href="{% url 'shop:view' %}" class="navbar-brand">Maca<span class="purple">licious</span>!</a>#}
+
         <a href="{% url 'landing' %}" class="navbar-brand">Maca<span class="purple">licious</span>!</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <form action="{% url 'search:results' %}" method="GET" class="d-flex ms-md-3 my-4 my-md-0">
                 <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"
                        name="search_query"
@@ -17,6 +18,7 @@
                     <i class="bi bi-search"></i>&nbsp;&nbsp;Search
                 </button>
             </form>
+
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
@@ -28,11 +30,13 @@
                 {#                    <a class="nav-link {% if request.path == '/about/' %} active {% endif %}"#}
                 {#                       href="{% url 'about' %}">About</a>#}
                 {#                </li>#}
+
                 <li class="nav-item">
                     <a class="nav-link {% if 'shop' in request.path %} active {% endif %}"
                        href="{% url 'shop:view' %}">Shop &nbsp;&nbsp;<i
                             class="bi bi-bag {% if 'shop' in request.path %}purple{% endif %}"></i></a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link {% if 'cart' in request.path %} active {% endif %}"
                        href="{% url 'cart:view' %}">Cart &nbsp;&nbsp;<i
@@ -41,12 +45,15 @@
                             <span class="badge round-pill bg-primary price"
                                   style="font-size:13px;">{{ number_of_items }}</span>{% endif %}</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link {% if 'contact' in request.path %} active {% endif %}"
                        href="{% url 'contact:view' %}">Contact &nbsp;&nbsp;<i
                             class="bi bi-envelope-open {% if 'contact' in request.path %}purple{% endif %}"></i></a>
                 </li>
+
                 <li class="nav-item dropdown">
+
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         {% if request.user.is_authenticated %}
@@ -61,6 +68,7 @@
                         &nbsp;&nbsp;<i
                             class="bi bi-person-circle {% if 'account' in request.path %}purple{% endif %}"></i>
                     </a>
+
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% if not request.user.is_authenticated %}
                             <li><a class="dropdown-item {% if 'login' in request.path %} active {% endif %}"
@@ -78,8 +86,18 @@
                             <li><a class="dropdown-item" href="{% url 'auth_logout' %}">Logout</a></li>
                         {% endif %}
                     </ul>
+
                 </li>
+
+                <li class="navbar-item d-block d-md-none d-lg-none d-xl-none">
+                    <div class="d-flex justify-content-center mt-2 social-icons">
+                        {% include 'partials/social_icons.html' %}
+                    </div>
+                </li>
+
             </ul>
+
         </div>
+
     </div>
 </nav>

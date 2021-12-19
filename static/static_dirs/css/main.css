@@ -234,6 +234,20 @@ ul.footer-links li.list-inline-item.active {
     font-size: 17px;
 }
 
+.social-icons a {
+    color: #333;
+    font-size: 18px;
+    margin-right: 16px;
+}
+
+.social-icons a:hover {
+    color: #79589f;
+}
+
+footer .social-icons a:last-child {
+    margin-right: 0;
+}
+
 
 @media only screen and (max-width: 600px) {
     /*    mobile queries */
