@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.template import RequestContext
 from django.views.generic import View
 from registration.backends.default.views import RegistrationView
 from registration.signals import user_registered
@@ -58,33 +57,25 @@ class TOSPage(View):
 
 # 400 error - Bad Request
 def bad_request(request, exception):
-    context = {
-        'context_instance': RequestContext(request)
-    }
+    context = {}
     render(request, '400.html', context, status=400)
 
 
 # 403 error - Permission Denied
 def permission_denied(request, exception):
-    context = {
-        'context_instance': RequestContext(request)
-    }
+    context = {}
     render(request, '403.html', context, status=403)
 
 
 # 404 error - Page not found
 def page_not_found(request, exception):
-    context = {
-        'context_instance': RequestContext(request)
-    }
+    context = {}
     render(request, '404.html', context, status=404)
 
 
 # 500 error - Server Error
 def server_error(request):
-    context = {
-        'context_instance': RequestContext(request)
-    }
+    context = {}
     render(request, '500.html', context, status=500)
 
 
