@@ -57,7 +57,7 @@ class TOSPage(View):
 #######################################################################################
 
 # 400 error - Bad Request
-def bad_request(request, exception=None):
+def bad_request(request, exception):
     context = {
         'context_instance': RequestContext(request)
     }
@@ -65,7 +65,7 @@ def bad_request(request, exception=None):
 
 
 # 403 error - Permission Denied
-def permission_denied(request, exception=None):
+def permission_denied(request, exception):
     context = {
         'context_instance': RequestContext(request)
     }
@@ -73,7 +73,7 @@ def permission_denied(request, exception=None):
 
 
 # 404 error - Page not found
-def page_not_found(request, exception=None):
+def page_not_found(request, exception):
     context = {
         'context_instance': RequestContext(request)
     }
@@ -81,7 +81,7 @@ def page_not_found(request, exception=None):
 
 
 # 500 error - Server Error
-def server_error(request, exception=None):
+def server_error(request):
     context = {
         'context_instance': RequestContext(request)
     }
