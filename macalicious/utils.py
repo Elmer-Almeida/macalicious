@@ -1,7 +1,9 @@
-import time
+import json
 import random
 import string
+import urllib
 
+from django.conf import settings
 from django.utils.text import slugify
 
 
@@ -26,3 +28,18 @@ def unique_slug_generator(instance, prefix, name, new_slug=None):
         )
         return unique_slug_generator(instance, prefix, name, new_slug=new_slug)
     return slug
+
+
+# handle recpatcha response
+def handle_recaptcha_response(request):
+    recaptcha_response = request.POST.get('g-recaptcha-response')
+    recaptcha_response_url = 'https://www.google.com/recaptcha/api/siteverify'
+    recaptcha_response_values = {
+        'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        'response': recaptcha_response
+    }
+    recaptcha_data = urllib.parse.urlencode(recaptcha_response_values).encode()
+    recaptcha_request = urllib.request.Request(recaptcha_response_url, data=recaptcha_data)
+    recaptcha_response = urllib.request.urlopen(recaptcha_request)
+    recaptcha_result = json.loads(recaptcha_response.read().decode())
+    return recaptcha_result

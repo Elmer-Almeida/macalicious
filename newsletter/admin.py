@@ -8,13 +8,16 @@ class NewsletterAdmin(admin.ModelAdmin):
         "__all__"
     ]
     list_display = [
-        'admin_user_full_name', 'email', 'active', 'created_at', 'updated_at'
+        'email', 'admin_user_full_name', 'code', 'active', 'created_at', 'updated_at'
     ]
     list_filter = [
         'active'
     ]
     list_editable = [
         'active'
+    ]
+    search_fields = [
+        'first_name', 'last_name', 'email'
     ]
     readonly_fields = [
         'code', 'created_at', 'updated_at'

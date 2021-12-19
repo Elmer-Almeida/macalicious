@@ -1,8 +1,7 @@
-from django import forms
-from django.conf import settings
-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, HTML, Submit, Button
+from django import forms
+from django.conf import settings
 
 from .models import Newsletter
 
@@ -60,5 +59,5 @@ class NewsletterShortForm(forms.ModelForm):
         )
 
     def clean_email(self):
-        first_name = self.cleaned_data['email']
-        return first_name.lower()
+        email = self.cleaned_data['email']
+        return email.lower()

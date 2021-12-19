@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact | Macalicious</title>
+</head>
+<body>
+
+<h1>Hello, {{ contact.first_name }} {{ contact.last_name }}!</h1>
+<hr>
+
+<p>
+    {{ contact.message }}
+</p>
+
+<h4>Macalicious</h4>
+<p><a href="mailto:shop.macalicious@gmail.com" title="Email Macalicious">shop.macalicious@gmail.com</a></p>
+<p><a href="{% url 'landing' %}" title="Macalicious">https://www.macalicious.ca/</a></p>
+
+</body>
+</html>

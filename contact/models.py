@@ -1,6 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
-
+from django.db import models
 
 CONTACT_CHOICES = (
     ('General', 'General'),
@@ -29,3 +28,5 @@ class Contact(models.Model):
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    get_full_name.short_description = "Full Name"

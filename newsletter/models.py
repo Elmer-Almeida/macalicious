@@ -6,8 +6,8 @@ class Newsletter(models.Model):
         verbose_name = "Newsletter Signup"
         verbose_name_plural = "Newsletter Signups"
 
-    first_name = models.CharField(max_length=120)
-    last_name = models.CharField(max_length=120)
+    first_name = models.CharField(max_length=120, blank=True)
+    last_name = models.CharField(max_length=120, blank=True)
     email = models.EmailField(unique=True)
     code = models.CharField(unique=True, max_length=35)
     active = models.BooleanField(default=True)
@@ -25,3 +25,5 @@ class Newsletter(models.Model):
             return f"{self.first_name} {self.last_name}"
         else:
             return f"-"
+
+    admin_user_full_name.short_description = "Full Name"

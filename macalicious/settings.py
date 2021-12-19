@@ -155,7 +155,18 @@ if DEBUG:
     GOOGLE_RECAPTCHA_SITE_KEY = env('GOOGLE_RECAPTCHA_SITE_KEY')
     GOOGLE_RECAPTCHA_SECRET_KEY = env('GOOGLE_RECAPTCHA_SECRET_KEY')
 
-    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+    DEBUG_EMAIL = True
+
+    if DEBUG_EMAIL:
+        EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+        DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+        EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+        EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+        EMAIL_PORT = env('EMAIL_PORT')
+        EMAIL_HOST = env('EMAIL_HOST')
+    else:
+        EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

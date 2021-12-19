@@ -1,6 +1,3 @@
-import json
-import urllib
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -12,7 +9,7 @@ from django.template.loader import render_to_string
 from django.utils.html import mark_safe, strip_tags
 from django.views.generic import View
 
-from macalicious.utils import random_string_generator
+from macalicious.utils import random_string_generator, handle_recaptcha_response
 from orders.models import Order
 from shop.models import MacaronSet
 from .forms import AddToCartForm
@@ -108,7 +105,8 @@ def remove_from_cart(request, slug):
         cart_item.save()
         messages.add_message(request, messages.SUCCESS,
                              mark_safe(
-                                 f"<i class='bi bi-cart-x'></i> &nbsp;{cart_item.content_object.get_name()} has been removed from your cart."))
+                                 f"<i class='bi bi-cart-x'></i> "
+                                 f"&nbsp;{cart_item.content_object.get_name()} has been removed from your cart."))
         return redirect(reverse('cart:view'))
     else:
         return redirect(reverse('cart:view'))
@@ -155,16 +153,7 @@ class Checkout(LoginRequiredMixin, View):
             order = get_object_or_404(Order, id=request.session.get('order_id'))
 
             # get recaptcha response from form
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            recaptcha_response_url = 'https://www.google.com/recaptcha/api/siteverify'
-            recaptcha_response_values = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            recaptcha_data = urllib.parse.urlencode(recaptcha_response_values).encode()
-            recaptcha_request = urllib.request.Request(recaptcha_response_url, data=recaptcha_data)
-            recaptcha_response = urllib.request.urlopen(recaptcha_request)
-            recaptcha_result = json.loads(recaptcha_response.read().decode())
+            recaptcha_result = handle_recaptcha_response(request)
 
             if recaptcha_result['success']:
                 # edit the order to make it active
@@ -173,32 +162,38 @@ class Checkout(LoginRequiredMixin, View):
                 order.save()
 
                 # send email
-                context = {
-                    'order': order,
-                }
-                html_message = render_to_string('orders/emails/order_confirmation.html', context)
-                send_mail(
-                    f"Macalicious Order Confirmation | Order: {order.code}",
-                    strip_tags(html_message),
-                    'Macalicious <shop.macalicious@gmail.com>',
-                    [order.user.email, 'shop.macalicious@gmail.com'],
-                    fail_silently=True,
-                    html_message=html_message
-                )
+                send_order_confirmation_email(order)
                 messages.add_message(request, messages.SUCCESS,
                                      mark_safe(
-                                         f"Your order has been placed.<br>Thank you for choosing <span class='fancy'>Macalicious!</span>, {order.user.first_name}!"))
+                                         f"Your order has been placed.<br>Thank you for choosing "
+                                         f"<span class='fancy'>Macalicious!</span>, {order.user.first_name}!"))
                 if request.session.get('cart'):
                     del request.session['cart']  # delete cart id stored in request.session
                 if request.session.get('order_id'):
                     del request.session['order_id']
                 return redirect(reverse('cart:checkout_complete', kwargs={'order_code': order.code}))
             else:
-                messages.add_message(request, messages.ERROR, "Something went wrong. Please try again.")
+                # captcha is invalid
+                messages.add_message(request, messages.ERROR, "Please provide a valid captcha response.")
                 return redirect(reverse('cart:checkout_confirm'))
         else:
             messages.add_message(request, messages.ERROR, "POST: Something went wrong. Please place your order again.")
             return redirect(reverse('cart:view'))
+
+
+def send_order_confirmation_email(order):
+    context = {
+        'order': order,
+    }
+    html_message = render_to_string('orders/emails/order_confirmation.html', context)
+    send_mail(
+        f"Macalicious Order Confirmation | Order: {order.code}",
+        strip_tags(html_message),
+        'Macalicious <shop.macalicious@gmail.com>',
+        [order.user.email, 'shop.macalicious@gmail.com'],
+        fail_silently=True,
+        html_message=html_message
+    )
 
 
 # checkout complete endpoint
