@@ -14,8 +14,8 @@
         <div class="col-md-4 col-sm-12 col-xs-12">
             <div class="d-flex justify-content-md-end justify-content-center mt-3 mt-md-0">
                 <ul class="list-inline m-0 footer-links">
-                    {# TODO: removed home for temporary deployment #}
-                    {# <li><a href="{% url 'landing' %}">Home</a></li>#}
+                    <li class="list-inline-item {% if request.path == '/' %}active{% endif %}"><a
+                            href="{% url 'landing' %}">Home</a></li>
 
                     <li class="list-inline-item {% if 'shop' in request.path %}active{% endif %}"><a
                             href="{% url 'shop:view' %}">Shop</a></li>
