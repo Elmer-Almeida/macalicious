@@ -16,11 +16,6 @@ sitemaps = {
     'macaron_collections': MacaronCollectionSitemap,
 }
 
-handler400 = 'macalicious.views.bad_request'
-handler403 = 'macalicious.views.permission_denied'
-handler404 = 'macalicious.views.page_not_found'
-handler500 = 'macalicious.views.server_error'
-
 urlpatterns = [
                   path('admin/', admin.site.urls),  # admin panel endpoint
 

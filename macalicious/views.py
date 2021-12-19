@@ -51,38 +51,6 @@ class TOSPage(View):
         return render(request, self.template_name, context)
 
 
-#######################################################################################
-############################# Error Page Views ########################################
-#######################################################################################
-
-# 400 error - Bad Request
-def bad_request(request, exception):
-    context = {}
-    render(request, '400.html', context, status=400)
-
-
-# 403 error - Permission Denied
-def permission_denied(request, exception):
-    context = {}
-    render(request, '403.html', context, status=403)
-
-
-# 404 error - Page not found
-def page_not_found(request, exception):
-    context = {}
-    render(request, '404.html', context, status=404)
-
-
-# 500 error - Server Error
-def server_error(request):
-    context = {}
-    render(request, '500.html', context, status=500)
-
-
-######################################################################################
-######################################################################################
-######################################################################################
-
 ######################################################################################
 ###################### Django Registration Redux Component ###########################
 ######################################################################################
