@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)4l*^n-uu2f&5y^8qdkxo5wp9t4vlwd-b*t4j-1sh8+-y1@tq5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Initialize env variables
 env = environ.Env()
@@ -219,4 +219,8 @@ else:
         }
     }
 
+
+
+
 # I am making a change in the master branch after commiting a commit to coupons in the settings.py file
+
