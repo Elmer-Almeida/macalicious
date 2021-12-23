@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load order_tags %}
 {% load i18n %}
 
 {% block head_title %}
@@ -41,11 +42,11 @@
                         <div class="card-footer text-muted">
                             <div class="d-flex justify-content-between">
                                 <p class="mb-0">
-                                    <b>Created:</b> {{ order.created_at|timesince }} ago <br>
+                                    {{ order.created_at|timesince_custom }}
                                 </p>
                                 <p class="mb-0">
                                     <a href="mailto:shop.macalicious@gmail.com?subject=Order: {{ order.code }} - Concern from {{ request.user.get_full_name }}"
-                                       class="email-link">Contact us</a>
+                                       class="email-link">Contact us</a>.
                                 </p>
                             </div>
                         </div>

@@ -6,6 +6,17 @@
 
 {% block content %}
 
-    <p>Page not found</p>
+    <div class="row justify-content-md-center">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <h1 class="text-center">Page not found</h1>
+            <hr class="regular">
+            <div class="alert alert-info text-center">
+                We believe you are lost. Gazing into all our macalicious macarons really got to you, huh? <br>
+                Not to worry, we got your back. <a href="{% url 'shop:view' %}">Visit our shop</a>.
+            </div>
+
+        </div>
+    </div>
 
 {% endblock %}

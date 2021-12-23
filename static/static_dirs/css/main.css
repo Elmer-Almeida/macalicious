@@ -79,6 +79,10 @@ hr.regular {
     border-top: 1px solid #0ABAB5 !important;
 }
 
+.border-danger {
+    border: 1px solid #dd1a22 !important;
+}
+
 .navbar {
     background-color: #f6fdff !important;
 }

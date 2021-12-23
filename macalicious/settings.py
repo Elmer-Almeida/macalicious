@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)4l*^n-uu2f&5y^8qdkxo5wp9t4vlwd-b*t4j-1sh8+-y1@tq5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Initialize env variables
 env = environ.Env()
@@ -174,7 +174,7 @@ if DEBUG:
         }
     }
 else:
-    # Google reCAPTCHA keys - use heroku env variable
+    Google reCAPTCHA keys - use heroku env variable
     GOOGLE_RECAPTCHA_SITE_KEY = os.environ['GOOGLE_RECAPTCHA_SITE_KEY']
     GOOGLE_RECAPTCHA_SECRET_KEY = os.environ['GOOGLE_RECAPTCHA_SECRET_KEY']
 
@@ -218,4 +218,3 @@ else:
             'PORT': os.environ['DATABASE_PORT']
         }
     }
-
