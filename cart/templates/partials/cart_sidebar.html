@@ -7,8 +7,12 @@
     {% if item_name and item_price %}
 
         <div class="d-flex justify-content-between align-items-center">
+        <div class="col-8">
             <h5>{{ item_name }}</h5>
+            </div>
+            <div class="col-3">
             <span class="price" style="font-size:21px;">{{ item_price }}</span>
+            </div>
         </div>
 
     {% endif %}

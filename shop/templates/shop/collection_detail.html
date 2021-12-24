@@ -39,8 +39,10 @@
 
                         <div class="container">
 
-                            <h1>{{ macaron_collection.name }}</h1>
+                            <h1 class="mb-1">{{ macaron_collection.name }}</h1>
 
+                            <span class="price" style="font-size:20px;">{{ macaron_collection.get_macaron_count }} macarons</span>
+                            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
                             {{ macaron_collection.display_total }}
 
                             <p class="mt-1">{{ macaron_collection.description|linebreaksbr }}</p>
