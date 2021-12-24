@@ -1,36 +1,36 @@
-<div class="px-3 py-4 rounded shadow-sm border sticky-top add-to-cart-sidebar border-tiffany"
-     style="background-color: #f8f9fa; top:30px">
+<div class="px-3 py-4 rounded shadow-sm border sticky-top add-to-cart-sidebar border-tiffany top-80"
+     style="background-color: #f8f9fa;">
 
     <h3>Add to Cart</h3>
-    <hr>
+    <hr class="mt-2 mb-3">
 
     {% if item_name and item_price %}
 
         <div class="d-flex justify-content-between align-items-center">
-        <div class="col-8">
-            <h5>{{ item_name }}</h5>
+            <div class="col-8">
+                <h5 class="mb-0">{{ item_name }}</h5>
             </div>
-            <div class="col-3">
-            <span class="price" style="font-size:21px;">{{ item_price }}</span>
+            <div class="col-3 text-end">
+                <span class="price" style="font-size:21px;">{{ item_price }}</span>
             </div>
         </div>
 
     {% endif %}
 
     <div class="mt-1">
-    {% if page %}
-        {% if page == 'set_detail' %}
-            {% include 'partials/add_to_cart.html' with item_slug=macaron_set.slug item_type="set" %}
-        {% elif page == 'collection_detail' %}
-            {% include 'partials/add_to_cart.html' with item_slug=macaron_collection.slug item_type="collection" %}
+        {% if page %}
+            {% if page == 'set_detail' %}
+                {% include 'partials/add_to_cart.html' with item_slug=macaron_set.slug item_type="set" %}
+            {% elif page == 'collection_detail' %}
+                {% include 'partials/add_to_cart.html' with item_slug=macaron_collection.slug item_type="collection" %}
+            {% endif %}
         {% endif %}
-    {% endif %}
     </div>
 
     <br>
 
     <div class="d-flex justify-content-between">
-        <h4>My Cart</h4>
+        <h4 class="mb-0">My Cart</h4>
         {% if number_of_items %}
             <div class="d-flex align-items-center text-muted">
                 <small class="price" style="font-size:18px;">
@@ -51,30 +51,32 @@
                         <img src="{{ item.content_object.get_featured_image.picture.url }}"
                              alt="{{ item.content_object.get_featured_image.alt_text }}"
                              title="{{ item.content_object.get_featured_image.alt_text }}"
-                             class="rounded shadow"
-                             width="60%">
+                             class="rounded shadow border-tiffany">
                     </div>
-                {% else %}
-                    <p>No image</p>
                 {% endif %}
-                {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                <div class="p-0">
+                    {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                </div>
             </div>
-            <div class="align-self-start mt-3">
+            <div class="align-self-start mt-2">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 style="margin-bottom:0;">{{ item.content_object.get_name }} <small
-                            class="text-muted">x {{ item.quantity }}</small></h5>
-                    <span class="price" style="font-size:22px;">{{ item.display_total }}</span>
+                    <div class="col-8">
+                        <h5 class="mb-0">{{ item.content_object.get_name }} <small
+                                class="text-muted">x {{ item.quantity }}</small></h5>
+                    </div>
+                    <div class="col-3 text-end">
+                        <span class="price" style="font-size:22px;">{{ item.display_total }}</span>
+                    </div>
                 </div>
             </div>
             {% if not forloop.last %}
-                <hr>
+                <hr class="regular mt-2">
             {% endif %}
         {% endfor %}
-        <hr>
+        <hr class="regular mt-2">
         <div class="d-flex flex-column align-items-end">
-            <p class="text-muted">Sales tax may be applied at checkout.</p>
             <div class="mt-0 d-flex align-items-center">
-                <h4 style="margin-bottom:0;">Total: </h4> &nbsp;&nbsp;&nbsp;
+                <h4 class="mb-0">Total: </h4> &nbsp;&nbsp;&nbsp;
                 <span class="price" style="font-size:24px;">{{ cart.display_total }}</span>
             </div>
         </div>

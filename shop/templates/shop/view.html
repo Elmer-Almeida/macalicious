@@ -28,12 +28,7 @@
                 <h1 id="macaron_collections">Collections</h1>
                 <hr>
 
-                <div class="alert alert-info text-left">
-                    Please contact <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
-                                      data-bs-placement="bottom" class="email-link"
-                                      title="Email Macalicious">shop.macalicious@gmail.com</a> for more information or
-                    inquiries on our collections.
-                </div>
+                {% include 'partials/collection_disclaimer.html' %}
 
                 <div class="row row-cols-1 g-4">
                     {% for collection in macaron_collections %}

@@ -18,12 +18,7 @@
                 <h1>Featured Collections</h1>
                 <hr>
 
-                <div class="alert alert-info text-left">
-                    Please contact <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
-                                      data-bs-placement="bottom" class="email-link"
-                                      title="Email Macalicious">shop.macalicious@gmail.com</a> for more information
-                    or inquiries on our collections.
-                </div>
+                {% include 'partials/collection_disclaimer.html' %}
 
                 <div class="row row-cols-1 row-cols-md-2 g-4">
                     {% for collection in featured_macaron_collections %}

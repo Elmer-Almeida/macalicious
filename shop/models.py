@@ -301,13 +301,6 @@ class Collection(models.Model):
             return True
         return False
 
-    def get_quantity_each_collection(self):
-        total_macarons = 0
-        # TODO: error below
-        for macaron in self.macarons.all():
-            total_macarons += macaron.quantity
-        return total_macarons
-
     def admin_sale_price(self):
         if self.sale_price > 0:
             return mark_safe(f"<span style='color:#fb523b;'>${self.sale_price}</span>")

@@ -20,30 +20,44 @@
 
                     <div class="col-md-5 col-sm-12 col-xs-12 mt-3 mt-md-0">
 
-                        <div class="container">
+                        <h1 class="mb-1">{{ macaron_set.macaron.name }}</h1>
 
-                            <h1 class="mb-1">{{ macaron_set.macaron.name }}</h1>
+                        <p class="text-muted mb-1">
+                            {% if macaron_set.macaron.tags.all %}
+                                {% for tag in macaron_set.macaron.tags.all %}
+                                    {{ tag.name }}
+                                    {% if not forloop.last %}
+                                        &middot;
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </p>
 
-                            <p class="text-muted mb-1">
-                                {% if macaron_set.macaron.tags.all %}
-                                    {% for tag in macaron_set.macaron.tags.all %}
-                                        {{ tag.name }}
-                                        {% if not forloop.last %}
-                                            &middot;
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            </p>
-
-                            <div class="d-flex align-items-center">
-                                <span class="price" style="font-size:20px;">{{ macaron_set.quantity }} macarons</span>
-                                &nbsp;&nbsp;&middot;&nbsp;&nbsp;
-                                {{ macaron_set.display_total }}
-                            </div>
-
-                            <p class="mt-2">{{ macaron_set.macaron.description|linebreaksbr }}</p>
-
+                        <div class="d-flex align-items-center">
+                            <span class="price" style="font-size:20px;">{{ macaron_set.quantity }} macarons</span>
+                            &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+                            {{ macaron_set.display_total }}
                         </div>
+
+                        <p class="mt-2">{{ macaron_set.macaron.description|linebreaksbr }}</p>
+
+                        {% if macaron_set.macaron.images.gallery %}
+                            <hr class="regular">
+
+                            <div class="detail-images-gallery">
+
+                                <h3 class="mb-0">A closer look</h3>
+
+                                {% for image in macaron_set.macaron.images.gallery %}
+                                    {# only display 3 of the gallery images #}
+                                    {% if forloop.counter0 < 3 %}
+                                        <img src="{{ image.picture.url }}" alt="{{ image.alt_text }}" width="100%"
+                                             class="rounded shadow-sm">
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        {% endif %}
 
                     </div>
 

@@ -10,11 +10,11 @@
 {#             class="rounded-top shadow-sm">#}
 
         <div class="card-body" style="transform: rotate(0);">
-            <h4 class="card-title">{{ set.macaron.name }}</h4>
-            <p class="card-text mb-1">{{ set.display_total }}
+            <h4 class="card-title mb-1">{{ set.macaron.name }}</h4>
+            <p class="card-text mb-1 px-1">{{ set.display_total }}
                 &nbsp;&middot;&nbsp;
                 <span class="price" style="font-size:18px;">{{ set.quantity }} per box</span></p>
-            <p class="card-text">{{ set.macaron.description|truncatewords:30 }}</p>
+            <p class="card-text text-black px-1 mb-2">{{ set.macaron.description|truncatewords:30 }}</p>
             <a href="{% url 'shop:set_detail' set.slug %}" class="btn btn-outline-primary stretched-link">Details &nbsp;<i
                     class="bi bi-chevron-right"></i></a>
         </div>

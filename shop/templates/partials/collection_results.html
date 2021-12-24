@@ -6,14 +6,14 @@
 
         <div style="transform: rotate(0)">
             <div class="card-body">
-                <h4 class="card-title">{{ collection.name }}</h4>
-                <p class="card-text mb-2">{{ collection.display_total }}
+                <h4 class="card-title mb-1">{{ collection.name }}</h4>
+                <p class="card-text mb-1 px-1">{{ collection.display_total }}
                     &nbsp;&middot;&nbsp;
                     <span class="price"
-                          style="font-size:18px;">{{ collection.get_quantity_each_collection }} macarons</span>
+                          style="font-size:18px;">{{ collection.get_macaron_count }} macarons</span>
                 </p>
                 {% include 'partials/collection_macarons.html' with collection_macarons=collection.macarons.all %}
-                <p class="card-text mt-3">{{ collection.get_short_description }}</p>
+                <p class="card-text text-black my-2 px-1">{{ collection.get_short_description }}</p>
                 <a href="{% url 'shop:collection_detail' collection.slug %}"
                    class="btn btn-outline-primary stretched-link mt-0">Details &nbsp;<i
                         class="bi bi-chevron-right"></i></a>
