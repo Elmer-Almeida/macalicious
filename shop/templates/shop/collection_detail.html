@@ -11,52 +11,52 @@
         <div class="row justify-content-md-center">
             <div class="col-md-12 col-sm-12 col-xs-12">
 
-                <div class="alert alert-info mt-2 text-center">
-                    Please contact <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
-                                      data-bs-placement="bottom" class="email-link"
-                                      title="Email Macalicious">shop.macalicious@gmail.com</a> for more information or
-                    inquiries on our collections.
-                </div>
+                {% include 'partials/collection_disclaimer.html' with detail_page=True %}
 
                 <div class="row justify-content-md-between">
                     <div class="col-md-4 col-sm-12 col-xs-12">
-
-                        {#                        {% if macaron_collection.images.featured %}#}
-                        {##}
-                        {#                            <img src="{{ macaron_collection.images.featured.picture.url }}"#}
-                        {#                                 alt="{{ macaron_collection.images.featured.alt_text }}"#}
-                        {#                                 class="rounded shadow"#}
-                        {#                                 width="100%">#}
-                        {##}
-                        {#                        {% endif %}#}
-                        {##}
-                        {#                        <hr class="regular">#}
-
                         {% include 'partials/images_carousel.html' with images=macaron_collection.images.all detail_page=True %}
                     </div>
 
                     <div class="col-md-5 col-sm-12 col-xs-12 mt-3 mt-md-0">
 
-                        <div class="container">
+                        <h1 class="mb-1">{{ macaron_collection.name }}</h1>
 
-                            <h1>{{ macaron_collection.name }}</h1>
+                        <span class="price"
+                              style="font-size:20px;">{{ macaron_collection.get_macaron_count }} macarons</span>
+                        &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+                        {{ macaron_collection.display_total }}
 
-                            {{ macaron_collection.display_total }}
+                        <p class="mt-1">{{ macaron_collection.description|linebreaksbr }}</p>
 
-                            <p class="mt-1">{{ macaron_collection.description|linebreaksbr }}</p>
+                        {% if macaron_collection.macarons.all %}
 
-                            {% if macaron_collection.macarons.all %}
+                            <h4 class="mb-2">What's included?</h4>
+                            {% include 'partials/collection_macarons.html' with collection_macarons=macaron_collection.macarons.all %}
 
-                                <h4 class="mb-3">What's included?</h4>
-                                {% include 'partials/collection_macarons.html' with collection_macarons=macaron_collection.macarons.all %}
+                        {% else %}
 
-                            {% else %}
+                            <p>There are no macarons in this collection, yet.</p>
 
-                                <p>There are no macarons in this collection, yet.</p>
+                        {% endif %}
 
-                            {% endif %}
+                        {% if macaron_collection.images.gallery %}
+                            <hr class="regular">
 
-                        </div>
+                            <div class="detail-images-gallery">
+
+                                <h3 class="mb-0">A closer look</h3>
+
+                                {% for image in macaron_collection.images.gallery %}
+                                    {# only display 3 of the gallery images #}
+                                    {% if forloop.counter0 < 3 %}
+                                        <img src="{{ image.picture.url }}" alt="{{ image.alt_text }}" width="100%"
+                                             class="rounded shadow-sm">
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        {% endif %}
 
                     </div>
 

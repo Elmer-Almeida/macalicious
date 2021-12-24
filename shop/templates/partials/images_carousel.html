@@ -1,14 +1,14 @@
-<div id="carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
-     class="carousel slide" data-bs-touch="true" data-bs-interval="false">
+<div id="carousel{% if set %}-{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
+     class="carousel slide {% if detail_page %}sticky-top top-80{% endif %}" data-bs-touch="true" data-bs-interval="true">
     <div class="carousel-inner rounded shadow-sm" role="listbox">
 
         {% for image in images %}
 
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="5000">
 
                 <img src="{{ image.picture.url }}" alt="{{ image.alt_text }}"
                      title="{{ image.alt_text }}"
-                     class="d-block w-100 {% if not detail_page %}border-bottom-tiffany{% else %}border-tiffany{% endif %}">
+                     class="d-block w-100">
 
             </div>
 
@@ -17,13 +17,13 @@
     </div>
     {{ image }}
     <button class="carousel-control-prev" type="button"
-            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
+            data-bs-target="#carousel{% if set %}-{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
             data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button"
-            data-bs-target="#carousel-{% if set %}{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
+            data-bs-target="#carousel{% if set %}-{{ set.slug }}{% elif collection %}{{ collection.slug }}{% elif cart %}{{ item.content_object.slug }}{% endif %}"
             data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
