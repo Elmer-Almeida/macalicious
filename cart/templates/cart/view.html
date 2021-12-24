@@ -30,8 +30,7 @@
                 {% if cart.cart_items.active.count == 0 %}
 
                     <div class="alert alert-info">
-                        There are no items in your cart. &nbsp;<a href="{% url 'shop:view' %}" class="email-link">Visit
-                        our shop</a>.
+                        There are no items in your cart. &nbsp;<a href="{% url 'shop:view' %}" class="email-link">Take a look around</a>.
                     </div>
 
                 {% else %}
@@ -96,7 +95,9 @@
 
     {% if newsletter_form %}
 
-        {% include 'partials/newsletter_signup.html' %}
+        <div class="container">
+            {% include 'partials/newsletter_signup.html' %}
+        </div>
 
     {% endif %}
 

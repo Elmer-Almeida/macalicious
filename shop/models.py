@@ -1,10 +1,10 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.html import mark_safe
+from django.conf import settings
 
-from .managers import TagManager, MacaronManager, MacaronImageManager, MacaronSetManager,\
-    MacaronCollectionItemManager, MacaronCollectionManager, MacaronCollectionImageManager
-
+from .managers import TagManager, MacaronManager, ImageManager, SetManager, \
+    CollectionItemManager, CollectionManager, CollectionImageManager
 
 TAG_CHOICES = (
     ('Vegan', 'Vegan'),
@@ -73,7 +73,7 @@ class Macaron(models.Model):
         return self.description.split('.')[0]
 
 
-class MacaronImage(models.Model):
+class Image(models.Model):
     class Meta:
         verbose_name = 'Macaron Image'
         verbose_name_plural = 'Macaron Images'
@@ -87,13 +87,13 @@ class MacaronImage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = MacaronImageManager()
+    objects = ImageManager()
 
     def __str__(self):
         return f"{self.macaron.name}'s Image"
 
 
-class MacaronSet(models.Model):
+class Set(models.Model):
     class Meta:
         verbose_name = 'Macaron Set'
         verbose_name_plural = 'Macaron Sets'
@@ -107,11 +107,11 @@ class MacaronSet(models.Model):
     active = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     slug = models.SlugField(blank=True)
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=0, verbose_name="Display Order")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = MacaronSetManager()
+    objects = SetManager()
 
     def __str__(self) -> str:
         return f"{self.macaron.name} | {self.quantity} for ${self.get_total()}"
@@ -189,7 +189,7 @@ class MacaronSet(models.Model):
     )
 
 
-class MacaronCollectionItem(models.Model):
+class CollectionItem(models.Model):
     class Meta:
         verbose_name = 'Macaron Collection Item'
         verbose_name_plural = 'Macaron Collection Items'
@@ -200,7 +200,7 @@ class MacaronCollectionItem(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = MacaronCollectionItemManager()
+    objects = CollectionItemManager()
 
     def __str__(self) -> str:
         return f"{self.macaron.name}"
@@ -214,13 +214,13 @@ class MacaronCollectionItem(models.Model):
     admin_collection_list.short_description = "In Collections"
 
 
-class MacaronCollection(models.Model):
+class Collection(models.Model):
     class Meta:
         verbose_name = 'Macaron Collection'
         verbose_name_plural = 'Macaron Collections'
 
     name = models.CharField(max_length=120)
-    macarons = models.ManyToManyField(MacaronCollectionItem, limit_choices_to={"active": True})
+    macarons = models.ManyToManyField(CollectionItem, limit_choices_to={"active": True})
     description = models.TextField(max_length=5000)
     price = models.DecimalField(max_digits=5, decimal_places=2, help_text="Price for entire collection.", default=0.0)
     sale_price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00,
@@ -228,11 +228,11 @@ class MacaronCollection(models.Model):
     active = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     slug = models.SlugField(blank=True)
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=0, verbose_name="Display Order")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = MacaronCollectionManager()
+    objects = CollectionManager()
 
     def __str__(self) -> str:
         return f"{self.name}"
@@ -297,6 +297,7 @@ class MacaronCollection(models.Model):
 
     def get_quantity_each_collection(self):
         total_macarons = 0
+        # TODO: error below
         for macaron in self.macarons.all():
             total_macarons += macaron.quantity
         return total_macarons
@@ -316,12 +317,12 @@ class MacaronCollection(models.Model):
     admin_get_total.short_description = mark_safe("<u>Collection Total</u>")
 
 
-class MacaronCollectionImage(models.Model):
+class CollectionImage(models.Model):
     class Meta:
         verbose_name = 'Macaron Collection Image'
         verbose_name_plural = 'Macaron Collection Images'
 
-    collection = models.ForeignKey(MacaronCollection, on_delete=models.CASCADE, related_name='images')
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, related_name='images')
     picture = models.ImageField(upload_to='macarons/images/collection/')
     alt_text = models.CharField(max_length=120)
     caption = models.TextField(max_length=5000)
@@ -330,7 +331,7 @@ class MacaronCollectionImage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = MacaronCollectionImageManager()
+    objects = CollectionImageManager()
 
     def __str__(self):
         return f"{self.collection.name}'s Image"

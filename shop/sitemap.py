@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 
-from shop.models import MacaronSet, MacaronCollection
+from shop.models import Set, Collection
 
 
 class MacaronSetSitemap(Sitemap):
@@ -8,7 +8,7 @@ class MacaronSetSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return MacaronSet.objects.all()
+        return Set.objects.all()
 
     def lastmod(self, obj):
         return obj.updated_at
@@ -22,7 +22,7 @@ class MacaronCollectionSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-        return MacaronCollection.objects.all()
+        return Collection.objects.all()
 
     def lastmod(self, obj):
         return obj.updated_at

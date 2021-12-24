@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 
 
 class TagManager(models.Manager):
@@ -17,7 +18,7 @@ class MacaronManager(models.Manager):
         return self.get_queryset().filter(active=True)
 
 
-class MacaronImageManager(models.Manager):
+class ImageManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()
 
@@ -31,7 +32,7 @@ class MacaronImageManager(models.Manager):
         return self.all().filter(featured=False)
 
 
-class MacaronSetManager(models.Manager):
+class SetManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()
 
@@ -45,8 +46,14 @@ class MacaronSetManager(models.Manager):
     def recommended(self):
         return self.featured()[:3]
 
+    def search(self, query):
+        return self.all().filter(
+            Q(macaron__name__icontains=query) |
+            Q(macaron__description__icontains=query)
+        )
 
-class MacaronCollectionItemManager(models.Manager):
+
+class CollectionItemManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()
 
@@ -54,7 +61,7 @@ class MacaronCollectionItemManager(models.Manager):
         return self.get_queryset().filter(active=True)
 
 
-class MacaronCollectionManager(models.Manager):
+class CollectionManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()
 
@@ -68,8 +75,14 @@ class MacaronCollectionManager(models.Manager):
     def recommended(self):
         return self.featured()[:3]
 
+    def search(self, query):
+        return self.all().filter(
+            Q(macarons__macaron__name__icontains=query) |
+            Q(description__icontains=query)
+        )
 
-class MacaronCollectionImageManager(models.Manager):
+
+class CollectionImageManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset()
 

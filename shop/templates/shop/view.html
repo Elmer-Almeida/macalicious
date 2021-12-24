@@ -11,7 +11,7 @@
 
             {% include 'partials/messages.html' %}
 
-            <div class="list-group mb-3 shadow-sm border-tiffany d-md-none">
+            <div class="list-group mb-4 shadow-sm border-tiffany d-md-none">
                 <a href="#macaron_sets" class="list-group-item list-group-item-action border-bottom-tiffany fancy"
                    style="font-size: 18px;">
                     Sets
@@ -35,7 +35,7 @@
                     inquiries on our collections.
                 </div>
 
-                <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="row row-cols-1 g-4">
                     {% for collection in macaron_collections %}
 
                         {% include 'partials/collection_results.html' %}
@@ -67,7 +67,9 @@
 
     {% if newsletter_form %}
 
-        {% include 'partials/newsletter_signup.html' %}
+        <div class="container">
+            {% include 'partials/newsletter_signup.html' %}
+        </div>
 
     {% endif %}
 

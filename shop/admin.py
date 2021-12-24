@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .filters import TagListFilter, OnSaleFilter,\
+from .filters import TagListFilter, OnSaleFilter, \
     OriginalPriceRangeFilter, CollectionItemFilter, CollectionFilter
-from .models import Tag, Macaron, MacaronImage, MacaronSet,\
-    MacaronCollectionItem, MacaronCollection, MacaronCollectionImage
+from .models import Tag, Macaron, Image, Set, \
+    CollectionItem, Collection, CollectionImage
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -27,8 +27,8 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Tag, TagAdmin)
 
 
-class MacaronImageAdmin(admin.TabularInline):
-    model = MacaronImage
+class ImageAdmin(admin.TabularInline):
+    model = Image
     fields = [
         'picture', 'caption', 'alt_text', 'active', 'featured'
     ]
@@ -52,20 +52,23 @@ class MacaronAdmin(admin.ModelAdmin):
         'tags__name', 'name', 'description'
     ]
     inlines = [
-        MacaronImageAdmin
+        ImageAdmin
     ]
 
 
 admin.site.register(Macaron, MacaronAdmin)
 
 
-class MacaronSetAdmin(admin.ModelAdmin):
+class SetAdmin(admin.ModelAdmin):
     list_editable = [
         'price', 'active', 'featured', 'order'
     ]
     list_display = [
-        'get_name', 'quantity', 'price', 'admin_sale_price', 'active', 'featured', 'order', 'admin_get_total',
-        'slug', 'created_at', 'updated_at'
+        'get_name', 'quantity', 'price', 'admin_sale_price', 'active', 'featured', 'order',
+        'admin_get_total', 'slug'
+    ]
+    raw_id_fields = [
+        'macaron'
     ]
     list_filter = [
         'active', OnSaleFilter
@@ -78,10 +81,10 @@ class MacaronSetAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(MacaronSet, MacaronSetAdmin)
+admin.site.register(Set, SetAdmin)
 
 
-class MacaronCollectionItemAdmin(admin.ModelAdmin):
+class CollectionItemAdmin(admin.ModelAdmin):
     list_editable = [
         'active'
     ]
@@ -99,18 +102,18 @@ class MacaronCollectionItemAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(MacaronCollectionItem, MacaronCollectionItemAdmin)
+admin.site.register(CollectionItem, CollectionItemAdmin)
 
 
-class MacaronCollectionImageAdmin(admin.TabularInline):
-    model = MacaronCollectionImage
+class CollectionImageAdmin(admin.TabularInline):
+    model = CollectionImage
     fields = [
         'picture', 'caption', 'alt_text', 'active', 'featured'
     ]
     extra = 3
 
 
-class MacaronCollectionAdmin(admin.ModelAdmin):
+class CollectionAdmin(admin.ModelAdmin):
     list_editable = [
         'active', 'featured', 'order'
     ]
@@ -128,8 +131,8 @@ class MacaronCollectionAdmin(admin.ModelAdmin):
         'macarons__macaron__name', 'name'
     ]
     inlines = [
-        MacaronCollectionImageAdmin
+        CollectionImageAdmin
     ]
 
 
-admin.site.register(MacaronCollection, MacaronCollectionAdmin)
+admin.site.register(Collection, CollectionAdmin)

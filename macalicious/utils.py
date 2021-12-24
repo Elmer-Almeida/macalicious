@@ -12,6 +12,11 @@ def random_string_generator(prefix, size=12, chars=string.digits + string.ascii_
     return prefix + ''.join(random.choice(chars) for _ in range(size))
 
 
+def random_string_generator_alternate(prefix, size=12,
+                                        chars=string.digits + string.ascii_uppercase + string.ascii_lowercase):
+    return prefix + ''.join(random.choice(chars) for _ in range(size))
+
+
 # Generate unique slugs
 def unique_slug_generator(instance, prefix, name, new_slug=None):
     if new_slug is not None:

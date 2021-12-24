@@ -2,20 +2,16 @@
 
     <div class="col-md-4">
         <div class="card shadow-sm border-tiffany">
+
             {% include 'partials/images_carousel.html' with images=item.content_object.get_all_images cart=True %}
-            {#            Only display the featured image of the macaron set or the macaron collection #}
-            {#            {% if item.content_object.get_featured_image %}#}
-            {#                <img src="{{ item.content_object.get_featured_image.picture.url }}"#}
-            {#                     alt="{{ item.content_object.get_featured_image.alt_text }}" width="100%"#}
-            {#                     class="rounded-top shadow-sm">#}
-            {#            {% else %}#}
-            {#                <p>No image.</p>#}
-            {#            {% endif %}#}
-            <div class="card-body">
+
+            <div class="card-body" style="padding-top: 13px;">
                 <div class="d-flex justify-content-between">
-                    <h4 class="d-flex align-items-center card-title">{{ item.content_object.get_name }}</h4>
+                    <h4 class="d-flex align-items-center card-title mb-0">{{ item.content_object.get_name }}</h4>
                     {% if not completed %}
-                        {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                        <div class="d-flex align-items-center">
+                            {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                        </div>
                     {% endif %}
                 </div>
 

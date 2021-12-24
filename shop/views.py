@@ -3,7 +3,7 @@ from django.views.generic import View
 
 from cart.forms import AddToCartForm
 
-from .models import MacaronSet, MacaronCollection
+from .models import Set, Collection
 
 
 # Shop page endpoint [url: /shop/]
@@ -11,8 +11,8 @@ class ShopPage(View):
     template_name = 'shop/view.html'
 
     def get(self, request):
-        macaron_sets = MacaronSet.objects.all()
-        macaron_collections = MacaronCollection.objects.all()
+        macaron_sets = Set.objects.all()
+        macaron_collections = Collection.objects.all()
         context = {
             'macaron_sets': macaron_sets,
             'macaron_collections': macaron_collections,
@@ -25,8 +25,8 @@ class SetDetailPage(View):
     template_name = 'shop/set_detail.html'
 
     def get(self, request, slug):
-        macaron_set = get_object_or_404(MacaronSet, slug=slug)
-        macaron_recommended_sets = MacaronSet.objects.recommended()
+        macaron_set = get_object_or_404(Set, slug=slug)
+        macaron_recommended_sets = Set.objects.recommended()
         context = {
             'macaron_set': macaron_set,
             'add_to_cart_form': AddToCartForm(),
@@ -39,8 +39,8 @@ class CollectionDetailPage(View):
     template_name = 'shop/collection_detail.html'
 
     def get(self, request, slug):
-        macaron_collection = get_object_or_404(MacaronCollection, slug=slug)
-        macaron_recommended_collections = MacaronCollection.objects.recommended()
+        macaron_collection = get_object_or_404(Collection, slug=slug)
+        macaron_recommended_collections = Collection.objects.recommended()
         context = {
             'macaron_collection': macaron_collection,
             'add_to_cart_form': AddToCartForm(),

@@ -21,16 +21,16 @@
                 <div class="row justify-content-md-between">
                     <div class="col-md-4 col-sm-12 col-xs-12">
 
-{#                        {% if macaron_collection.images.featured %}#}
-{##}
-{#                            <img src="{{ macaron_collection.images.featured.picture.url }}"#}
-{#                                 alt="{{ macaron_collection.images.featured.alt_text }}"#}
-{#                                 class="rounded shadow"#}
-{#                                 width="100%">#}
-{##}
-{#                        {% endif %}#}
-{##}
-{#                        <hr class="regular">#}
+                        {#                        {% if macaron_collection.images.featured %}#}
+                        {##}
+                        {#                            <img src="{{ macaron_collection.images.featured.picture.url }}"#}
+                        {#                                 alt="{{ macaron_collection.images.featured.alt_text }}"#}
+                        {#                                 class="rounded shadow"#}
+                        {#                                 width="100%">#}
+                        {##}
+                        {#                        {% endif %}#}
+                        {##}
+                        {#                        <hr class="regular">#}
 
                         {% include 'partials/images_carousel.html' with images=macaron_collection.images.all detail_page=True %}
                     </div>
@@ -91,7 +91,9 @@
 
         {% if newsletter_form %}
 
-            {% include 'partials/newsletter_signup.html' %}
+            <div class="container">
+                {% include 'partials/newsletter_signup.html' %}
+            </div>
 
         {% endif %}
 

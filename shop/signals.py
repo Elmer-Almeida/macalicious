@@ -1,8 +1,8 @@
 from django.db.models.signals import pre_save, post_save
 
-from macalicious.utils import unique_slug_generator
+from macalicious.utils import unique_slug_generator, random_string_generator_alternate
 
-from .models import Tag, Macaron, MacaronSet, MacaronCollection, MacaronImage, MacaronCollectionImage
+from .models import Tag, Macaron, Image, Set, Collection, CollectionImage
 
 
 def tag_pre_save_receiver(sender, instance, *args, **kwargs):
@@ -29,7 +29,7 @@ def macaron_set_pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance, prefix, instance.macaron.name)
 
 
-pre_save.connect(macaron_set_pre_save_receiver, sender=MacaronSet)
+pre_save.connect(macaron_set_pre_save_receiver, sender=Set)
 
 
 def macaron_collection_pre_save_receiver(sender, instance, *args, **kwargs):
@@ -38,7 +38,7 @@ def macaron_collection_pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance, prefix, instance.name)
 
 
-pre_save.connect(macaron_collection_pre_save_receiver, sender=MacaronCollection)
+pre_save.connect(macaron_collection_pre_save_receiver, sender=Collection)
 
 
 def macaron_image_post_save_receiver(sender, instance, *args, **kwargs):
@@ -54,7 +54,7 @@ def macaron_image_post_save_receiver(sender, instance, *args, **kwargs):
         first.save()
 
 
-post_save.connect(macaron_image_post_save_receiver, sender=MacaronImage)
+post_save.connect(macaron_image_post_save_receiver, sender=Image)
 
 
 def macaron_collection_image_post_save_receiver(sender, instance, *args, **kwargs):
@@ -68,4 +68,4 @@ def macaron_collection_image_post_save_receiver(sender, instance, *args, **kwarg
         first.save()
 
 
-post_save.connect(macaron_collection_image_post_save_receiver, sender=MacaronCollectionImage)
+post_save.connect(macaron_collection_image_post_save_receiver, sender=CollectionImage)

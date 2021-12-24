@@ -1,8 +1,8 @@
 {% extends "master.html" %}
 
 {% block head_title %}
-    {% if search_query %}
-        Results for {{ search_query }}
+    {% if query %}
+        Results for {{ query }}
     {% else %}
         Search Results
     {% endif %}
@@ -14,28 +14,17 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
 
 
-            <h1>Search Results for '{{ search_query }}'</h1>
+            <h1>Search Results for '{{ query }}'</h1>
             <hr>
+
+            <div class="col-md-6 col-12">
+                {% include 'partials/search_form.html' %}
+            </div>
 
             {% if not macaron_set_results and not collection_results %}
 
-                <div class="alert alert-info">
-                    There are no results for '{{ search_query }}'.
-                </div>
-
-            {% endif %}
-
-            {# Macaron set results #}
-            {% if macaron_set_results %}
-
-                <h2>Macarons</h2>
-
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    {% for set in macaron_set_results %}
-
-                        {% include 'partials/set_results.html' %}
-
-                    {% endfor %}
+                <div class="alert alert-info mt-4 mb-0">
+                    There are no results for '{{ query }}'.
                 </div>
 
             {% endif %}
@@ -43,7 +32,7 @@
             {# Collection results #}
             {% if collection_results %}
 
-                <h2 class="mt-4">Collections</h2>
+                <h2>Collections</h2>
 
                 <div class="row row-cols-1 row-cols-md-2 g-4">
                     {% for collection in collection_results %}
@@ -55,13 +44,29 @@
 
             {% endif %}
 
+            {# Macaron set results #}
+            {% if macaron_set_results %}
+
+                <h2 class="mt-3">Macarons</h2>
+
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    {% for set in macaron_set_results %}
+
+                        {% include 'partials/set_results.html' %}
+
+                    {% endfor %}
+                </div>
+
+            {% endif %}
 
         </div>
     </div>
 
     {% if newsletter_form %}
 
-        {% include 'partials/newsletter_signup.html' %}
+        <div class="container">
+            {% include 'partials/newsletter_signup.html' %}
+        </div>
 
     {% endif %}
 

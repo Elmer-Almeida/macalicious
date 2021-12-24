@@ -1,5 +1,5 @@
-<form action="{% url 'search:results' %}" method="GET">
-    {% csrf_token %}
-    {# TODO: search form #}
+{% load crispy_forms_tags %}
 
+<form action="{% url 'search:results' %}" method="GET">
+    {% crispy search_form %}
 </form>

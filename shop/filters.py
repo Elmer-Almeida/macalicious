@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import Q
 from django.utils.html import mark_safe
 
-from .models import MacaronCollection, MacaronCollectionItem
+from .models import Collection, CollectionItem
 
 
 class TagListFilter(admin.SimpleListFilter):
@@ -115,7 +115,7 @@ class CollectionItemFilter(admin.SimpleListFilter):
     parameter_name = 'macarons__macaron'
 
     def lookups(self, request, model_admin):
-        macarons = MacaronCollectionItem.objects.filter(active=True)
+        macarons = CollectionItem.objects.filter(active=True)
         macarons_list = []
         for item in macarons:
             macarons_list.append(
@@ -139,7 +139,7 @@ class CollectionFilter(admin.SimpleListFilter):
     parameter_name = 'macaroncollection'
 
     def lookups(self, request, model_admin):
-        collections = MacaronCollection.objects.all()
+        collections = Collection.objects.all()
         collection_list = []
         for collection in collections:
             collection_list.append(

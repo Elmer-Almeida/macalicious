@@ -16,9 +16,9 @@
     <div class="mt-1">
     {% if page %}
         {% if page == 'set_detail' %}
-            {% include 'partials/add_to_cart.html' with item_slug=macaron_set.slug item_type="macaronset" %}
+            {% include 'partials/add_to_cart.html' with item_slug=macaron_set.slug item_type="set" %}
         {% elif page == 'collection_detail' %}
-            {% include 'partials/add_to_cart.html' with item_slug=macaron_collection.slug item_type="macaroncollection" %}
+            {% include 'partials/add_to_cart.html' with item_slug=macaron_collection.slug item_type="collection" %}
         {% endif %}
     {% endif %}
     </div>

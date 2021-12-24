@@ -4,21 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.html import mark_safe, strip_tags
 from django.views.generic import View
 
 from macalicious.utils import random_string_generator, handle_recaptcha_response
 from orders.models import Order
-from shop.models import MacaronSet
+from shop.models import Set
 from .forms import AddToCartForm
 from .models import Cart, CartItem
 
 
 # add macaron set or collection to the cart
 # if a cart instance is not saved in request.session, create a new cart instance
-def add_to_card(request, slug):
+def add_to_cart(request, slug):
     if request.method == "POST":
         # Check if the quantity of the item being added is valid
         if int(request.POST.get('quantity')) > 0:
@@ -27,7 +27,8 @@ def add_to_card(request, slug):
                 # Get the contenttype instance type
                 item_type = ContentType.objects.get(model=request.POST.get('item_type'))
             except ContentType.DoesNotExist:
-                return HttpResponse("Something went wrong.")
+                messages.add_message(request, messages.ERROR, f"Something went wrong. Please try again later.")
+                return redirect(reverse('cart:view'))
             # get the model class from the contenttype instance type
             Klass = item_type.model_class()
             # get the object based on the slug provided
@@ -52,8 +53,8 @@ def add_to_card(request, slug):
                     # associate logged in user to cart
                     cart_item.cart.user = request.user
                     cart_item.save()
-                messages.add_message(request, messages.SUCCESS, mark_safe(
-                    f"<i class='bi bi-cart-check'></i>&nbsp; {object_name} has been added to the cart"))
+                messages.add_message(request, messages.INFO, mark_safe(
+                    f"<i class='bi bi-cart-check'></i>&nbsp; <span class='fancy'>{object_name}</span> has been added to your cart."))
                 return redirect(reverse('cart:view'))
             else:
                 # Adding to cart is invalid
@@ -86,7 +87,7 @@ def get_or_create_cart(request):
 
 # Get the object name (macaron set or collection) being added to the cart.
 def get_object_name(item_type, object_instance):
-    if item_type == 'macaronset':
+    if item_type == 'set':
         object_name = object_instance.macaron.name
     else:
         object_name = object_instance.name
@@ -103,10 +104,10 @@ def remove_from_cart(request, slug):
         cart_item = get_object_or_404(CartItem, cart=cart, slug=slug)
         cart_item.active = False
         cart_item.save()
-        messages.add_message(request, messages.SUCCESS,
+        messages.add_message(request, messages.INFO,
                              mark_safe(
                                  f"<i class='bi bi-cart-x'></i> "
-                                 f"&nbsp;{cart_item.content_object.get_name()} has been removed from your cart."))
+                                 f"&nbsp;<span class='fancy'>{cart_item.content_object.get_name()}</span> has been removed from your cart."))
         return redirect(reverse('cart:view'))
     else:
         return redirect(reverse('cart:view'))
@@ -213,7 +214,7 @@ class CartPage(View):
 
     def get(self, request):
         cart = get_or_create_cart(request)
-        recommended_macaron_sets = MacaronSet.objects.recommended()
+        recommended_macaron_sets = Set.objects.recommended()
         context = {
             'cart': cart,
             'recommended_macaron_sets': recommended_macaron_sets,

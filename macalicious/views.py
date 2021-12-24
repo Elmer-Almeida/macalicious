@@ -3,7 +3,7 @@ from django.views.generic import View
 from registration.backends.default.views import RegistrationView
 from registration.signals import user_registered
 
-from shop.models import MacaronSet, MacaronCollection
+from shop.models import Set, Collection
 from .forms import RegistrationForm
 
 
@@ -21,8 +21,8 @@ class LandingPage(View):
         # if request.session.get('order_id'):
         #     del request.session['order_id']
 
-        featured_macaron_sets = MacaronSet.objects.featured()
-        featured_macaron_collections = MacaronCollection.objects.featured()
+        featured_macaron_sets = Set.objects.featured()
+        featured_macaron_collections = Collection.objects.featured()
 
         context = {
             'featured_macaron_sets': featured_macaron_sets,

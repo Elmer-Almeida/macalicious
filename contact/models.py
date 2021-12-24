@@ -2,10 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 
 CONTACT_CHOICES = (
-    ('General', 'General'),
-    ('Review', 'Review'),
-    ('Suggestion', 'Suggestion'),
-    ('Catering Request', 'Catering Request')
+    ('custom-order', 'Custom Order'),
+    ('general', 'General'),
+    ('review', 'Review'),
+    ('suggestion', 'Suggestion'),
+    ('catering-request', 'Catering Request')
 )
 
 
