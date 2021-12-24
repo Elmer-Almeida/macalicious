@@ -17,26 +17,21 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px !important;
 
-    /*background-color: #fef5f6;*/
-    /*background-color: #ffffff;*/
-
     /*background: rgb(254, 245, 246);*/
-    /*background: linear-gradient(90deg, rgba(254, 245, 246, 1) 15%, rgba(255, 255, 255, 1) 50%, rgba(254, 245, 246, 1) 85%);*/
+    /*background: -moz-linear-gradient(90deg, rgba(254, 245, 246, 1) 0%, rgba(255, 255, 254, 1) 50%, rgba(254, 245, 246, 1) 100%);*/
+    /*background: -webkit-linear-gradient(90deg, rgba(254, 245, 246, 1) 0%, rgba(255, 255, 254, 1) 50%, rgba(254, 245, 246, 1) 100%);*/
+    /*background: linear-gradient(90deg, rgba(254, 245, 246, 1) 0%, rgba(255, 255, 254, 1) 50%, rgba(254, 245, 246, 1) 100%);*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fef5f6", endColorstr="#fef5f6", GradientType=1);*/
 
-    background: rgb(254, 245, 246);
-    background: -moz-linear-gradient(90deg, rgba(254, 245, 246, 1) 0%, rgba(255, 255, 254, 1) 50%, rgba(254, 245, 246, 1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(254, 245, 246, 1) 0%, rgba(255, 255, 254, 1) 50%, rgba(254, 245, 246, 1) 100%);
-    background: linear-gradient(90deg, rgba(254, 245, 246, 1) 0%, rgba(255, 255, 254, 1) 50%, rgba(254, 245, 246, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fef5f6", endColorstr="#fef5f6", GradientType=1);
+    background: rgb(247, 243, 251);
+    background: -moz-linear-gradient(90deg, rgba(247, 243, 251, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(247, 243, 251, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(247, 243, 251, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(247, 243, 251, 1) 100%);
+    background: linear-gradient(90deg, rgba(247, 243, 251, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(247, 243, 251, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f7f3fb", endColorstr="#f7f3fb", GradientType=1);
 
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
-    /*background-color: #F6fdff;*/
-    /*background-color: #a6d2cf;*/
-    /*background: rgb(246, 253, 255);*/
-    /*background: linear-gradient(138deg,  77%, rgba(166, 210, 207, 1) 98%);*/
 }
 
 /* grow main content to occupy 100vh of the screen */
@@ -307,6 +302,7 @@ a.email-link {
     height: 300px;
     object-fit: cover;
 }
+
 .detail-images-gallery img:first-of-type {
     margin-top: 7px !important;
 }
