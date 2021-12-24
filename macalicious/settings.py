@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
 
     # Third-party apps
-    "crispy_forms",
-    "crispy_bootstrap5",
+    'crispy_forms',
+    'crispy_bootstrap5',
     'registration',  # django-registration-redux
     'phonenumber_field',
 

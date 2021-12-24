@@ -44,35 +44,37 @@
     {% include 'partials/messages.html' %}
 
     {% if number_of_items %}
-        {% for item in cart.cart_items.all %}
-            <div class="d-flex justify-content-between">
-                {% if item.content_object.get_featured_image %}
-                    <div class="cart_sidebar_product_image">
-                        <img src="{{ item.content_object.get_featured_image.picture.url }}"
-                             alt="{{ item.content_object.get_featured_image.alt_text }}"
-                             title="{{ item.content_object.get_featured_image.alt_text }}"
-                             class="rounded shadow border-tiffany">
+        <div id="cart_items">
+            {% for item in cart.cart_items.all %}
+                <div class="d-flex justify-content-between">
+                    {% if item.content_object.get_featured_image %}
+                        <div class="cart_sidebar_product_image">
+                            <img src="{{ item.content_object.get_featured_image.picture.url }}"
+                                 alt="{{ item.content_object.get_featured_image.alt_text }}"
+                                 title="{{ item.content_object.get_featured_image.alt_text }}"
+                                 class="rounded shadow border-tiffany">
+                        </div>
+                    {% endif %}
+                    <div class="p-0">
+                        {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
                     </div>
+                </div>
+                <div class="align-self-start mt-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="col-8">
+                            <h5 class="mb-0">{{ item.content_object.get_name }} <small
+                                    class="text-muted">x {{ item.quantity }}</small></h5>
+                        </div>
+                        <div class="col-3 text-end">
+                            <span class="price" style="font-size:22px;">{{ item.display_total }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% if not forloop.last %}
+                    <hr class="regular mt-2">
                 {% endif %}
-                <div class="p-0">
-                    {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
-                </div>
-            </div>
-            <div class="align-self-start mt-2">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="col-8">
-                        <h5 class="mb-0">{{ item.content_object.get_name }} <small
-                                class="text-muted">x {{ item.quantity }}</small></h5>
-                    </div>
-                    <div class="col-3 text-end">
-                        <span class="price" style="font-size:22px;">{{ item.display_total }}</span>
-                    </div>
-                </div>
-            </div>
-            {% if not forloop.last %}
-                <hr class="regular mt-2">
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
         <hr class="regular mt-2">
         <div class="d-flex flex-column align-items-end">
             <div class="mt-0 d-flex align-items-center">
