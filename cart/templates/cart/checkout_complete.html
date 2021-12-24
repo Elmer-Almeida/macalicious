@@ -22,9 +22,12 @@
 
                 <div class="mt-3 order-summary-details">
                     <p style="font-size: 16px;">
-                        <b>Order ID:</b> <span>{{ order.code }}</span> <br>
+                        <b>Order:</b> <span>{{ order.code }}</span> <br>
                         <b>Date: </b><span>{{ order.created_at }}</span> <br>
-                        <b>Total: </b><span>${{ order.total }} &nbsp;&middot;&nbsp;{{ order.cart.cart_items.count }}{% if order.cart.cart_items.count == 1 %} item. {% else %} items. {% endif %}</span>
+                        <b>Total: </b><span>${{ order.total }} &nbsp;&middot;&nbsp; {{ order.cart.cart_items.active.count }}{% if order.cart.cart_items.count == 1 %} item. {% else %} items. {% endif %}</span>
+                        <br>
+                        Payment due upon pickup. <br>
+                        Cash and Interac E-transfer accepted.
                     </p>
                     <hr>
                     <p class="mt-2 fw-bold">

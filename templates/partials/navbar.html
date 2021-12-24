@@ -53,8 +53,8 @@
 
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link dropdown-toggle {% if 'orders' in request.path %}purple{% elif 'account' in request.path %}purple{% endif %}" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false" style="{% if 'orders' in request.path %}color: #79589f !important;{% elif 'account' in request.path %}color: #79589f !important;{% endif %}">
                         {% if request.user.is_authenticated %}
                             {% if request.user.get_full_name %}
                                 {{ request.user.get_full_name }}

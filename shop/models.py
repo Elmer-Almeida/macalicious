@@ -163,9 +163,9 @@ class Set(models.Model):
         if self.is_on_sale():
             return mark_safe(
                 f"<span class='price' style='font-size:18px;text-decoration:line-through;'>&nbsp;${self.get_original_price()}&nbsp;</span> &nbsp;"
-                f"<span class='price' style='font-size:22px;color:#91363d;'>${self.get_total()}</span>")
+                f"<span class='price' style='font-size:21px;color:#91363d;'>${self.get_total()}</span>")
         else:
-            return mark_safe(f"<span class='price' style='font-size:22px;'>${self.get_total()}</span>")
+            return mark_safe(f"<span class='price' style='font-size:21px;'>${self.get_total()}</span>")
 
     def admin_get_price(self):
         return self.price
@@ -292,9 +292,9 @@ class Collection(models.Model):
         if self.is_on_sale():
             return mark_safe(
                 f"<span class='price' style='font-size:18px;text-decoration:line-through;'>&nbsp;${self.get_original_price()}&nbsp;</span> &nbsp;"
-                f"<span class='price' style='font-size:22px;color:#91363d;'>${self.get_total()}</span>")
+                f"<span class='price' style='font-size:21px;color:#91363d;'>${self.get_total()}</span>")
         else:
-            return mark_safe(f"<span class='price' style='font-size:22px;'>${self.get_total()}</span>")
+            return mark_safe(f"<span class='price' style='font-size:21px;'>${self.get_total()}</span>")
 
     def is_on_sale(self):
         if self.sale_price < self.price and self.sale_price != 0:

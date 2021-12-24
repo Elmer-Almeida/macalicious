@@ -1,3 +1,7 @@
+a {
+    color: #2370cc !important;
+}
+
 input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus, input[type="number"]:focus {
     border: 1px solid #79589f !important;
 }
@@ -94,7 +98,8 @@ hr.regular {
 }
 
 .navbar {
-    background-color: #f6fdff !important;
+    /*background-color: #f6fdff !important;*/
+    background-color: #ffffff !important;
 }
 
 .navbar-brand {
@@ -191,6 +196,7 @@ select option:checked {
 
 /* BUTTONS */
 .btn-primary {
+    color: #ffffff !important;
     padding: 4px 8px;
     background-color: #79589f !important;
     border: 1px solid #79589f;
@@ -199,7 +205,7 @@ select option:checked {
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     border: 1px solid #79589f;
     background-color: #f6fdff !important;
-    color: #79589f;
+    color: #79589f !important;
 }
 
 .btn-primary:focus {
@@ -211,13 +217,13 @@ select option:checked {
 .btn-outline-primary {
     padding: 4px 8px;
     border: 1px solid #79589f;
-    color: #79589f;
+    color: #79589f !important;
 }
 
 .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
     background-color: #79589f;
     border: 1px solid #79589f;
-    color: #fff;
+    color: #fff !important;
 }
 
 .btn-outline-primary:focus {
@@ -227,6 +233,10 @@ select option:checked {
 
 .btn-outline-secondary {
     padding: 4px 8px;
+    color: #555555 !important;
+}
+.btn-outline-secondary:hover {
+    color: #ffffff !important;
 }
 
 a.email-link {
@@ -235,11 +245,11 @@ a.email-link {
 }
 
 .card {
-    background: rgb(255, 255, 254);
-    background: -moz-linear-gradient(180deg, rgba(255, 255, 254, 1) 50%, rgba(246, 253, 255, 1) 80%, rgba(246, 253, 255, 1) 100%);
-    background: -webkit-linear-gradient(180deg, rgba(255, 255, 254, 1) 50%, rgba(246, 253, 255, 1) 80%, rgba(246, 253, 255, 1) 100%);
-    background: linear-gradient(180deg, rgba(255, 255, 254, 1) 50%, rgba(246, 253, 255, 1) 80%, rgba(246, 253, 255, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fffffe", endColorstr="#f6fdff", GradientType=1);
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(180deg, rgba(255, 255, 255, 1) 65%, rgba(246, 253, 255, 1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(255, 255, 255, 1) 65%, rgba(246, 253, 255, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 65%, rgba(246, 253, 255, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#f6fdff", GradientType=1);
 }
 
 .card-header, .card-footer {
@@ -320,13 +330,13 @@ footer {
 
 ul.footer-links li.list-inline-item a {
     text-transform: uppercase;
-    color: #444444;
+    color: #444444 !important;
     text-decoration: none;
     font-size: 12px;
 }
 
 ul.footer-links li.list-inline-item a:hover {
-    color: #79589f;
+    color: #79589f !important;
     text-decoration: underline;
 }
 
@@ -341,13 +351,13 @@ ul.footer-links li.list-inline-item.active a {
 }
 
 .social-icons a {
-    color: #333;
+    color: #333 !important;
     font-size: 18px;
     margin-right: 16px;
 }
 
 .social-icons a:hover {
-    color: #79589f;
+    color: #79589f !important;
 }
 
 footer .social-icons a:last-child {

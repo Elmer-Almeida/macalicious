@@ -17,13 +17,13 @@
                 </div>
 
                 <p class="card-text price mb-1 mt-0" style="font-size:18px;">
+                    {{ item.content_object.display_total }}
+                    &nbsp;&middot;&nbsp;
                     {% if item.item_type.name == 'Macaron Set' %}
                         {{ item.content_object.quantity }} per box
                     {% elif item.item_type.name == 'Macaron Collection' %}
                         {{ item.content_object.get_macaron_count }} macarons
                     {% endif %}
-                    &nbsp;&middot;&nbsp;
-                    {{ item.content_object.display_total }}
                 </p>
                 {% if item.item_type.name == 'Macaron Set' %}
                     <p class="card-text mb-0">
