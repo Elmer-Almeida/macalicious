@@ -1,13 +1,16 @@
 from django.urls import path
 
-from .views import CartPage, add_to_cart, remove_from_cart, \
-    checkout_request, Checkout, checkout_complete
+from .views import CartPage, add_to_cart, add_to_cart_custom_collection, \
+    remove_from_cart, checkout_request, Checkout, checkout_complete
 
 app_name = 'cart'
 
 urlpatterns = [
     path('', CartPage.as_view(), name="view"),
+
+    path('add/custom-collection/<slug>/', add_to_cart_custom_collection, name="add_to_cart_custom_collection"),
     path('add/<slug>/', add_to_cart, name="add_to_cart"),
+
     path('remove/<slug>/', remove_from_cart, name="remove_from_cart"),
 
     path('checkout/', checkout_request, name="checkout_request"),

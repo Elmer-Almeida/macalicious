@@ -94,3 +94,19 @@ class CollectionImageManager(models.Manager):
 
     def gallery(self):
         return self.all().filter(featured=False)
+
+
+class CustomCollectionTypeManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def all(self):
+        return self.get_queryset().filter(active=True)
+
+
+class CustomCollectionManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def all(self):
+        return self.get_queryset().filter(active=True)

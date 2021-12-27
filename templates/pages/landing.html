@@ -18,6 +18,13 @@
                 <h1>Featured Collections</h1>
                 <hr>
 
+                {# TODO: temporary collection types for custom collection creation #}
+                {% for collection_type in custom_collection_types %}
+                    <a class="btn btn-primary" href="{% url 'shop:custom_collection' collection_type.slug %}">
+                        Create Collection ({{ collection_type.quantity_total }} macarons)
+                    </a>
+                {% endfor %}
+
                 {% include 'partials/collection_disclaimer.html' %}
 
                 <div class="row row-cols-1 row-cols-md-2 g-4">

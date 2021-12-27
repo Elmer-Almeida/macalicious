@@ -2,39 +2,70 @@
 
     <div class="col-md-4">
         <div class="card shadow-sm">
-            {#        <div class="card shadow-sm border-tiffany">#}
 
-            {% include 'partials/images_carousel.html' with images=item.content_object.get_all_images cart=True %}
+            {# cart item for Macaron Custom Collection #}
+            {% if item.item_type.name == 'Macaron Custom Collection' %}
 
-            <div class="card-body" style="padding-top: 10px;">
-                <div class="d-flex justify-content-between">
-                    <h4 class="d-flex align-items-center card-title mb-0">{{ item.content_object.get_name }}</h4>
-                    {% if not completed %}
-                        <div class="d-flex align-items-center">
-                            {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                {% include 'partials/images_carousel.html' with images=item.content_object.macaron_images cart=True %}
+
+                <div class="card-body" style="padding-top:10px;">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="d-flex align-items-center card-title mb-0">{{ item.content_object.get_name }}</h4>
+                        {# only display remove from cart button if the order is not done - DO NOT display on checkout completed page #}
+                        {% if not completed %}
+                            <div class="d-flex align-items-center">
+                                {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <p class="card-text price mb-1 mt-0" style="font-size:18px;">
+                        {{ item.content_object.display_total }}
+                        &nbsp;&middot;&nbsp;
+                        {{ item.content_object.get_macaron_count }} macarons
+                    </p>
+
+                    <div class="mt-2">
+                        {% include 'partials/collection_macarons.html' with collection_macarons=item.content_object.macaron_images quantity_each=item.content_object.type.quantity_each %}
+                    </div>
+
+                </div>
+
+                {# cart item for Set and Collection #}
+            {% else %}
+
+                {% include 'partials/images_carousel.html' with images=item.content_object.get_all_images cart=True %}
+
+                <div class="card-body" style="padding-top: 10px;">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="d-flex align-items-center card-title mb-0">{{ item.content_object.get_name }}</h4>
+                        {% if not completed %}
+                            <div class="d-flex align-items-center">
+                                {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <p class="card-text price mb-1 mt-0" style="font-size:18px;">
+                        {{ item.content_object.display_total }}
+                        &nbsp;&middot;&nbsp;
+                        {% if item.item_type.name == 'Macaron Set' %}
+                            {{ item.content_object.quantity }} per box
+                        {% elif item.item_type.name == 'Macaron Collection' %}
+                            {{ item.content_object.get_macaron_count }} macarons
+                        {% endif %}
+                    </p>
+                    {% if item.item_type.name == 'Macaron Set' %}
+                        <p class="card-text mb-0">
+                            {{ item.content_object.macaron.get_short_description }}
+                        </p>
+                    {% elif item.item_type.name == 'Macaron Collection' %}
+                        <div class="mt-2">
+                            {% include 'partials/collection_macarons.html' with collection_macarons=item.content_object.macarons.all %}
                         </div>
                     {% endif %}
                 </div>
-
-                <p class="card-text price mb-1 mt-0" style="font-size:18px;">
-                    {{ item.content_object.display_total }}
-                    &nbsp;&middot;&nbsp;
-                    {% if item.item_type.name == 'Macaron Set' %}
-                        {{ item.content_object.quantity }} per box
-                    {% elif item.item_type.name == 'Macaron Collection' %}
-                        {{ item.content_object.get_macaron_count }} macarons
-                    {% endif %}
-                </p>
-                {% if item.item_type.name == 'Macaron Set' %}
-                    <p class="card-text mb-0">
-                        {{ item.content_object.macaron.get_short_description }}
-                    </p>
-                {% elif item.item_type.name == 'Macaron Collection' %}
-                    <div class="mt-2">
-                        {% include 'partials/collection_macarons.html' with collection_macarons=item.content_object.macarons.all %}
-                    </div>
-                {% endif %}
-            </div>
+            {% endif %}
             <div class="card-footer d-flex justify-content-between border-top-tiffany">
                 <div class="price" style="font-size:18px;">
                     ${{ item.total }}

@@ -4,16 +4,93 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.template.loader import render_to_string
 from django.utils.html import mark_safe, strip_tags
 from django.views.generic import View
 
 from macalicious.utils import random_string_generator, handle_recaptcha_response
 from orders.models import Order
-from shop.models import Set
+from shop.models import Set, Macaron, CustomCollectionType, CustomCollection
 from .forms import AddToCartForm
 from .models import Cart, CartItem
+
+
+# custom collection add to cart
+# TODO: check if its possible to embed this method in the main add_to_cart method
+@login_required
+def add_to_cart_custom_collection(request, slug):
+    if request.method == "POST":
+        item_type = request.POST.get('item_type')
+        custom_collection_type = get_object_or_404(CustomCollectionType,
+                                                   slug=slug)
+        if custom_collection_type:
+            if item_type == 'customcollection':
+                # get macarons
+                macarons_list = request.POST.getlist('macarons')
+                macarons = []
+                for item in macarons_list:
+                    macarons.append(get_object_or_404(Macaron, slug=item))
+                if len(macarons) == custom_collection_type.quantity_flavour:
+                    # the quantity of each flavor is valid and the item_type is valid
+                    # create customcollection object and save macarons to it
+                    custom_collection = CustomCollection.objects.create(
+                        user=request.user,
+                        type=custom_collection_type,
+                    )
+                    custom_collection.macarons.set(macarons)
+                    custom_collection.save()
+                    print('custom collection created: ', custom_collection)
+                    if custom_collection:
+                        # custom collection has been added - now add the custom collection to the cart
+                        cart_instance = get_or_create_cart(request)
+
+                        try:
+                            item_type_instance = ContentType.objects.get(model=item_type)
+                        except ContentType.DoesNotExist:
+                            messages.add_message(request, messages.ERROR, 'Content Type does not exist')
+                            return redirect(
+                                reverse('shop:custom_collection', kwargs={'slug': custom_collection_type.slug}))
+
+                        # CustomCollection
+                        Klass = item_type_instance.model_class()
+                        object_instance = Klass.objects.get(slug=custom_collection.slug)
+                        object_id = object_instance.id
+
+                        object_name = get_object_name(item_type=item_type_instance,
+                                                      object_instance=object_instance)
+
+                        # create the CartItem instance
+                        cart_item = CartItem.objects.create(
+                            cart=cart_instance,
+                            item_type=item_type_instance,
+                            object_id=object_id,
+                            total=custom_collection_type.get_total()
+                        )
+                        cart_item.cart.user = request.user
+                        cart_item.save()
+                        messages.add_message(request, messages.INFO, mark_safe(
+                            f"<i class='bi bi-cart-check'></i>&nbsp; <span class='fancy'>{object_name}</span> has been added to your cart."))
+                        return redirect(reverse('cart:view'))
+                    else:
+                        messages.add_message(
+                            request, messages.ERROR,
+                            'Custom Collection creation error. Something went wrong. Please try again later.')
+                        return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
+                else:
+                    # the lenght of the flavours chosen is not valid
+                    return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
+            else:
+                messages.add_message(request, messages.ERROR,
+                                     'Item type error: Something went wrong. Please try again later.')
+                return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
+        else:
+            # custom collection type doesn't exist
+            messages.add_message(request, messages.ERROR, 'Type error: Something went wrong. Please try again later.')
+            return redirect(reverse('shop:view'))
+    else:
+        messages.add_message(request, messages.ERROR, 'Request error: Something went wrong. Please try again later.')
+        return redirect(reverse('shop:view'))
 
 
 # add macaron set or collection to the cart

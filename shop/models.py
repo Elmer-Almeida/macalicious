@@ -4,7 +4,8 @@ from django.utils.html import mark_safe
 from django.conf import settings
 
 from .managers import TagManager, MacaronManager, ImageManager, SetManager, \
-    CollectionItemManager, CollectionManager, CollectionImageManager
+    CollectionItemManager, CollectionManager, CollectionImageManager, \
+    CustomCollectionTypeManager, CustomCollectionManager
 
 TAG_CHOICES = (
     ('Vegan', 'Vegan'),
@@ -334,3 +335,118 @@ class CollectionImage(models.Model):
 
     def __str__(self):
         return f"{self.collection.name}'s Image"
+
+
+class CustomCollectionType(models.Model):
+    class Meta:
+        verbose_name = 'Macaron Custom Collection Type'
+        verbose_name_plural = 'Macaron Custom Collection Types'
+
+    name = models.CharField(max_length=125)
+    description = models.TextField(max_length=1000)
+    quantity_each = models.PositiveIntegerField(default=3, help_text="Quantity for each flavor in the collection")
+    quantity_total = models.PositiveIntegerField(default=6, help_text="Quantity for the entire collection (6 or 12)")
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0,
+                                help_text="Price of the entire custom collection")
+    sale_price = models.DecimalField(max_digits=5, decimal_places=2, default=0.0,
+                                     help_text="Discount price for the entire custom collection")
+    active = models.BooleanField(default=True)
+    slug = models.SlugField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = CustomCollectionTypeManager()
+
+    def __str__(self):
+        return f"{self.name}"
+
+    @property
+    def quantity_flavour(self):
+        return int(self.quantity_total / self.quantity_each)
+
+    def is_on_sale(self):
+        if self.sale_price < self.price and self.sale_price != 0:
+            return True
+        return False
+
+    # Get the price of the collection (original price or sale price)
+    @property
+    def get_price(self):
+        if self.is_on_sale():
+            return self.sale_price
+        return self.price
+
+    def get_total(self):
+        return self.get_price
+
+    def admin_sale_price(self):
+        if self.sale_price > 0:
+            return mark_safe(f"<span style='color:#fb523b;'>${self.sale_price}</span>")
+        return '-'
+
+    admin_sale_price.short_description = "Sale Price"
+
+    def admin_get_total(self):
+        if self.sale_price > 0:
+            return mark_safe(f"<span style='font-weight:bold;font-size:14px;color:#fb523b;'>${self.get_total()}</span>")
+        return mark_safe(f"<span style='font-weight:bold;font-size:14px;'>${self.get_total()}</span>")
+
+    admin_get_total.short_description = mark_safe("<u>Collection Total</u>")
+
+
+class CustomCollection(models.Model):
+    class Meta:
+        verbose_name = 'Macaron Custom Collection'
+        verbose_name_plural = 'Macaron Custom Collections'
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    type = models.ForeignKey(CustomCollectionType, on_delete=models.CASCADE, limit_choices_to={'active': True},
+                             related_name='custom_collections')
+    macarons = models.ManyToManyField(Macaron, limit_choices_to={'active': True})
+    slug = models.CharField(max_length=50, blank=True)
+    active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = CustomCollectionManager()
+
+    def __str__(self):
+        return f"{self.user}'s Custom Collection"
+
+    @property
+    def name(self):
+        return f"{self.type.name}"
+
+    def get_macaron_count(self):
+        return self.type.quantity_total
+
+    def macaron_images(self):
+        images = []
+        for image in self.macarons.all():
+            images.append(image.images.featured())
+        return images
+
+    def get_name(self):
+        return f"{self.type.name}"
+
+    def get_total(self):
+        return self.type.get_total()
+
+    def is_on_sale(self):
+        return self.type.is_on_sale()
+
+    def display_total(self):
+        if self.is_on_sale():
+            return mark_safe(
+                f"<span class='price' style='font-size:18px;text-decoration:line-through;'>&nbsp;${self.type.price}&nbsp;</span> &nbsp;"
+                f"<span class='price' style='font-size:21px;color:#91363d;'>${self.get_total()}</span>")
+        else:
+            return mark_safe(f"<span class='price' style='font-size:21px;'>${self.get_total()}</span>")
+
+    def admin_get_macarons_list(self):
+        output = ""
+        for macaron in self.macarons.all():
+            output += f"<li>{macaron.name}</li>"
+        return mark_safe(output)
+
+    admin_get_macarons_list.short_description = "Macarons"

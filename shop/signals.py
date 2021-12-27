@@ -2,7 +2,8 @@ from django.db.models.signals import pre_save, post_save
 
 from macalicious.utils import unique_slug_generator, random_string_generator_alternate
 
-from .models import Tag, Macaron, Image, Set, Collection, CollectionImage
+from .models import Tag, Macaron, Image, Set, \
+    Collection, CollectionImage, CustomCollection, CustomCollectionType
 
 
 def tag_pre_save_receiver(sender, instance, *args, **kwargs):
@@ -69,3 +70,19 @@ def macaron_collection_image_post_save_receiver(sender, instance, *args, **kwarg
 
 
 post_save.connect(macaron_collection_image_post_save_receiver, sender=CollectionImage)
+
+
+def macaron_custom_collection_type_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance, 'type_', instance.name)
+
+
+pre_save.connect(macaron_custom_collection_type_pre_save_receiver, sender=CustomCollectionType)
+
+
+def macaron_custom_collection_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = random_string_generator_alternate('slug_', 15)
+
+
+pre_save.connect(macaron_custom_collection_pre_save_receiver, sender=CustomCollection)

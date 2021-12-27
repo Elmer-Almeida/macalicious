@@ -48,6 +48,10 @@ h1, h2, h3, h4, h5, h6 {
     color: #333333 !important;
 }
 
+.font-normal {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
 hr {
     border: 0;
     height: 1px !important;
@@ -189,6 +193,25 @@ select option:checked {
     box-shadow: 0 0 10px 100px #1882A8 inset;
 }
 
+.create-custom-collection:first-of-type {
+    margin-top: 0;
+}
+
+.create-custom-collection {
+    margin-top: 10px;
+}
+
+.create-custom-collection-label img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+.create-custom-collection-label span.name {
+    margin-left: 10px;
+    font-size: 17px;
+}
+
 /* backgrounds */
 .bg-primary {
     background-color: #79589f !important;
@@ -235,6 +258,7 @@ select option:checked {
     padding: 4px 8px;
     color: #555555 !important;
 }
+
 .btn-outline-secondary:hover {
     color: #ffffff !important;
 }

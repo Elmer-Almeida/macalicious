@@ -3,7 +3,7 @@ from django.views.generic import View
 from registration.backends.default.views import RegistrationView
 from registration.signals import user_registered
 
-from shop.models import Set, Collection
+from shop.models import Set, Collection, CustomCollectionType
 from .forms import RegistrationForm
 
 
@@ -24,9 +24,13 @@ class LandingPage(View):
         featured_macaron_sets = Set.objects.featured()
         featured_macaron_collections = Collection.objects.featured()
 
+
         context = {
             'featured_macaron_sets': featured_macaron_sets,
             'featured_macaron_collections': featured_macaron_collections,
+
+            # TODO: temporary custom collection creation
+            'custom_collection_types': CustomCollectionType.objects.all(),
         }
         return render(request, self.template_name, context)
 

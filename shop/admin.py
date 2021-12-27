@@ -3,7 +3,8 @@ from django.contrib import admin
 from .filters import TagListFilter, OnSaleFilter, \
     OriginalPriceRangeFilter, CollectionItemFilter, CollectionFilter
 from .models import Tag, Macaron, Image, Set, \
-    CollectionItem, Collection, CollectionImage
+    CollectionItem, Collection, CollectionImage, \
+    CustomCollectionType, CustomCollection
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -136,3 +137,49 @@ class CollectionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Collection, CollectionAdmin)
+
+
+class CustomCollectionTypeAdmin(admin.ModelAdmin):
+    list_display = [
+        'name', 'quantity_each', 'quantity_total', 'price', 'admin_sale_price', 'active', 'admin_get_total', 'slug', 'created_at', 'updated_at'
+    ]
+    list_editable = [
+        'active', 'quantity_each', 'quantity_total'
+    ]
+    list_filter = [
+        'quantity_total', 'active'
+    ]
+    readonly_fields = [
+        'slug', 'created_at', 'updated_at'
+    ]
+    search_fields = [
+        'name', 'description'
+    ]
+
+
+admin.site.register(CustomCollectionType, CustomCollectionTypeAdmin)
+
+
+class CustomCollectionAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__', 'user', 'admin_get_macarons_list', 'slug', 'active', 'created_at', 'updated_at'
+    ]
+    list_filter = [
+        'active'
+    ]
+    list_editable = [
+        'active'
+    ]
+    raw_id_fields = [
+        'user'
+    ]
+    readonly_fields = [
+        'slug'
+    ]
+    search_fields = [
+        'user__first_name', 'user__last_name', 'user__username', 'user__email',
+        'macarons', 'slug', 'created_at', 'updated_at'
+    ]
+
+
+admin.site.register(CustomCollection, CustomCollectionAdmin)

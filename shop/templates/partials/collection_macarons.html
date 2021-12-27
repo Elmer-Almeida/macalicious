@@ -5,7 +5,10 @@
                 <img src="{{ item.macaron.images.featured.picture.url }}"
                      alt="{{ item.macaron.images.featured.alt_text }}"
                      width="70" class="rounded shadow-sm border-tiffany"> &nbsp;&nbsp;&nbsp;
-                <h5>{{ item.quantity }} <span class="text-muted">x</span> {{ item.macaron.name }}</h5>
+                <h5>
+                    {% if quantity_each %}{{ quantity_each }}{% else %}{{ item.quantity }}{% endif %}
+                    <span class="text-muted">x</span> {{ item.macaron.name }}
+                </h5>
             </div>
         </li>
     {% endfor %}

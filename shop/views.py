@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+from django.conf import settings
 
 from cart.forms import AddToCartForm
 
-from .models import Set, Collection
+from .models import Set, Collection, Macaron, CustomCollection, CustomCollectionType
 
 
 # Shop page endpoint [url: /shop/]
@@ -45,5 +47,18 @@ class CollectionDetailPage(View):
             'macaron_collection': macaron_collection,
             'add_to_cart_form': AddToCartForm(),
             'macaron_recommended_collections': macaron_recommended_collections,
+        }
+        return render(request, self.template_name, context)
+
+
+class CustomCollectionPage(LoginRequiredMixin, View):
+    template_name = 'shop/custom_collection.html'
+
+    def get(self, request, slug):
+        custom_collection_type = get_object_or_404(CustomCollectionType, slug=slug)
+        macarons = Macaron.objects.all()
+        context = {
+            'macarons': macarons,
+            'custom_collection_type': custom_collection_type,
         }
         return render(request, self.template_name, context)

@@ -4,11 +4,6 @@
 
         {% include 'partials/images_carousel.html' with images=set.macaron.images.all set=set %}
 
-{#         Only display the featured image for the macaron set #}
-{#        <img src="{{ set.macaron.images.featured.picture.url }}"#}
-{#             alt="{{ set.macaron.images.featured.alt_text }}" width="100%"#}
-{#             class="rounded-top shadow-sm">#}
-
         <div class="card-body" style="transform: rotate(0);">
             <h4 class="card-title mb-1">{{ set.macaron.name }}</h4>
             <p class="card-text mb-1 px-1">{{ set.display_total }}
