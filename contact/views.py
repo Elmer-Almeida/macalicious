@@ -15,11 +15,13 @@ class ContactPage(View):
 
     def get(self, request):
         contact_form = ContactForm()
-        if request.GET.get('reason').lower() == 'custom-order':
-            data = {
-                'reason': 'custom-order',
-            }
-            contact_form = ContactForm(initial=data)
+        if request.GET.get('reason'):
+            contact_reason = request.GET.get('reason').lower()
+            if contact_reason == 'custom-order':
+                data = {
+                    'reason': contact_reason,
+                }
+                contact_form = ContactForm(initial=data)
         context = {
             'contact_form': contact_form,
         }
