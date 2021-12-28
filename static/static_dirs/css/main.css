@@ -341,6 +341,17 @@ a.email-link {
     margin-top: 7px !important;
 }
 
+.custom-collection-links a {
+    margin-left: 10px;
+}
+.custom-collection-links a:first-child {
+    margin-left:0;
+}
+
+.mobile-navigation-shop-links a {
+    color: #000000 !important;
+}
+
 footer {
     background-color: #f6fdff !important;
     height: 100%;
@@ -389,7 +400,12 @@ footer .social-icons a:last-child {
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 767px) {
     /*    mobile queries */
-
+    .custom-collection-link a:first-child {
+        margin-top: 0;
+    }
+    .custom-collection-link a {
+        margin-top: 10px;
+    }
 }

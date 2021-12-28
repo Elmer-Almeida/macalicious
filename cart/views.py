@@ -27,7 +27,8 @@ def add_to_cart_custom_collection(request, slug):
         if custom_collection_type:
             if item_type == 'customcollection':
                 # get macarons
-                macarons_list = request.POST.getlist('macarons')
+                macarons_list_raw = request.POST.getlist('macarons')
+                [macarons_list] = [item.split(',') for item in macarons_list_raw]
                 macarons = []
                 for item in macarons_list:
                     macarons.append(get_object_or_404(Macaron, slug=item))
@@ -60,18 +61,22 @@ def add_to_cart_custom_collection(request, slug):
                         object_name = get_object_name(item_type=item_type_instance,
                                                       object_instance=object_instance)
 
-                        # create the CartItem instance
-                        cart_item = CartItem.objects.create(
-                            cart=cart_instance,
-                            item_type=item_type_instance,
-                            object_id=object_id,
-                            total=custom_collection_type.get_total()
-                        )
-                        cart_item.cart.user = request.user
-                        cart_item.save()
-                        messages.add_message(request, messages.INFO, mark_safe(
-                            f"<i class='bi bi-cart-check'></i>&nbsp; <span class='fancy'>{object_name}</span> has been added to your cart."))
-                        return redirect(reverse('cart:view'))
+                        # check add_to_cart form for item quantity
+                        add_to_cart_form = AddToCartForm(data=request.POST)
+                        if add_to_cart_form.is_valid():
+                            # create the CartItem instance
+                            cart_item = add_to_cart_form.save(commit=False)
+                            cart_item.cart = cart_instance
+                            cart_item.item_type = item_type_instance
+                            cart_item.object_id = object_id
+                            cart_item.total = cart_item.get_total()
+                            cart_item.cart.user = request.user
+                            cart_item.save()
+                            messages.add_message(request, messages.INFO, mark_safe(
+                                f"<i class='bi bi-cart-check'></i>&nbsp; <span class='fancy'>{object_name}</span>&nbsp;has been added to your cart."))
+                            return redirect(reverse('cart:view'))
+                        else:
+                            messages.add_message(request, messages.ERROR, 'Quantity error. Something went wrong. Please try again later.')
                     else:
                         messages.add_message(
                             request, messages.ERROR,
@@ -124,12 +129,11 @@ def add_to_cart(request, slug):
                 cart_item.item_type = item_type
                 cart_item.object_id = object_id
                 cart_item.total = cart_item.get_total()
-                cart_item.save()
                 # check if user is logged in
                 if request.user.is_authenticated:
                     # associate logged in user to cart
                     cart_item.cart.user = request.user
-                    cart_item.save()
+                cart_item.save()
                 messages.add_message(request, messages.INFO, mark_safe(
                     f"<i class='bi bi-cart-check'></i>&nbsp; <span class='fancy'>{object_name}</span> has been added to your cart."))
                 return redirect(reverse('cart:view'))

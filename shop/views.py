@@ -15,10 +15,12 @@ class ShopPage(View):
     def get(self, request):
         macaron_sets = Set.objects.all()
         macaron_collections = Collection.objects.all()
+        custom_collection_types = CustomCollectionType.objects.all()
         context = {
             'macaron_sets': macaron_sets,
             'macaron_collections': macaron_collections,
             'add_to_cart_form': AddToCartForm(),
+            'custom_collection_types': custom_collection_types,
         }
         return render(request, self.template_name, context)
 
@@ -56,9 +58,14 @@ class CustomCollectionPage(LoginRequiredMixin, View):
 
     def get(self, request, slug):
         custom_collection_type = get_object_or_404(CustomCollectionType, slug=slug)
+        macaron_recommended_collections = Collection.objects.recommended()
+        macaron_recommended_sets = Set.objects.recommended()
         macarons = Macaron.objects.all()
         context = {
             'macarons': macarons,
+            'add_to_cart_form': AddToCartForm(),
             'custom_collection_type': custom_collection_type,
+            'macaron_recommended_sets': macaron_recommended_sets,
+            'macaron_recommended_collections': macaron_recommended_collections,
         }
         return render(request, self.template_name, context)

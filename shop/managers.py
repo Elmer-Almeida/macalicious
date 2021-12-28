@@ -17,6 +17,12 @@ class MacaronManager(models.Manager):
     def all(self):
         return self.get_queryset().filter(active=True)
 
+    def featured_images(self):
+        images = []
+        for macaron in self.all():
+            images.append(macaron.images.featured())
+        return images
+
 
 class ImageManager(models.Manager):
     def get_queryset(self):

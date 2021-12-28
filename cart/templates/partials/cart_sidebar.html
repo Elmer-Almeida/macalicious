@@ -2,7 +2,7 @@
      style="background-color: #f8f9fa;">
 
     <h3>Add to Cart</h3>
-    <hr class="mt-2 mb-3">
+    <hr class="my-2">
 
     {% if item_name and item_price %}
 
@@ -23,6 +23,8 @@
                 {% include 'partials/add_to_cart.html' with item_slug=macaron_set.slug item_type="set" %}
             {% elif page == 'collection_detail' %}
                 {% include 'partials/add_to_cart.html' with item_slug=macaron_collection.slug item_type="collection" %}
+            {% elif page == 'custom_collection' %}
+                {% include 'partials/add_to_cart_custom_collection.html' with item_slug=custom_collection_type.slug item_type='customcollection' %}
             {% endif %}
         {% endif %}
     </div>
@@ -47,13 +49,17 @@
         <div id="cart_items">
             {% for item in cart.cart_items.all %}
                 <div class="d-flex justify-content-between">
-                    {% if item.content_object.get_featured_image %}
-                        <div class="cart_sidebar_product_image">
-                            <img src="{{ item.content_object.get_featured_image.picture.url }}"
-                                 alt="{{ item.content_object.get_featured_image.alt_text }}"
-                                 title="{{ item.content_object.get_featured_image.alt_text }}"
-                                 class="rounded shadow border-tiffany">
-                        </div>
+                    {% if item.item_type.name == 'Macaron Custom Collection' %}
+                        {% include 'partials/images_carousel.html' with images=item.content_object.get_featured_images width="100px" height="100px" %}
+                    {% else %}
+                        {% if item.content_object.get_featured_image %}
+                            <div class="cart_sidebar_product_image">
+                                <img src="{{ item.content_object.get_featured_image.picture.url }}"
+                                     alt="{{ item.content_object.get_featured_image.alt_text }}"
+                                     title="{{ item.content_object.get_featured_image.alt_text }}"
+                                     class="rounded shadow border-tiffany">
+                            </div>
+                        {% endif %}
                     {% endif %}
                     <div class="p-0">
                         {% include 'partials/remove_from_cart.html' with item_slug=item.slug item_name=item.content_object.get_name %}
@@ -62,7 +68,7 @@
                 <div class="align-self-start mt-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="col-8">
-                            <h5 class="mb-0">{{ item.content_object.get_name }} <small
+                            <h5 class="mb-0" style="font-size: 17px;">{{ item.content_object.get_name }} <small
                                     class="text-muted">x {{ item.quantity }}</small></h5>
                         </div>
                         <div class="col-3 text-end">

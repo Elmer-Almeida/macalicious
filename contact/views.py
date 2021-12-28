@@ -14,8 +14,14 @@ class ContactPage(View):
     template_name = 'contact/view.html'
 
     def get(self, request):
+        contact_form = ContactForm()
+        if request.GET.get('reason').lower() == 'custom-order':
+            data = {
+                'reason': 'custom-order',
+            }
+            contact_form = ContactForm(initial=data)
         context = {
-            'contact_form': ContactForm(),
+            'contact_form': contact_form,
         }
         return render(request, self.template_name, context)
 

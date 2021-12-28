@@ -11,9 +11,9 @@
 
             {% include 'partials/messages.html' %}
 
-            <div class="list-group mb-4 shadow-sm border-tiffany d-md-none">
-                <a href="#macaron_sets" class="list-group-item list-group-item-action border-bottom-tiffany fancy"
-                   style="font-size: 18px;">
+            <div class="list-group mb-4 shadow-sm d-md-none mobile-navigation-shop-links">
+                <a href="#macaron_sets" class="list-group-item list-group-item-action fancy"
+                   style="font-size: 16px;">
                     Sets
                 </a>
                 <a href="#macaron_collections" class="list-group-item list-group-item-action fancy"
@@ -29,6 +29,8 @@
                 <hr>
 
                 {% include 'partials/collection_disclaimer.html' %}
+
+                {% include 'partials/custom_collection_links.html' %}
 
                 <div class="row row-cols-1 g-4">
                     {% for collection in macaron_collections %}

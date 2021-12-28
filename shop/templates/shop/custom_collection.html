@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load i18n %}
 
 {% block head_title %}
     Create Collection
@@ -9,26 +10,88 @@
     <div class="row justify-content-md-center">
         <div class="col-md-12 col-sm-12 col-xs-12">
 
+            <div class="row justify-content-md-between">
 
-            <h1>Create Collection</h1>
-            <hr>
+                <div class="col-md-5 col-sm-12 col-xs-12">
 
-            {% include 'partials/messages.html' %}
+                    <h1>Create your collection</h1>
+                    <hr>
 
-            <div class="alert alert-info d-none" id="create-custom-collection-alert" role="alert"></div>
+                    {% include 'partials/messages.html' %}
 
-            {% if macarons %}
 
-                <p class="mb-3 font-normal" id="collection-quantity-disclaimer">
-                    Please pick {{ custom_collection_type.quantity_flavour }} flavours to create your collection.
-                </p>
+                    {% if custom_collection_type %}
 
-                {% include 'partials/custom_collection_form.html' %}
+                        <h3>{{ custom_collection_type.name }}</h3>
 
-            {% endif %}
+                        {# display price and number of macarons #}
+                        <p class="mb-1">
+                            {{ custom_collection_type.display_total }}
+                            &nbsp;&middot;&nbsp;
+                            <span class="price" style="font-size: 18px;">
+                                {{ custom_collection_type.quantity_total }} macarons
+                            </span>
+                        </p>
+
+                        <div class="alert alert-info d-none" id="custom-collection-alert" role="alert"></div>
+
+                        {% if macarons %}
+
+                            <p class="mb-3 font-normal" id="custom-collection-disclaimer">
+                                Please choose {{ custom_collection_type.quantity_flavour }} flavours.
+                            </p>
+
+                            {% include 'partials/custom_collection_form.html' %}
+
+                        {% else %}
+
+                            <div class="alert alert-info">
+                                {% trans 'There are no macarons available to pick from. Please try again later.' %}
+                            </div>
+
+                            <a href="{% url 'shop:view' %}" class="btn btn-primary">Visit our shop</a>
+
+                        {% endif %}
+
+                    {% endif %}
+
+
+                </div>
+
+                <div class="col-md-3 col-xs-12 col-sm-12 mt-4 mt-md-0">
+
+                    {% include 'partials/cart_sidebar.html' with page='custom_collection' item_name=custom_collection_type.name item_price=custom_collection_type.display_total %}
+
+                </div>
+
+            </div>
 
         </div>
     </div>
+
+    {% if macaron_recommended_sets %}
+
+        <hr class="mt-5 regular" style="margin-bottom:35px !important;">
+
+        <h2>You may also like</h2>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for collection in macaron_recommended_collections %}
+
+                {% include 'partials/collection_results.html' %}
+
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+    {% if newsletter_form %}
+
+        <div class="container">
+            {% include 'partials/newsletter_signup.html' %}
+        </div>
+
+    {% endif %}
 
 
 {% endblock %}
@@ -37,86 +100,126 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            // call to ensure checkboxes are marked disabled if the right number of checkboxes
-            // are already selected and page reloads
-            customCollectionCheckboxClickEvent({{ custom_collection_type.quantity_flavour }});
+        // check macaron checkboxes on the create custom collection form in the case that checkboxes are still
+        // checked after reload in order to disable/enable checkboxes as required
+        document.addEventListener('DOMContentLoaded', () => {
+            macaronCheckboxClickEvent({{ custom_collection_type.quantity_flavour }});
         });
 
+        /**
+         * Get the custom collection form - create a custom collection depending on the quantity set by the type
+         *
+         * @returns CustomCollection form {HTMLElement}
+         */
+        function getCustomCollectionForm() {
+            return document.getElementById('custom-collection-form');
+        }
 
+        function getCustomCollectionAddToCartForm() {
+            return document.getElementById('add-to-cart-custom-collection-form');
+        }
+
+        // get the alert html element to inform the user about quantity issues
+        function getCustomCollectionAlert() {
+            return document.getElementById('custom-collection-alert');
+        }
+
+        // inform the user about flavour quantity allowed
+        function getCustomCollectionDisclaimer() {
+            return document.getElementById('custom-collection-disclaimer');
+        }
+
+        // get checked macarons from custom collection form
+        function getCheckedMacarons() {
+            let form = getCustomCollectionForm();
+            return form.querySelectorAll('input[name=macarons]:checked');
+        }
+
+        // get checked macarons values
+        function getCheckedMacaronsValues() {
+            return Array.from(getCheckedMacarons()).map(macaron => macaron.value);
+        }
+
+        // get checked macarons number (length) from the collection form
         function getCheckedMacaronsLength() {
-            const form = document.getElementById('create-custom-collection-form');
-            let checked_macarons = form.querySelectorAll('input[name=macarons]:checked');
-            return checked_macarons.length;
+            return getCheckedMacarons().length;
         }
 
-        function customCollectionCheckboxClickEvent(quantity_flavour) {
-            // get form element
-            const form = document.getElementById('create-custom-collection-form');
-            // get all checked (selected) macarons and unchecked macarons
-            let unchecked_macarons = form.querySelectorAll('input[name=macarons]:not(:checked)')
-
-            if (getCheckedMacaronsLength() === quantity_flavour) {
-                // mark all remaining macaron checkboxes as disabled
-                unchecked_macarons.forEach((macaron) => {
-                    macaron.disabled = true;
-                })
-                createCollectionHideAlert();
-            } else if (getCheckedMacaronsLength() < quantity_flavour && getCheckedMacaronsLength() >= 0) {
-                // mark all macaron checkboxes as enabled
-                unchecked_macarons.forEach((macaron) => {
-                    macaron.disabled = false;
-                })
-            }
+        // get unchecked macarons from custom collection form
+        function getUncheckedMacarons() {
+            const form = getCustomCollectionForm();
+            return form.querySelectorAll('input[name=macarons]:not(:checked)');
         }
 
-        function createCollectionShowAlert(message) {
-            let alert = document.getElementById('create-custom-collection-alert');
-            let disclaimer = document.getElementById('collection-quantity-disclaimer');
+        // get unchecked macarons length
+        function getUncheckedMacaronsLength() {
+            return getUncheckedMacarons().length;
+        }
+
+        // get macarons list html element
+        function getCustomCollectionMacaronsList() {
+            return document.getElementById('macarons-list');
+        }
+
+        // add/update to macarons list value html element
+        function updateCustomCollectionMacaronsList(macarons) {
+            let macarons_list = getCustomCollectionMacaronsList();
+            macarons_list.value = macarons;
+        }
+
+        // custom collection show alert
+        function customCollectionAlertShow(message) {
+            let alert = getCustomCollectionAlert();
+            let disclaimer = getCustomCollectionDisclaimer();
             disclaimer.classList.add('d-none');
             alert.classList.remove('d-none');
             alert.innerText = message;
         }
 
-        function createCollectionHideAlert() {
-            let alert = document.getElementById('create-custom-collection-alert');
-            let disclaimer = document.getElementById('collection-quantity-disclaimer');
+        // custom collection hide alert
+        function customCollectionAlertHide() {
+            let alert = getCustomCollectionAlert();
+            let disclaimer = getCustomCollectionDisclaimer();
             disclaimer.classList.remove('d-none');
             alert.classList.add('d-none');
         }
 
-        function getCheckedMacaronsList() {
-            const form = document.getElementById('create-custom-collection-form');
-            let checked_macarons = form.querySelectorAll('input[name=macarons]:checked');
-            let macarons = Array.from(checked_macarons).map(macaron => macaron.value);
-            return macarons;
+        // custom collection macaron checkbox click event trigger
+        function macaronCheckboxClickEvent(quantity_flavour) {
+            let unchecked_macarons = getUncheckedMacarons();
+            let checked_macarons_length = getCheckedMacaronsLength();
+
+            // check checkboxes length for equals to and greater than (if the page reloads)
+            if (checked_macarons_length === quantity_flavour || checked_macarons_length > quantity_flavour) {
+                // set all remaining checkboxes to disabled
+                unchecked_macarons.forEach((macaron) => {
+                    macaron.disabled = true;
+                })
+                customCollectionAlertHide();
+                getCustomCollectionDisclaimer().innerText = `You have chosen ${quantity_flavour} flavours.`
+            } else if (checked_macarons_length < quantity_flavour && checked_macarons_length >= 0) {
+                // remove disabled property from checkboxes to allow for user input
+                unchecked_macarons.forEach((macaron) => {
+                    macaron.disabled = false;
+                })
+                getCustomCollectionDisclaimer().innerText = `Please choose ${quantity_flavour} flavours.`
+            }
         }
 
-        function addToMacaronsList(macarons) {
-            let macarons_list = document.getElementById('macarons-list');
-            macarons_list.value = macarons;
-            console.log("macarons list: ", macarons_list.value)
-        }
-
-        // event listener to catch create-custom-collection-form while trying to submit
-        document.getElementById('create-custom-collection-form').addEventListener('submit', (event, quantity_flavour={{ custom_collection_type.quantity_flavour }}) => {
-            console.log('quantity flavour: ', quantity_flavour)
+        // custom collection form eventListener for submit event
+        document.getElementById('add-to-cart-custom-collection-form').addEventListener('submit', (event, quantity_flavour ={{ custom_collection_type.quantity_flavour }}) => {
+            // prevent default form behaviour on submit action
             event.preventDefault();
-            if (getCheckedMacaronsLength() !== quantity_flavour) {
-                createCollectionShowAlert("Please choose 2 macaron flavours from the below list.");
-            }
+            // check if checked macarons length is equal to flavour quantity
             if (getCheckedMacaronsLength() === quantity_flavour) {
-                let macarons = getCheckedMacaronsList();
-                addToMacaronsList(macarons);
-                console.log("submitting form");
-                document.getElementById('create-custom-collection-form').submit();
+                let macarons_list = getCheckedMacaronsValues();
+                updateCustomCollectionMacaronsList(macarons_list);
+                getCustomCollectionAddToCartForm().submit();
+            } else {
+                customCollectionAlertShow(`Please choose ${quantity_flavour} flavours.`);
             }
-        })
+        });
 
-
-        function getCustomCollectionForm() {
-
-        }
     </script>
 
 {% endblock %}

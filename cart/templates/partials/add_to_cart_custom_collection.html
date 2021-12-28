@@ -1,0 +1,14 @@
+{% load crispy_forms_tags %}
+
+<form action="{% url 'cart:add_to_cart_custom_collection' custom_collection_type.slug %}"
+      id="add-to-cart-custom-collection-form" method="POST">
+    {% csrf_token %}
+
+    {{ add_to_cart_form|crispy }}
+
+    <input type="hidden" name="item_type" value="{{ item_type }}">
+    <input type="hidden" name="collection_type" value="{{ item_slug }}">
+    <input type="hidden" name="macarons" id="macarons-list" value="">
+
+    <button type="submit" class="btn btn-outline-primary">Add to Cart &nbsp;<i class="bi bi-cart"></i></button>
+</form>

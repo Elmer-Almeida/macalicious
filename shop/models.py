@@ -379,6 +379,18 @@ class CustomCollectionType(models.Model):
     def get_total(self):
         return self.get_price
 
+    def display_total(self):
+        if self.is_on_sale():
+            return mark_safe(
+                f"<span class='price' style='font-size:18px;text-decoration:line-through;'>&nbsp;${self.price}&nbsp;</span> &nbsp;"
+                f"<span class='price' style='font-size:21px;color:#91363d;'>${self.get_total()}</span>")
+        else:
+            return mark_safe(f"<span class='price' style='font-size:21px;'>${self.get_total()}</span>")
+
+    @staticmethod
+    def get_all_featured_images():
+        return Macaron.objects.featured_images()
+
     def admin_sale_price(self):
         if self.sale_price > 0:
             return mark_safe(f"<span style='color:#fb523b;'>${self.sale_price}</span>")
@@ -442,6 +454,12 @@ class CustomCollection(models.Model):
                 f"<span class='price' style='font-size:21px;color:#91363d;'>${self.get_total()}</span>")
         else:
             return mark_safe(f"<span class='price' style='font-size:21px;'>${self.get_total()}</span>")
+
+    def get_featured_images(self):
+        images = []
+        for macaron in self.macarons.all():
+            images.append(macaron.images.featured())
+        return images
 
     def admin_get_macarons_list(self):
         output = ""

@@ -1,0 +1,17 @@
+{% if custom_collection_types %}
+    <div class="custom-collection-links mb-3 d-none d-md-block d-lg-block d-xl-block">
+        {% for collection_type in custom_collection_types %}
+            <a class="btn btn-outline-primary" href="{% url 'shop:custom_collection' collection_type.slug %}">
+                <i class="bi bi-box"></i>&nbsp;&nbsp;Create {{ collection_type.name }} Collection
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="list-group mb-4 shadow-sm d-md-none mobile-navigation-shop-links d-block d-md-none d-lg-none d-xl-none">
+        {% for custom_collection_type in custom_collection_types %}
+            <a href="{% url 'shop:custom_collection' custom_collection_type.slug %}" style="font-size: 15px;" class="list-group-item list-group-item-action">
+                <i class="bi bi-box purple"></i>&nbsp;&nbsp;Create {{ custom_collection_type.name }}
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}

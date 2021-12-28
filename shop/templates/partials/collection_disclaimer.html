@@ -1,7 +1,12 @@
 <div class="alert alert-info {% if not detail_page %}mt-2{% endif %} alert-dismissible fade show">
-    Please <a href="mailto:shop.macalicious@gmail.com" data-bs-toggle="tooltip"
-                      data-bs-placement="bottom" class="email-link"
-                      title="Email Macalicious">contact us</a> for more information or
-    inquiries on our collections.
+    Please
+    <a href="{% url 'contact:view' %}?reason=custom-order" data-bs-toggle="tooltip"
+       data-bs-placement="bottom" class="email-link"
+       title="Contact Macalicious">contact</a>
+    or
+    <a href="mailto:shop.macalicious@gmail.com?subject=Custom Order Inquiry" data-bs-toggle="tooltip"
+       data-bs-placement="bottom" class="email-link"
+       title="Email Macalicious">email</a>
+    for more information or inquiries regarding our collections.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>

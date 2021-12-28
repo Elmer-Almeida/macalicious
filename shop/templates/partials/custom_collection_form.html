@@ -1,29 +1,21 @@
-<form action="{% url 'cart:add_to_cart_custom_collection' custom_collection_type.slug %}" id="create-custom-collection-form"
-      method="POST">
-    {% csrf_token %}
+<div id="custom-collection-form">
+    <div class="row row-cols-1 g-4">
+        {% for macaron in macarons %}
 
-    {% for macaron in macarons %}
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-check create-custom-collection">
+                    <input type="checkbox" class="form-check-input" value="{{ macaron.slug }}"
+                           name="macarons"
+                           id="macaron_{{ macaron.slug }}"
+                           onclick="macaronCheckboxClickEvent({{ custom_collection_type.quantity_flavour }});">
+                    <label for="macaron_{{ macaron.slug }}" class="create-custom-collection-label" style="width: 100%;">
+                        {% include 'partials/images_carousel.html' with images=macaron.images.all width="100%" height="225px" page='customcollection' %}
+                        <h5 class="text-center fancy name mt-2">{{ custom_collection_type.quantity_each }} <span
+                                class="text-muted">x</span> {{ macaron.name }}</h5>
+                    </label>
+                </div>
+            </div>
 
-        <div class="form-check create-custom-collection">
-            <input type="checkbox" class="form-check-input" value="{{ macaron.slug }}"
-                   name="macarons"
-                   id="macaron_{{ macaron.slug }}" onclick="customCollectionCheckboxClickEvent({{ custom_collection_type.quantity_flavour }});">
-            <label for="macaron_{{ macaron.slug }}" class="create-custom-collection-label">
-                <img src="{{ macaron.images.featured.picture.url }}"
-                     alt="{{ macaron.images.featured.alt_text }}"
-                     class="rounded shadow border-tiffany">
-                <span class="fancy name">{{ custom_collection_type.quantity_each }} <span
-                        class="text-muted">x</span> {{ macaron.name }}</span>
-            </label>
-        </div>
-
-    {% endfor %}
-
-    <input type="hidden" name="item_type" value="customcollection">
-    <input type="hidden" name="collection_type" value="{{ custom_collection_type.slug }}">
-    <input type="hidden" name="macarons" id="macarons-list" value="">
-
-    <button type="submit" class="btn btn-primary mt-3">Add to Cart &nbsp;<i class="bi bi-cart"></i>
-    </button>
-
-</form>
+        {% endfor %}
+    </div>
+</div>
