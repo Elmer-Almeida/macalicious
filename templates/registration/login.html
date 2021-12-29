@@ -6,29 +6,32 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-4 col-sm-12 col-xs-12">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-4 col-sm-12 col-xs-12">
 
-            <h1>Login</h1>
-            <hr>
+                <h1>Login</h1>
+                <hr>
 
-            {% include 'partials/messages.html' %}
+                {% include 'partials/messages.html' %}
 
-            <form method="POST" action="">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="btn btn-primary mb-1">{% trans 'Login' %} &nbsp;<i
-                        class="bi bi-arrow-right"></i></button>
-                <input type="hidden" name="next" value="{{ next }}"/>
-            </form>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary mb-1">{% trans 'Login' %} &nbsp;<i
+                            class="bi bi-arrow-right"></i></button>
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                </form>
 
-            <hr>
+                <hr>
 
-            <p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.
-            </p>
-            <p>{% trans "New to <span class='fancy'>Maca<span class='purple'>licious</span>!</span>?" %} <a
-                    href="{% url 'registration_register' %}">{% trans "Create an account" %}</a>.</p>
+                <p>{% trans "Forgot your password?" %} <a
+                        href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.
+                </p>
+                <p>{% trans "New to <span class='fancy'>Maca<span class='purple'>licious</span>!</span>?" %} <a
+                        href="{% url 'registration_register' %}">{% trans "Create an account" %}</a>.</p>
 
+            </div>
         </div>
     </div>
 

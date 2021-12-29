@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 from django.views.generic import View
+from django.shortcuts import render
 
 from .models import Order
 
@@ -10,8 +11,14 @@ class OrdersPage(LoginRequiredMixin, View):
     template_name = 'orders/view.html'
 
     def get(self, request):
-        orders = Order.objects.active().filter(user=request.user).order_by('-created_at')
+        all_orders = Order.objects.active().filter(user=request.user)
+        pagination = Paginator(all_orders, 5)
+
+        page_number = request.GET.get('page')
+        orders = pagination.get_page(page_number)
+
         context = {
             'orders': orders,
+            'pagination_object': pagination,
         }
         return render(request, self.template_name, context)

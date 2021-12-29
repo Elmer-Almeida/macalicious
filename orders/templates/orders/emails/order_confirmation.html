@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Order Confirmation | Macalicious</title>
-</head>
-<body>
+<p>
+    Hi
+    {% if order.user.first_name %}
+        {{ order.user.first_name }}
+    {% else %}
+        {{ order.user.username }}
+    {% endif %},
+</p>
 
-<h1>Order: {{ order.code }}</h1>
-<h3>Date: {{ order.created_at }}</h3>
-<h4>Total: ${{ order.total }}</h4>
+<p>Thank you for placing your order with Macalicious. Here are your order details:</p>
+<p>Order: {{ order.code }}</p>
+<p>Date: {{ order.created_at }}</p>
+<p>Total: ${{ order.total }}</p>
 
-<hr>
 
-<p>{{ order.cart.cart_items.count }} item(s).</p>
-
+<p>Your order has {{ order.cart.cart_items.count }} {% if order.cart.cart_items.count == 1 %}item{% else %}
+    items{% endif %}:</p>
 <ul>
     {% for item in order.cart.cart_items.all %}
         <li>{{ item.quantity }} x {{ item.content_object.get_name }} for ${{ item.total }}</li>
@@ -25,6 +26,3 @@
 <h4>Macalicious</h4>
 <p><a href="mailto:shop.macalicious@gmail.com" title="Email Macalicious">shop.macalicious@gmail.com</a></p>
 <p><a href="{% url 'landing' %}" title="Macalicious">https://www.macalicious.ca/</a></p>
-
-</body>
-</html>

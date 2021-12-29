@@ -7,57 +7,56 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
 
-            {% include 'partials/messages.html' %}
+                {% include 'partials/messages.html' %}
 
-            {# featured macaron collections #}
-            {% if featured_macaron_collections %}
+                {# featured macaron collections #}
+                {% if featured_macaron_collections %}
 
-                <h1>Featured Collections</h1>
-                <hr>
+                    <h1>Featured Collections</h1>
+                    <hr>
 
-                {% include 'partials/collection_disclaimer.html' %}
+                    {% include 'partials/collection_disclaimer.html' %}
 
-                {% include 'partials/custom_collection_links.html' %}
+                    {% include 'partials/custom_collection_links.html' %}
 
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    {% for collection in featured_macaron_collections %}
-                        {% include 'partials/collection_results.html' %}
-                    {% endfor %}
-                </div>
-                <a href="{% url 'shop:view' %}#macaron_collections" class="btn btn-outline-primary mt-3">View All
-                    &nbsp;<i
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {% for collection in featured_macaron_collections %}
+                            {% include 'partials/collection_results.html' %}
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'shop:collections' %}" class="btn btn-outline-primary mt-3">View All &nbsp;<i
                             class="bi bi-arrow-right"></i></a>
 
-            {% endif %}
+                {% endif %}
 
-            {# featured macaron sets #}
-            {% if featured_macaron_sets %}
+                {# featured macaron sets #}
+                {% if featured_macaron_sets %}
 
-                <h1 class="mt-4">Featured Sets</h1>
-                <hr>
+                    <h1 class="mt-4">Featured Sets</h1>
+                    <hr>
 
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    {% for set in featured_macaron_sets %}
-                        {% include 'partials/set_results.html' %}
-                    {% endfor %}
-                </div>
-                <a href="{% url 'shop:view' %}#macaron_sets" class="btn btn-outline-primary mt-3">View All &nbsp;<i
-                        class="bi bi-arrow-right"></i></a>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {% for set in featured_macaron_sets %}
+                            {% include 'partials/set_results.html' %}
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'shop:sets' %}" class="btn btn-outline-primary mt-3">View All &nbsp;<i
+                            class="bi bi-arrow-right"></i></a>
 
-            {% endif %}
+                {% endif %}
 
+            </div>
         </div>
     </div>
 
     {# START Newsletter Form #}
     {% if newsletter_form %}
 
-        <div class="container">
-            {% include 'partials/newsletter_signup.html' %}
-        </div>
+        {% include 'partials/newsletter_signup.html' %}
 
     {% endif %}
     {# END Newsletter Form #}

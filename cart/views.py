@@ -41,7 +41,7 @@ def add_to_cart_custom_collection(request, slug):
                     )
                     custom_collection.macarons.set(macarons)
                     custom_collection.save()
-                    print('custom collection created: ', custom_collection)
+
                     if custom_collection:
                         # custom collection has been added - now add the custom collection to the cart
                         cart_instance = get_or_create_cart(request)

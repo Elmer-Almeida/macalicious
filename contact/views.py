@@ -17,7 +17,7 @@ class ContactPage(View):
         contact_form = ContactForm()
         if request.GET.get('reason'):
             contact_reason = request.GET.get('reason').lower()
-            if contact_reason == 'custom-order':
+            if contact_reason == 'custom-order' or contact_reason == 'general':
                 data = {
                     'reason': contact_reason,
                 }

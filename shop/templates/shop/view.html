@@ -6,67 +6,73 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
 
-            {% include 'partials/messages.html' %}
+                {% include 'partials/messages.html' %}
 
-            <div class="list-group mb-4 shadow-sm d-md-none mobile-navigation-shop-links">
-                <a href="#macaron_sets" class="list-group-item list-group-item-action fancy"
-                   style="font-size: 16px;">
-                    Sets
-                </a>
-                <a href="#macaron_collections" class="list-group-item list-group-item-action fancy"
-                   style="font-size: 18px;">
-                    Collections
-                </a>
+                <div class="list-group mb-4 shadow-sm d-md-none mobile-navigation-shop-links">
+                    <a href="#macaron_sets" class="list-group-item list-group-item-action fancy"
+                       style="font-size: 16px;">
+                        Sets
+                    </a>
+                    <a href="#macaron_collections" class="list-group-item list-group-item-action fancy"
+                       style="font-size: 18px;">
+                        Collections
+                    </a>
+                </div>
+
+                {# Check to see if macarons collections are passed through #}
+                {% if macaron_collections %}
+
+                    <h1 id="macaron_collections">Featured Collections</h1>
+                    <hr>
+
+                    {% include 'partials/collection_disclaimer.html' %}
+
+                    {% include 'partials/custom_collection_links.html' %}
+
+                    <div class="row row-cols-1 g-4">
+                        {% for collection in macaron_collections %}
+
+                            {% include 'partials/collection_results.html' %}
+
+                        {% endfor %}
+                    </div>
+
+                    <a href="{% url 'shop:sets' %}" class="btn btn-outline-primary mt-3">View All &nbsp;<i
+                            class="bi bi-arrow-right"></i></a>
+
+                {% endif %}
+
+                {# Check to see if macarons sets are passed through #}
+                {% if macaron_sets %}
+
+                    <h1 class="mt-4" id="macaron_sets">Featured Sets</h1>
+                    <hr>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {# display each macaron in card style #}
+                        {% for set in macaron_sets %}
+
+                            {% include 'partials/set_results.html' %}
+
+                        {% endfor %}
+                    </div>
+
+                    <a href="{% url 'shop:collections' %}" class="btn btn-outline-primary mt-3">View All &nbsp;<i
+                            class="bi bi-arrow-right"></i></a>
+
+                {% endif %}
+
             </div>
-
-            {# Check to see if macarons collections are passed through #}
-            {% if macaron_collections %}
-
-                <h1 id="macaron_collections">Collections</h1>
-                <hr>
-
-                {% include 'partials/collection_disclaimer.html' %}
-
-                {% include 'partials/custom_collection_links.html' %}
-
-                <div class="row row-cols-1 g-4">
-                    {% for collection in macaron_collections %}
-
-                        {% include 'partials/collection_results.html' %}
-
-                    {% endfor %}
-                </div>
-
-            {% endif %}
-
-            {# Check to see if macarons sets are passed through #}
-            {% if macaron_sets %}
-
-                <h1 class="mt-4" id="macaron_sets">Sets</h1>
-                <hr>
-
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    {# display each macaron in card style #}
-                    {% for set in macaron_sets %}
-
-                        {% include 'partials/set_results.html' %}
-
-                    {% endfor %}
-                </div>
-
-            {% endif %}
-
         </div>
     </div>
 
     {% if newsletter_form %}
 
-        <div class="container">
-            {% include 'partials/newsletter_signup.html' %}
-        </div>
+        {% include 'partials/newsletter_signup.html' %}
 
     {% endif %}
 

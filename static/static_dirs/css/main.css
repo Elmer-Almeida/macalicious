@@ -6,6 +6,24 @@ input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focu
     border: 1px solid #79589f !important;
 }
 
+input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    background: #f6fdff;
+    border-radius: 5px;
+    border: 1px solid #79589f;
+    -webkit-appearance: none;
+}
+
+input[type='checkbox']:checked {
+    background: #79589f;
+    border: 1px solid #f6fdff;
+}
+
+.custom-collection-checkbox {
+    margin-right: 15px;
+}
+
 :focus {
     border-width: 1px !important;
     outline: 0 !important; /* I have also tried outline:none */
@@ -106,11 +124,14 @@ hr.regular {
     background-color: #ffffff !important;
 }
 
+.logo {
+    transform: rotate(-3deg) !important;
+}
+
 .navbar-brand {
     font-family: 'Kaushan Script', cursive;
     font-size: 25px;
     color: #333333 !important;
-    transform: rotate(-2deg);
 }
 
 .delicious-red {
@@ -137,6 +158,10 @@ hr.regular {
 
 .nav-item:last-child {
     margin-right: 0;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #79589f;
 }
 
 .nav-item ul.dropdown-menu {
@@ -344,8 +369,9 @@ a.email-link {
 .custom-collection-links a {
     margin-left: 10px;
 }
+
 .custom-collection-links a:first-child {
-    margin-left:0;
+    margin-left: 0;
 }
 
 .mobile-navigation-shop-links a {
@@ -405,7 +431,13 @@ footer .social-icons a:last-child {
     .custom-collection-link a:first-child {
         margin-top: 0;
     }
+
     .custom-collection-link a {
         margin-top: 10px;
+    }
+
+    .g-recaptcha {
+        transform: scale(0.77);
+        transform-origin: 0 0;
     }
 }

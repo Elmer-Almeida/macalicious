@@ -7,89 +7,89 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
 
-            <div class="row justify-content-md-between">
+                <div class="row justify-content-md-between">
 
-                <div class="col-md-5 col-sm-12 col-xs-12">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
 
-                    <h1>Create your collection</h1>
-                    <hr>
+                        <h1>Create your collection</h1>
+                        <hr>
 
-                    {% include 'partials/messages.html' %}
+                        {% include 'partials/messages.html' %}
 
 
-                    {% if custom_collection_type %}
+                        {% if custom_collection_type %}
 
-                        <h3>{{ custom_collection_type.name }}</h3>
+                            <h3>{{ custom_collection_type.name }}</h3>
 
-                        {# display price and number of macarons #}
-                        <p class="mb-1">
-                            {{ custom_collection_type.display_total }}
-                            &nbsp;&middot;&nbsp;
-                            <span class="price" style="font-size: 18px;">
+                            {# display price and number of macarons #}
+                            <p class="mb-1">
+                                {{ custom_collection_type.display_total }}
+                                &nbsp;&middot;&nbsp;
+                                <span class="price" style="font-size: 18px;">
                                 {{ custom_collection_type.quantity_total }} macarons
                             </span>
-                        </p>
-
-                        <div class="alert alert-info d-none" id="custom-collection-alert" role="alert"></div>
-
-                        {% if macarons %}
-
-                            <p class="mb-3 font-normal" id="custom-collection-disclaimer">
-                                Please choose {{ custom_collection_type.quantity_flavour }} flavours.
                             </p>
 
-                            {% include 'partials/custom_collection_form.html' %}
+                            <div class="alert alert-info d-none" id="custom-collection-alert" role="alert"></div>
 
-                        {% else %}
+                            {% if macarons %}
 
-                            <div class="alert alert-info">
-                                {% trans 'There are no macarons available to pick from. Please try again later.' %}
-                            </div>
+                                <p class="mb-3 font-normal" id="custom-collection-disclaimer">
+                                    Please choose {{ custom_collection_type.quantity_flavour }} flavours.
+                                </p>
 
-                            <a href="{% url 'shop:view' %}" class="btn btn-primary">Visit our shop</a>
+                                {% include 'partials/custom_collection_form.html' %}
+
+                            {% else %}
+
+                                <div class="alert alert-info">
+                                    {% trans 'There are no macarons available to pick from. Please try again later.' %}
+                                </div>
+
+                                <a href="{% url 'shop:view' %}" class="btn btn-primary">Visit our shop</a>
+
+                            {% endif %}
 
                         {% endif %}
 
-                    {% endif %}
 
+                    </div>
 
-                </div>
+                    <div class="col-md-3 col-xs-12 col-sm-12 mt-4 mt-md-0">
 
-                <div class="col-md-3 col-xs-12 col-sm-12 mt-4 mt-md-0">
+                        {% include 'partials/cart_sidebar.html' with page='custom_collection' item_name=custom_collection_type.name item_price=custom_collection_type.display_total %}
 
-                    {% include 'partials/cart_sidebar.html' with page='custom_collection' item_name=custom_collection_type.name item_price=custom_collection_type.display_total %}
+                    </div>
 
                 </div>
 
             </div>
-
         </div>
+
+        {% if macaron_recommended_sets %}
+
+            <hr class="mt-5 regular" style="margin-bottom:35px !important;">
+
+            <h2>You may also like</h2>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for collection in macaron_recommended_collections %}
+
+                    {% include 'partials/collection_results.html' %}
+
+                {% endfor %}
+            </div>
+
+        {% endif %}
     </div>
-
-    {% if macaron_recommended_sets %}
-
-        <hr class="mt-5 regular" style="margin-bottom:35px !important;">
-
-        <h2>You may also like</h2>
-
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            {% for collection in macaron_recommended_collections %}
-
-                {% include 'partials/collection_results.html' %}
-
-            {% endfor %}
-        </div>
-
-    {% endif %}
 
     {% if newsletter_form %}
 
-        <div class="container">
-            {% include 'partials/newsletter_signup.html' %}
-        </div>
+        {% include 'partials/newsletter_signup.html' %}
 
     {% endif %}
 

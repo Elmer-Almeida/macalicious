@@ -1,0 +1,75 @@
+{% extends "master.html" %}
+
+{% block head_title %}
+    Macarons
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                {% include 'partials/messages.html' %}
+
+                {# Check to see if macarons sets are passed through #}
+                {% if page_obj.object_list %}
+
+                    <h1 id="macaron_sets">Macarons</h1>
+                    <hr class="mb-2">
+
+                    <div class="d-flex justify-content-between mb-3" style="font-size: 14px;">
+                        <p class="m-0">
+                            {{ page_obj.paginator.count }} sets available.
+                        </p>
+
+                        <p class="m-0">
+                            {# if no page number specified, assume its the first page #}
+                            Page {% if request.GET.page %} {{ request.GET.page }} {% else %} 1 {% endif %} of
+                            {{ page_obj.paginator.num_pages }}
+                        </p>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {# display each macaron in card style #}
+                        {% for set in page_obj.object_list %}
+
+                            {% include 'partials/set_results.html' %}
+
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+
+                {% if page_obj.has_other_pages %}
+                    <div class="mt-3 d-flex justify-content-between">
+                        <div class="page_obj-previous-page">
+                            {% if page_obj.has_previous %}
+                                <a href="{% url 'shop:sets' %}?page={{ page_obj.previous_page_number }}"
+                                   class="btn btn-outline-primary">
+                                    Previous Page&nbsp;&nbsp;<i class="bi bi-arrow-left"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="page_obj-next-page">
+                            {% if page_obj.has_next %}
+                                <a href="{% url 'shop:sets' %}?page={{ page_obj.next_page_number }}"
+                                   class="btn btn-outline-primary">
+                                    Next Page&nbsp;&nbsp;<i class="bi bi-arrow-right"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    {% if newsletter_form %}
+
+        {% include 'partials/newsletter_signup.html' %}
+
+    {% endif %}
+
+{% endblock %}

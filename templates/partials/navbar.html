@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm border-bottom-tiffany">
     <div class="container">
 
-        <a href="{% url 'landing' %}" class="navbar-brand">Maca<span class="purple">licious</span>!</a>
+        <a href="{% url 'landing' %}" class="navbar-brand logo">Maca<span class="purple">licious</span>!</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,10 +30,21 @@
                 {#                       href="{% url 'about' %}">About</a>#}
                 {#                </li>#}
 
-                <li class="nav-item">
-                    <a class="nav-link {% if 'shop' in request.path %} active {% endif %}"
-                       href="{% url 'shop:view' %}">Shop &nbsp;&nbsp;<i
-                            class="bi bi-bag {% if 'shop' in request.path %}purple{% endif %}"></i></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false"
+                       style="{% if 'shop' in request.path %}color: #79589f !important;{% elif 'account' in request.path %}color: #79589f !important;{% endif %}">
+                        Shop &nbsp;&nbsp;<i class="bi bi-bag"></i>
+                    </a>
+                    <ul class="dropdown-menu purple" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item {% if request.path == '/shop/' %}active{% endif %}"
+                               href="{% url 'shop:view' %}">Featured</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item {% if request.path == '/shop/macarons/' %}active{% endif %}"
+                               href="{% url 'shop:sets' %}">Macarons</a></li>
+                        <li><a class="dropdown-item {% if request.path == '/shop/collections/' %}active{% endif %}"
+                               href="{% url 'shop:collections' %}">Collections</a></li>
+                    </ul>
                 </li>
 
                 <li class="nav-item">
@@ -54,7 +65,8 @@
                 <li class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false" style="{% if 'orders' in request.path %}color: #79589f !important;{% elif 'account' in request.path %}color: #79589f !important;{% endif %}">
+                       data-bs-toggle="dropdown" aria-expanded="false"
+                       style="{% if 'orders' in request.path %}color: #79589f !important;{% elif 'account' in request.path %}color: #79589f !important;{% endif %}">
                         {% if request.user.is_authenticated %}
                             {% if request.user.get_full_name %}
                                 {{ request.user.get_full_name }}

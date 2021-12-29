@@ -11,7 +11,7 @@ from crispy_forms.helper import FormHelper
 class RegistrationForm(RegistrationFormTermsOfService, RegistrationFormUniqueEmail):
     first_name = forms.CharField(widget=forms.TextInput())
     last_name = forms.CharField(widget=forms.TextInput())
-    phone_number = PhoneNumberField(help_text='We will use this number to coordinate your order delivery.')
+    phone_number = PhoneNumberField(help_text='Used for order updates and delivery.')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

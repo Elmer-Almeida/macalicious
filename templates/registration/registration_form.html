@@ -6,36 +6,25 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-4 col-sm-12 col-xs-12">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-4 col-sm-12 col-xs-12">
 
-            <h1>Create an account</h1>
-            <hr>
+                <h1>Create an account</h1>
+                <hr>
 
-            {% include 'partials/messages.html' %}
+                {% include 'partials/messages.html' %}
 
-            <form method="post" action="">
-                {% csrf_token %}
-                {% crispy form %}
-            </form>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
 
-            <hr>
+                <hr>
 
-            <p>{% trans "Already have an account?" %} <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>.
+                <p>{% trans "Already have an account?" %} <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>.
+            </div>
         </div>
     </div>
 
 {% endblock %}
-
-
-{% comment %}
-**registration/registration_form.html**
-Used to show the form users will fill out to register. By default, has
-the following context:
-
-``form``
-    The registration form. This will be an instance of some subclass
-    of ``django.forms.Form``; consult `Django's forms documentation
-    <http://docs.djangoproject.com/en/dev/topics/forms/>`_ for
-    information on how to display this in a template.
-{% endcomment %}
