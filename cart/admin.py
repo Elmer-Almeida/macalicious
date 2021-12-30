@@ -6,7 +6,7 @@ from .filters import ItemTypeFilter, PriceRangeFilter
 
 class CartAdmin(admin.ModelAdmin):
     list_display = [
-        '__str__', 'user', 'number_of_items', 'admin_total', 'active', 'created_at', 'updated_at'
+        '__str__', 'user', 'admin_number_of_items', 'admin_total', 'active', 'created_at', 'updated_at'
     ]
     list_filter = [
         'active', PriceRangeFilter

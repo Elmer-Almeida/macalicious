@@ -2,6 +2,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import admin
 from django.db.models import Q
 
+from shop.models import CustomCollectionType, CustomCollection
+
 
 class ItemTypeFilter(admin.SimpleListFilter):
     title = 'item type'
@@ -9,8 +11,9 @@ class ItemTypeFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return (
-            ('macaronset', 'Macaron Set'),
-            ('macaroncollection', 'Macaron Collection')
+            ('set', 'Macaron Set'),
+            ('collection', 'Macaron Collection'),
+            ('customcollection', 'Macaron Custom Collection')
         )
 
     def queryset(self, request, queryset):
@@ -21,7 +24,7 @@ class ItemTypeFilter(admin.SimpleListFilter):
                     Q(item_type=item_type)
                 )
             except ContentType.DoesNotExist:
-                return queryset.filter()
+                return queryset
 
 
 class PriceRangeFilter(admin.SimpleListFilter):

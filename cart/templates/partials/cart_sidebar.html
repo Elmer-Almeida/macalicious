@@ -43,8 +43,6 @@
     </div>
     <hr>
 
-    {% include 'partials/messages.html' %}
-
     {% if number_of_items %}
         <div id="cart_items">
             {% for item in cart.cart_items.all %}

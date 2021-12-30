@@ -1,5 +1,3 @@
-import decimal
-
 from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
@@ -15,7 +13,7 @@ class Cart(models.Model):
         verbose_name_plural = 'Carts'
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     number_of_items = models.PositiveIntegerField(default=0)
-    total = models.DecimalField(default=0.0, max_digits=5, decimal_places=2)
+    total = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -29,9 +27,16 @@ class Cart(models.Model):
         return mark_safe(f"${self.total}")
 
     def admin_total(self):
-        return mark_safe(f"<span style='font-size:14px;color:#fb523b;font-weight:bold;'>${self.total}</span>")
+        if self.total > 0:
+            return mark_safe(f"<span style='font-size:14px;color:#fb523b;font-weight:bold;'>${self.total}</span>")
+        return '-'
 
     admin_total.short_description = "Total"
+
+    def admin_number_of_items(self):
+        return self.number_of_items
+
+    admin_number_of_items.short_description = "Cart Items"
 
     def admin_cart_items(self):
         output = ""
@@ -56,7 +61,7 @@ class CartItem(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("item_type", "object_id")
     quantity = models.PositiveIntegerField(default=1)
-    total = models.DecimalField(default=0, max_digits=5, decimal_places=2)
+    total = models.DecimalField(default=0.0, max_digits=10, decimal_places=2)
     active = models.BooleanField(default=True)
     slug = models.SlugField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -104,6 +109,9 @@ class CartItem(models.Model):
     admin_user.short_description = "User"
 
     def admin_item_type(self):
-        return f"{self.item_type.name}"
+        if self.item_type.name == "Macaron Custom Collection":
+            return f"{self.content_object.type.name}"
+        else:
+            return f"{self.item_type.name}"
 
     admin_item_type.short_description = "Item Type"

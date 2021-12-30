@@ -17,7 +17,6 @@ from .models import Cart, CartItem
 
 
 # custom collection add to cart
-# TODO: check if its possible to embed this method in the main add_to_cart method
 @login_required
 def add_to_cart_custom_collection(request, slug):
     if request.method == "POST":
@@ -72,30 +71,40 @@ def add_to_cart_custom_collection(request, slug):
                             cart_item.total = cart_item.get_total()
                             cart_item.cart.user = request.user
                             cart_item.save()
+                            print('cart item : ', cart_item)
                             messages.add_message(request, messages.INFO, mark_safe(
                                 f"<i class='bi bi-cart-check'></i>&nbsp; <span class='fancy'>{object_name}</span>&nbsp;has been added to your cart."))
                             return redirect(reverse('cart:view'))
                         else:
-                            messages.add_message(request, messages.ERROR, 'Quantity error. Something went wrong. Please try again later.')
+                            print('Add to cart item quantity is invalid')
+                            messages.add_message(request, messages.ERROR,
+                                                 'Enter a quantity between 1 and 25. Please try again.')
+                            return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
                     else:
+                        print('Custom Collection creation error.')
                         messages.add_message(
                             request, messages.ERROR,
-                            'Custom Collection creation error. Something went wrong. Please try again later.')
+                            'Something went wrong. Please try again later.')
                         return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
                 else:
-                    # the lenght of the flavours chosen is not valid
+                    # the length of the flavours chosen is not valid
+                    print('Custom collection form array length error.')
+                    messages.add_message(request, messages.ERROR,
+                                         'Something went wrong. Please try again later.')
                     return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
             else:
                 messages.add_message(request, messages.ERROR,
-                                     'Item type error: Something went wrong. Please try again later.')
+                                     'Something went wrong. Please try again later.')
                 return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
         else:
             # custom collection type doesn't exist
-            messages.add_message(request, messages.ERROR, 'Type error: Something went wrong. Please try again later.')
-            return redirect(reverse('shop:view'))
+            print('custom collection type doesn\'t match.')
+            messages.add_message(request, messages.ERROR, 'Something went wrong. Please try again later.')
+            return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
     else:
-        messages.add_message(request, messages.ERROR, 'Request error: Something went wrong. Please try again later.')
-        return redirect(reverse('shop:view'))
+        print('request method error')
+        messages.add_message(request, messages.ERROR, 'Something went wrong. Please try again later.')
+        return redirect(reverse('shop:custom_collection', kwargs={'slug': slug}))
 
 
 # add macaron set or collection to the cart
@@ -139,9 +148,17 @@ def add_to_cart(request, slug):
                 return redirect(reverse('cart:view'))
             else:
                 # Adding to cart is invalid
+                print('object type: ', item_type.name)
+                print(object_instance.slug)
                 messages.add_message(request, messages.ERROR,
-                                     f"There was an issue adding {object_instance.name} to your cart")
-                return redirect(reverse('cart:view'))
+                                     mark_safe(
+                                         f"Enter a quantity between 1 and 25. Please try again."))
+                if item_type.name == 'Macaron Collection':
+                    return redirect(reverse('shop:collection_detail', kwargs={'slug': object_instance.slug}))
+                elif item_type.name == 'Macaron Set':
+                    return redirect(reverse('shop:set_detail', kwargs={'slug': object_instance.slug}))
+                else:
+                    return redirect(reverse('shop:view'))
         else:
             # Quantity is invalid.
             messages.add_message(request, messages.ERROR, f"Please choose a valid quantity. One or more required.")
@@ -149,7 +166,7 @@ def add_to_cart(request, slug):
     else:
         # GET request is invalid
         messages.add_message(request, messages.ERROR, f"Something went wrong. Please try again later.")
-        return redirect(reverse('cart:view'))
+        return redirect(reverse('shop:view'))
 
 
 # Get cart stored in request.session or create a cart and store it in request.session
