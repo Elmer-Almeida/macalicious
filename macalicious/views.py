@@ -1,3 +1,5 @@
+import requests
+
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from registration.backends.default.views import RegistrationView
@@ -12,29 +14,18 @@ class LandingPage(View):
     template_name = 'pages/landing.html'
 
     def get(self, request):
-        # TODO: redirecting to /shop/ for temporary measures
-        # return redirect(reverse('shop:view'))
-
-        # Remove cart and order_id session if it exists
-        # if request.session.get('cart'):
-        #     del request.session['cart']
-        # if request.session.get('order_id'):
-        #     del request.session['order_id']
-
         featured_macaron_sets = Set.objects.featured()
         featured_macaron_collections = Collection.objects.featured()
-
 
         context = {
             'featured_macaron_sets': featured_macaron_sets,
             'featured_macaron_collections': featured_macaron_collections,
-
-            # TODO: temporary custom collection creation
             'custom_collection_types': CustomCollectionType.objects.all(),
         }
         return render(request, self.template_name, context)
 
 
+# TODO: finish about page content and design
 # About page endpoint [url: /about/]
 class AboutPage(View):
     template_name = 'pages/about.html'

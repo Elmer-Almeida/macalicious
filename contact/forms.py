@@ -1,7 +1,8 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, HTML
-from django import forms
+
 from django.conf import settings
+from django import forms
 
 from .models import Contact
 

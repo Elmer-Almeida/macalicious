@@ -8,40 +8,42 @@
 
 {% block content %}
 
-    <div class="row justify-content-md-start">
+    <div class="container">
+        <div class="row justify-content-md-start">
 
-        <div class="col-md-8 col-xs-12 col-sm-12">
+            <div class="col-md-8 col-xs-12 col-sm-12">
 
-            <div class="row justify-content-md-center">
+                <div class="row justify-content-md-center">
 
-                <div class="col-md-4 col-sm-12 col-xs-12 mt-2">
-                    {% include 'partials/account_menu.html' %}
-                </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12 mt-2">
+                        {% include 'partials/account_menu.html' %}
+                    </div>
 
-                <div class="col mt-2">
-                    <h1>My Account</h1>
-                    <hr>
+                    <div class="col mt-3">
+                        <h1>My Account</h1>
+                        <hr>
 
-                    {% include 'partials/messages.html' %}
+                        {% include 'partials/messages.html' %}
 
-                    {% if account_form %}
+                        {% if account_form %}
 
-                        <form action="{% url 'account:view' %}" method="POST">
-                            {% crispy account_form %}
-                        </form>
+                            <form action="{% url 'account:view' %}" method="POST">
+                                {% crispy account_form %}
+                            </form>
 
-                    {% else %}
+                        {% else %}
 
-                        <p>{% trans "Something went wrong. Please try again later." %}</p>
+                            <p>{% trans "Something went wrong. Please try again later." %}</p>
 
-                    {% endif %}
+                        {% endif %}
+
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
-
     </div>
 
 {% endblock %}

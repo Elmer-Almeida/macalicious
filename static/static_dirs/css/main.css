@@ -305,6 +305,10 @@ a.email-link {
     background-color: #f6fdff !important;
 }
 
+.card-footer {
+    font-size: 13px;
+}
+
 .text-black {
     color: #000000 !important;
 }
@@ -423,6 +427,13 @@ ul.footer-links li.list-inline-item.active a {
 
 footer .social-icons a:last-child {
     margin-right: 0;
+}
+
+.account-menu a {
+    color: #333333 !important;
+}
+.account-menu a.active {
+    color: #ffffff !important;
 }
 
 
