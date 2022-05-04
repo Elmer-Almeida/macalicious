@@ -1,9 +1,8 @@
 # Macalicious
 
-This is the codebase for [Macalicious](https://www.macalicious.ca/). A website to showcase various Macaron cookies for
-sale in Ontario.
+A ecommerce website built in Python Django that enables customers to place and manage their orders, contact and more.
 
-The codebase has the following apps:
+The project has the following apps:
 
 * Account
 * Cart
@@ -15,37 +14,103 @@ The codebase has the following apps:
 
 ## Installation
 
-Download the codebase and in the <code>src</code> folder run the following command:
+Create a python virtual environment.
 
-    # install all dependencies (python 3)
-    pip3 install -r requirements.txt
+```sh
+python3 -m venv env
+```
 
-Make sure the <code>DEBUG</code> property in <code>settings.py</code> is set to the desired settings.
+Clone the repository and name the folder `src`. 
 
-Once all dependencies are installed, run the following commands in the <code>src</code> folder:
+```sh
+gh repo clone Elmer-Almeida/macalicious src
+# OR
+https://github.com/Elmer-Almeida/macalicious.git src
+```
 
-    # create migrations (if any)
-    python manage.py makemigrations
-    
-    # migrate migrations
-    python manage.py migrate
+In the `src` folder run the following command to install all dependencies required:
 
-To run a server on <code>localhost:8000</code>, run:
+```sh
+pip3 install -r requirements.txt
+```
 
-    python manage.py runserver
+Create an `.env` file with the following variables:
 
-### Heroku Deployment
+```sh
+# Google reCaptcha configuration
+GOOGLE_RECAPTCHA_SITE_KEY = "<value>"
+GOOGLE_RECAPTCHA_SECRET_KEY = "<value>"
 
-Make sure <code>DEBUG</code> is set to <code>False</code> in <code>settings.py</code> file.
+# Email configuration
+EMAIL_HOST_USER = "<value>"
+EMAIL_HOST_PASSWORD = "<value>"
+EMAIL_USE_TLS = "<value>"
+EMAIL_PORT = "<value>"
+EMAIL_HOST = "<value>"
 
-Run the following commands to get Heroku app up to speed:
+# Site admin configuration
+ADMIN_NAME = "<value>"
+ADMIN_EMAIL = "<value>"
 
-    # check/create any migrations
-    heroku run --app macalicious python manage.py makemigrations
+# AWS S3 configuration
+AWS_S3_HOST = "<value>"
+AWS_ACCESS_KEY_ID = "<value>"
+AWS_SECRET_ACCESS_KEY = "<value>"
+AWS_STORAGE_BUCKET_NAME = "<value>"
+AWS_S3_REGION_NAME = "<value>"
 
-    # migrate any migrations
-    heroku run --app macalicious python manage.py migrate
+# PostgreSQL configuration
+DATABASE_NAME = "<value>"
+DATABASE_USER = "<value>"
+DATABASE_PASSWORD = "<value>"
+DATABASE_HOST = "<value>"
+DATABASE_PORT = "<value>"
+```
 
-# Contact
+Make sure the `DEBUG` property in `src/macalicious/settings.py` is set to the desired setting.
 
-Any questions or concerns email me at <elmer.dev.95@gmail.com>.
+```python
+DEBUG = True   # for development
+DEBUG = False  # for production
+```
+
+Make sure the `DEBUG_EMAIL` property in `src/macalicious/settings.py` is set to the desired setting:
+
+```python
+DEBUG_EMAIL = True   # will use dummy email backend
+DEBUG_EMAIL = False  # will use live email service. NOTE: make sure email config is set in `.env`
+```
+
+Once all dependencies are installed, run the following commands in the `src` folder:
+
+```sh
+# create migrations (if any)
+python manage.py makemigrations
+
+# migrate migrations
+python manage.py migrate
+```
+
+To run a server on `http://localhost:8000`, run:
+
+```sh
+python manage.py runserver
+```
+
+## Heroku Deployment
+
+Make sure `DEBUG` is set to `False` in the `src/macalicious/settings.py` file.
+
+Run the following commands to deploy to heroku:
+
+```sh
+# check/create any migrations
+heroku run --app macalicious python manage.py makemigrations
+
+# migrate any migrations
+heroku run --app macalicious python manage.py migrate
+```
+
+## Contact
+
+Send me an email at: [almeielm@sheridancollege.ca](mailto:almeielm@sheridancollege.ca)
