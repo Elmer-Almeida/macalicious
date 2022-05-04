@@ -1,16 +1,16 @@
-# Macalicious Ecommerce Website
+# Macalicious E-Commerce Website
 
 A ecommerce website built in Python Django that enables customers to place and manage their orders, contact and more.
 
-The project has the following apps:
+The project has the following features:
 
-* Account
-* Cart
-* Contact
-* Newsletter
-* Orders
-* Search
-* Shop
+- User Accounts
+- Cart
+- Contact
+- Newsletter
+- Orders
+- Search
+- Shop
 
 ## Installation
 
@@ -20,7 +20,7 @@ Create a python virtual environment.
 python3 -m venv env
 ```
 
-Clone the repository and name the folder `src`. 
+Clone the repository and name the folder `src`.
 
 ```sh
 gh repo clone Elmer-Almeida/macalicious src
