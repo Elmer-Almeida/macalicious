@@ -81,6 +81,8 @@ DEBUG_EMAIL = True   # will use dummy email backend
 DEBUG_EMAIL = False  # will use live email service. NOTE: make sure email config is set in `.env`
 ```
 
+Make sure you have a `db.sqlite3` file in the `src` folder if you will be using `DEBUG = True`
+
 Once all dependencies are installed, run the following commands in the `src` folder:
 
 ```sh
