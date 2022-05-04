@@ -1,4 +1,4 @@
-# Macalicious
+# Macalicious Ecommerce Website
 
 A ecommerce website built in Python Django that enables customers to place and manage their orders, contact and more.
 
