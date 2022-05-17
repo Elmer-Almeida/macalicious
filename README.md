@@ -1,6 +1,6 @@
 # Macalicious E-Commerce Website
 
-A ecommerce website built in Python Django that enables customers to place orders, manage their orders and more.
+A e-commerce website built with the Python Django framework. Customers can place orders, manage their orders and accounts and more.
 
 The project has the following features:
 
@@ -38,50 +38,51 @@ Create an `.env` file with the following variables:
 
 ```sh
 # Google reCaptcha configuration
-GOOGLE_RECAPTCHA_SITE_KEY = "<value>"
-GOOGLE_RECAPTCHA_SECRET_KEY = "<value>"
+GOOGLE_RECAPTCHA_SITE_KEY="<value>"
+GOOGLE_RECAPTCHA_SECRET_KEY="<value>"
 
 # Email configuration
-EMAIL_HOST_USER = "<value>"
-EMAIL_HOST_PASSWORD = "<value>"
-EMAIL_USE_TLS = "<value>"
-EMAIL_PORT = "<value>"
-EMAIL_HOST = "<value>"
+EMAIL_HOST_USER="<value>"
+EMAIL_HOST_PASSWORD="<value>"
+EMAIL_USE_TLS="<value>"
+EMAIL_PORT="<value>"
+EMAIL_HOST="<value>"
 
-# Site admin configuration
-ADMIN_NAME = "<value>"
-ADMIN_EMAIL = "<value>"
+# Site email configuration
+ADMIN_NAME="<value>"
+ADMIN_EMAIL="<value>"
+DEFAULT_FROM_EMAIL= "<value>"
 
 # AWS S3 configuration
-AWS_S3_HOST = "<value>"
-AWS_ACCESS_KEY_ID = "<value>"
-AWS_SECRET_ACCESS_KEY = "<value>"
-AWS_STORAGE_BUCKET_NAME = "<value>"
-AWS_S3_REGION_NAME = "<value>"
+AWS_S3_HOST="<value>"
+AWS_ACCESS_KEY_ID="<value>"
+AWS_SECRET_ACCESS_KEY="<value>"
+AWS_STORAGE_BUCKET_NAME="<value>"
+AWS_S3_REGION_NAME="<value>"
 
 # PostgreSQL configuration
-DATABASE_NAME = "<value>"
-DATABASE_USER = "<value>"
-DATABASE_PASSWORD = "<value>"
-DATABASE_HOST = "<value>"
-DATABASE_PORT = "<value>"
+DATABASE_NAME="<value>"
+DATABASE_USER="<value>"
+DATABASE_PASSWORD="<value>"
+DATABASE_HOST="<value>"
+DATABASE_PORT="<value>"
 ```
 
 Make sure the `DEBUG` property in `src/macalicious/settings.py` is set to the desired setting.
 
 ```python
-DEBUG = True   # for development
-DEBUG = False  # for production
+DEBUG=True   # for development
+DEBUG=False  # for production
 ```
 
 Make sure the `DEBUG_EMAIL` property in `src/macalicious/settings.py` is set to the desired setting:
 
 ```python
-DEBUG_EMAIL = True   # will use dummy email backend
-DEBUG_EMAIL = False  # will use live email service. NOTE: make sure email config is set in `.env`
+DEBUG_EMAIL=True   # will use dummy email backend
+DEBUG_EMAIL=False  # will use live email service. NOTE: make sure email config is set in `.env`
 ```
 
-Make sure you have a `db.sqlite3` file in the `src` folder if you will be using `DEBUG = True`
+Make sure you have a `db.sqlite3` file in the `src` folder if you will be using `DEBUG=True`
 
 Once all dependencies are installed, run the following commands in the `src` folder:
 
