@@ -10,7 +10,7 @@ media
 media/
 
 # Ignore .env file #
-macalicious/.env
+.env
 
 # Backup files #
 *.bak
