@@ -8,6 +8,8 @@ media
 
 # Ignore /media/ folder #
 media/
+media/macarons/
+media/macarons/images/
 
 # Ignore .env file #
 .env
